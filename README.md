@@ -41,7 +41,9 @@ Releases are cut manually via the `Nuget-Release` GitHub Actions workflow (`work
 - **model** — `forge`, `fabric`, or `commonprimitives`. Selects which model's project gets packed and released; the other two are untouched.
 - **version** — a SemVer string for that model's next release (e.g. `1.2.3` or `1.2.3-beta.1`).
 
-A run packs only the selected model's project, stamps that version into the model's own `.xmi` (its EA package "Version" field — see `Directory.Build.targets`), commits that stamp back to the default branch, pushes the single resulting `.nupkg` to NuGet.org, tags the commit, and drafts a GitHub release with the `.nupkg` attached. Because each model is packed and tagged independently, releasing Forge never touches Fabric's or CommonPrimitives' version, tag, or package.
+A run packs only the selected model's project, stamps that version into the model's own `.xmi` (its EA package "Version" field — see `Directory.Build.targets`), commits that stamp back to the default branch, pushes the single resulting `.nupkg` to NuGet.org, tags the commit, and drafts a GitHub release with the `.nupkg` attached. Because each model is packed and tagged independently, releasing Forge never touches Fabric's or CommonPrimitives' version, tag, or package — releasing different models is safe to do independently, on independent schedules.
+
+**Concurrency caveat:** the "commit XMI version stamp" step pushes directly to the default branch. If two release runs (e.g. `forge` and `fabric`) are triggered within moments of each other, the second one's push can hit a non-fast-forward conflict against the first's commit and need to be re-run. This isn't a design flaw — sequential independent releases (the normal case) work cleanly — just don't expect two releases to succeed from truly simultaneous runs.
 
 ### Tagging convention
 
