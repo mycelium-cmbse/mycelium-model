@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Mycelium.Model.Forge</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Mycelium Model - Forge</Title>
+    <Description>UML 2.5.1 model (XMI) for Mycelium Forge, for use with uml4net-based code generation.</Description>
+    <PackageTags>UML XMI mycelium model forge uml4net</PackageTags>
+    <PackageReleaseNotes>Initial release: mycelium-forge.xmi.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="mycelium-forge.xmi" Pack="true" PackagePath="model/" />
+    <None Include="build\Mycelium.Model.Forge.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Mycelium.Model.Forge.props" Pack="true" PackagePath="buildTransitive\" />
+  </ItemGroup>
+
+  <!-- Forge's model has a cross-model dependency on CommonPrimitives. This ProjectReference makes
+       `dotnet pack` emit a <dependency> on Mycelium.Model.CommonPrimitives in the nuspec (do not add
+       ReferenceOutputAssembly="false" here — it silently suppresses that dependency), so NuGet restore
+       pulls CommonPrimitives in transitively for any consumer of this package, and its buildTransitive
+       props expose $(MyceliumModelCommonPrimitivesXmiPath) to them too. Neither project has any actual
+       code to compile — IncludeBuildOutput=false already keeps the (near-empty) build output out of
+       both nupkgs. -->
+  <!-- The dependency version in the nuspec is CommonPrimitives' *current* <Version> at pack time — that
+       exact version must already be published to NuGet.org, or consumers restoring this package will
+       fail. See "Model dependencies" in README.md. -->
+  <ItemGroup>
+    <ProjectReference Include="..\Mycelium.Model.CommonPrimitives\Mycelium.Model.CommonPrimitives.csproj" />
+  </ItemGroup>
+
+  <!-- Maps this project's xmi to the EA package id (xmi:idref) whose Version gets stamped at pack
+       time. See Directory.Build.targets for the shared StampModelVersionsInXmi mechanism. -->
+  <ItemGroup Label="XMI version sync target">
+    <MyceliumModelVersionTarget Include="mycelium-forge.xmi">
+      <PackageIdRef>EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA</PackageIdRef>
+    </MyceliumModelVersionTarget>
+  </ItemGroup>
+
+</Project>

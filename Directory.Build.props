@@ -1,0 +1,24 @@
+<Project>
+
+  <!-- Shared MSBuild properties imported at the top of every model project in this repo.
+       Per-project values (PackageId, Version, Title, Description, PackageTags, PackageReleaseNotes)
+       stay in each model's own .csproj so that each model's lifecycle (version, release notes) is
+       fully independent. Packaging mechanics common to every model (README/LICENSE, xmi version
+       stamping) live in Directory.Build.targets, imported at the bottom of every project. -->
+
+  <PropertyGroup Label="Repository metadata (all model packages)">
+    <Authors>Sam Gerené</Authors>
+    <RepositoryUrl>https://github.com/mycelium-cmbse/mycelium-model.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Content-only package defaults (all model packages)">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+</Project>
