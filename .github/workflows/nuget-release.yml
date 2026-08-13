@@ -9,8 +9,8 @@ on:
         type: choice
         options:
           - forge
-          # - fabric              (add once Mycelium.Model.Fabric exists)
-          # - commonprimitives    (add once Mycelium.Model.CommonPrimitives exists)
+          - fabric
+          - commonprimitives
       version:
         description: 'SemVer (e.g., 1.2.3 or 1.2.3-beta.1)'
         required: true
@@ -40,6 +40,16 @@ jobs:
               echo "PACKAGE_ID=Mycelium.Model.Forge" >> "$GITHUB_ENV"
               echo "PROJECT_PATH=Mycelium.Model.Forge/Mycelium.Model.Forge.csproj" >> "$GITHUB_ENV"
               echo "XMI_PATH=Mycelium.Model.Forge/mycelium-forge.xmi" >> "$GITHUB_ENV"
+              ;;
+            fabric)
+              echo "PACKAGE_ID=Mycelium.Model.Fabric" >> "$GITHUB_ENV"
+              echo "PROJECT_PATH=Mycelium.Model.Fabric/Mycelium.Model.Fabric.csproj" >> "$GITHUB_ENV"
+              echo "XMI_PATH=Mycelium.Model.Fabric/mycelium-fabric.xmi" >> "$GITHUB_ENV"
+              ;;
+            commonprimitives)
+              echo "PACKAGE_ID=Mycelium.Model.CommonPrimitives" >> "$GITHUB_ENV"
+              echo "PROJECT_PATH=Mycelium.Model.CommonPrimitives/Mycelium.Model.CommonPrimitives.csproj" >> "$GITHUB_ENV"
+              echo "XMI_PATH=Mycelium.Model.CommonPrimitives/mycelium-commonprimitives.xmi" >> "$GITHUB_ENV"
               ;;
             *)
               echo "Unknown model '$MODEL'." >&2

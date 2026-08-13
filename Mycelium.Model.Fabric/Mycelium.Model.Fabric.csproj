@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Mycelium.Model.Fabric</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Mycelium Model - Fabric</Title>
+    <Description>UML 2.5.1 model (XMI) for Mycelium Fabric, for use with uml4net-based code generation.</Description>
+    <PackageTags>UML XMI mycelium model fabric uml4net</PackageTags>
+    <PackageReleaseNotes>Placeholder release: bare-bones mycelium-fabric.xmi, no modeled content yet.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="mycelium-fabric.xmi" Pack="true" PackagePath="model/" />
+    <None Include="build\Mycelium.Model.Fabric.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Mycelium.Model.Fabric.props" Pack="true" PackagePath="buildTransitive\" />
+  </ItemGroup>
+
+  <!-- Placeholder xmi:idref, matching the bare-bones mycelium-fabric.xmi shipped here. When this file
+       is replaced with a real EA export, its top-level "fabric" package will get a fresh xmi:idref —
+       update PackageIdRef below to match, or dotnet pack will fail with a clear error instead of
+       silently stamping the wrong element. See Directory.Build.targets for the shared
+       StampModelVersionsInXmi mechanism. -->
+  <ItemGroup Label="XMI version sync target">
+    <MyceliumModelVersionTarget Include="mycelium-fabric.xmi">
+      <PackageIdRef>EAPK_2B3C4D5E_6F70_4b2c_9d3e_4f5a6b7c8d9e</PackageIdRef>
+    </MyceliumModelVersionTarget>
+  </ItemGroup>
+
+</Project>
