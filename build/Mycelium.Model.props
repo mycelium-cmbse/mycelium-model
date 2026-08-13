@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- $(MSBuildThisFileDirectory) = .../build/ or .../buildTransitive/ inside the installed package -->
+    <MyceliumModelDir>$(MSBuildThisFileDirectory)../model/</MyceliumModelDir>
+    <MyceliumModelForgeXmiPath>$(MyceliumModelDir)mycelium-forge.xmi</MyceliumModelForgeXmiPath>
+  </PropertyGroup>
+</Project>
