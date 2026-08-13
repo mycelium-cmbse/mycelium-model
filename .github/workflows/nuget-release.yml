@@ -73,6 +73,21 @@ jobs:
             exit 1
           fi
 
+      - name: Set date
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          echo "DATE=$DATE" >> "$GITHUB_ENV"
+
+      - name: Update CITATION.cff (version + date)
+        run: |
+          set -euo pipefail
+          # Top-level
+          sed -i "s/^version:.*/version: \"${VERSION}\"/" CITATION.cff
+          sed -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
+          # preferred-citation (two-space indent)
+          sed -i "s/^  version:.*/  version: \"${VERSION}\"/" CITATION.cff
+          sed -i "s/^  date-released:.*/  date-released: \"${DATE}\"/" CITATION.cff
+
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
@@ -81,18 +96,18 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release -o ReleaseBuilds -p:Version=${{ env.VERSION }} "${{ env.PROJECT_PATH }}"
 
-      - name: Commit XMI version stamp to default branch
+      - name: Commit XMI version stamp and CITATION.cff to default branch
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${XMI_PATH}"
+          git add "${XMI_PATH}" CITATION.cff
 
           if ! git diff --cached --quiet; then
-            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp model version in xmi)"
+            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp model version in xmi, update CITATION.cff)"
             git push origin HEAD:${DEFAULT_BRANCH}
           else
-            echo "No changes to ${XMI_PATH}."
+            echo "No changes to ${XMI_PATH} or CITATION.cff."
           fi
 
       - name: Push to NuGet

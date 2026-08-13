@@ -53,6 +53,8 @@ A run packs only the selected model's project, stamps that version into the mode
 
 **Concurrency caveat:** the "commit XMI version stamp" step pushes directly to the default branch. If two release runs (e.g. `forge` and `fabric`) are triggered within moments of each other, the second one's push can hit a non-fast-forward conflict against the first's commit and need to be re-run. This isn't a design flaw — sequential independent releases (the normal case) work cleanly — just don't expect two releases to succeed from truly simultaneous runs.
 
+**`CITATION.cff`:** a run also stamps the released `version` and `date-released` into `CITATION.cff` (both the top-level fields and the `preferred-citation` block) and commits that alongside the xmi version stamp. Since `CITATION.cff` is one shared file across three independently-versioned models, its `version` always reflects whichever model was released *most recently*, not any single model's version — the same convention `uml4net` uses for its own multi-package `CITATION.cff`. If you need to know a specific model's version, use its own tag/package version, not this file.
+
 ### Tagging convention
 
 Tags are namespaced per model as `<model>/<version>`, using the same lowercase `model` value as the workflow's selector — e.g. `forge/1.0.0`, `fabric/0.2.0`, `commonprimitives/0.1.0`. This keeps each model's release history independently listable (`git tag -l 'forge/*'`) and avoids the ambiguity of a single shared tag standing in for three independently-versioned packages. The GitHub release title uses the full package id instead, e.g. `Mycelium.Model.Forge 1.0.0`.

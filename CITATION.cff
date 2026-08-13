@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 
-title: "mycelium-model: The UML 2.5.1 models for Bloom, Fabric and Forge"
-abstract: "The UML 2.5.1 models for Bloom, Fabric and Forge used for uml4net code generation"
+title: "mycelium-model: The UML 2.5.1 models for CommonPrimitives, Fabric and Forge"
+abstract: "The UML 2.5.1 models for CommonPrimitives, Fabric and Forge used for uml4net code generation"
 version: "0.1.0"
 date-released: "2026-08-13"
 url: "https://github.com/mycelium-cmbse/mycelium-model"
@@ -22,7 +22,7 @@ license: "Apache-2.0"
 
 preferred-citation:
   type: software
-  title: "mycelium-model: The UML 2.5.1 models for Bloom, Fabric and Forge"
+  title: "mycelium-model: The UML 2.5.1 models for CommonPrimitives, Fabric and Forge"
   authors:
     - given-names: "Sam"
       family-names: "Gerené"
