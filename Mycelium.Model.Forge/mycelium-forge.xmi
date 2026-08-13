@@ -724,13 +724,13 @@
 			<element xmi:idref="EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA" xmi:type="uml:Package" name="forge" scope="public">
 				<model package2="EAID_7BB26FE0_2515_41d2_BE26_0C544013AEEA" package="EAPK_CB027F6C_8ABE_40c6_A646_B5345916818C" tpos="0" ea_localid="3" ea_eleType="package"/>
 				<properties isSpecification="false" sType="Package" nType="0" scope="public"/>
-				<project author="sgerene" version="1.0" phase="1.0" created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56" complexity="1" status="Proposed"/>
+				<project author="sgerene" version="1.0.0" phase="1.0" created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56" complexity="1" status="Proposed"/>
 				<code gentype="&lt;none&gt;"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
 				<extendedProperties tagged="0" package_name="Model"/>
-				<packageproperties version="1.0"/>
+				<packageproperties version="1.0.0"/>
 				<paths/>
 				<times created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56"/>
 				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0" packageFlags="isModel=1;VICON=3;"/>

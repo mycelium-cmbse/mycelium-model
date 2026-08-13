@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Mycelium.Model.Forge</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Mycelium Model - Forge</Title>
+    <Description>UML 2.5.1 model (XMI) for Mycelium Forge, for use with uml4net-based code generation.</Description>
+    <PackageTags>UML XMI mycelium model forge uml4net</PackageTags>
+    <PackageReleaseNotes>Initial release: mycelium-forge.xmi.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="mycelium-forge.xmi" Pack="true" PackagePath="model/" />
+    <None Include="build\Mycelium.Model.Forge.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Mycelium.Model.Forge.props" Pack="true" PackagePath="buildTransitive\" />
+  </ItemGroup>
+
+  <!-- Maps this project's xmi to the EA package id (xmi:idref) whose Version gets stamped at pack
+       time. See Directory.Build.targets for the shared StampModelVersionsInXmi mechanism. -->
+  <ItemGroup Label="XMI version sync target">
+    <MyceliumModelVersionTarget Include="mycelium-forge.xmi">
+      <PackageIdRef>EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA</PackageIdRef>
+    </MyceliumModelVersionTarget>
+  </ItemGroup>
+
+</Project>

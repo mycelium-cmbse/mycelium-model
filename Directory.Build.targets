@@ -1,46 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
-    <IsPackable>true</IsPackable>
+  <!-- Imported at the bottom of every model project (after the .csproj body).
+       $(MSBuildThisFileDirectory) is the repository root (where this file lives), so these paths
+       resolve correctly regardless of which subfolder the project itself lives in. -->
 
-    <PackageId>Mycelium.Model</PackageId>
-    <Version>1.0.0</Version>
-    <Title>Mycelium Model</Title>
-    <Authors>Sam Gerené</Authors>
-    <Description>UML 2.5.1 models (Bloom, Fabric, Forge) distributed as XMI for use with uml4net-based code generation.</Description>
-    <PackageTags>UML XMI mycelium model uml4net</PackageTags>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Initial release: mycelium-forge.xmi.</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/mycelium-cmbse/mycelium-model.git</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="*.xmi" Pack="true" PackagePath="model/" />
-    <None Include="README.md" Pack="true" PackagePath="\" />
-    <None Include="LICENSE" Pack="true" PackagePath="\" />
-    <None Include="build\Mycelium.Model.props" Pack="true" PackagePath="build\" />
-    <None Include="buildTransitive\Mycelium.Model.props" Pack="true" PackagePath="buildTransitive\" />
+  <ItemGroup Label="Shared package assets (README/LICENSE, all model packages)">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <!-- Maps each top-level model xmi file to the EA package id (xmi:idref) whose Project/PackageProperties
-       "Version" (Package Properties > Project tab, read by uml4net.xmi.Extensions.EnterpriseArchitect as
-       IProject.Version / IPackageProperties.Version) gets stamped with the package's -p:Version at pack
-       time, so the xmi shipped in the .nupkg always matches the NuGet package version.
-       Add one line here per new top-level model package (Bloom, Fabric, ...). -->
-  <ItemGroup Label="XMI version sync targets">
-    <MyceliumModelVersionTarget Include="mycelium-forge.xmi">
-      <PackageIdRef>EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA</PackageIdRef>
-    </MyceliumModelVersionTarget>
-  </ItemGroup>
+  <!-- XMI pack-time version stamping: a scoped text substitution, not a load/save through XmlDocument,
+       so EA's own XMI export formatting (tab indentation, attribute order, windows-1252 encoding)
+       survives byte-for-byte and `git diff` on a release only ever shows the version values changing.
 
-  <!-- A scoped text substitution, not a load/save through XmlDocument: EA's own XMI export formatting
-       (tab indentation, attribute order, windows-1252 encoding) must survive byte-for-byte so that
-       `git diff` on a release only ever shows the two version values changing, not a full-file rewrite. -->
+       Generic mechanism, shared by every model project; each project supplies its own
+       MyceliumModelVersionTarget item(s) pairing its xmi file with the EA package xmi:idref whose
+       Project/PackageProperties "Version" (read by uml4net.xmi.Extensions.EnterpriseArchitect as
+       IProject.Version / IPackageProperties.Version) should be stamped with -p:Version at pack time. -->
   <UsingTask TaskName="StampModelVersionInXmi" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <XmiPath ParameterType="System.String" Required="true" />
@@ -83,7 +59,7 @@
   <!-- Must run before NuGet's own Pack-dependency chain (which stages package content as part of
        Build's DependsOnTargets, ahead of the Pack target's own body) reads the file's bytes — otherwise
        the stamped version never makes it into the .nupkg even though the file on disk is correct. -->
-  <Target Name="StampModelVersionsInXmi" BeforeTargets="Build">
+  <Target Name="StampModelVersionsInXmi" BeforeTargets="Build" Condition="'@(MyceliumModelVersionTarget)' != ''">
     <PropertyGroup>
       <_MyceliumPackVersion Condition="'$(PackageVersion)' != ''">$(PackageVersion)</_MyceliumPackVersion>
       <_MyceliumPackVersion Condition="'$(_MyceliumPackVersion)' == ''">$(Version)</_MyceliumPackVersion>
@@ -91,7 +67,7 @@
 
     <StampModelVersionInXmi
         Condition="'$(_MyceliumPackVersion)' != ''"
-        XmiPath="%(MyceliumModelVersionTarget.Identity)"
+        XmiPath="%(MyceliumModelVersionTarget.FullPath)"
         PackageIdRef="%(MyceliumModelVersionTarget.PackageIdRef)"
         NewVersion="$(_MyceliumPackVersion)" />
   </Target>
