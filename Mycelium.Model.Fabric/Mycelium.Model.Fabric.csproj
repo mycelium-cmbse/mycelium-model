@@ -15,6 +15,20 @@
     <None Include="buildTransitive\Mycelium.Model.Fabric.props" Pack="true" PackagePath="buildTransitive\" />
   </ItemGroup>
 
+  <!-- Fabric's model has a cross-model dependency on CommonPrimitives. This ProjectReference makes
+       `dotnet pack` emit a <dependency> on Mycelium.Model.CommonPrimitives in the nuspec (do not add
+       ReferenceOutputAssembly="false" here — it silently suppresses that dependency), so NuGet restore
+       pulls CommonPrimitives in transitively for any consumer of this package, and its buildTransitive
+       props expose $(MyceliumModelCommonPrimitivesXmiPath) to them too. Neither project has any actual
+       code to compile — IncludeBuildOutput=false already keeps the (near-empty) build output out of
+       both nupkgs. -->
+  <!-- The dependency version in the nuspec is CommonPrimitives' *current* <Version> at pack time — that
+       exact version must already be published to NuGet.org, or consumers restoring this package will
+       fail. See "Model dependencies" in README.md. -->
+  <ItemGroup>
+    <ProjectReference Include="..\Mycelium.Model.CommonPrimitives\Mycelium.Model.CommonPrimitives.csproj" />
+  </ItemGroup>
+
   <!-- Placeholder xmi:idref, matching the bare-bones mycelium-fabric.xmi shipped here. When this file
        is replaced with a real EA export, its top-level "fabric" package will get a fresh xmi:idref —
        update PackageIdRef below to match, or dotnet pack will fail with a clear error instead of

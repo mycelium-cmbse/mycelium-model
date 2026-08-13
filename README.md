@@ -34,6 +34,14 @@ Available properties:
 | Fabric | `Mycelium.Model.Fabric` | `$(MyceliumModelFabricXmiPath)` |
 | CommonPrimitives | `Mycelium.Model.CommonPrimitives` | `$(MyceliumModelCommonPrimitivesXmiPath)` |
 
+## Model dependencies
+
+Forge and Fabric both depend on CommonPrimitives. That's expressed as a real NuGet package dependency, not just a UML cross-reference: `Mycelium.Model.Forge.csproj` and `Mycelium.Model.Fabric.csproj` each carry a `<ProjectReference>` to `Mycelium.Model.CommonPrimitives.csproj`, and `dotnet pack` turns that into a `<dependency>` entry in the resulting nuspec.
+
+- A consumer that adds `<PackageReference Include="Mycelium.Model.Forge" ... />` automatically gets `Mycelium.Model.CommonPrimitives` restored transitively too — and, because CommonPrimitives' MSBuild property comes from its `buildTransitive/` props file (not just `build/`), `$(MyceliumModelCommonPrimitivesXmiPath)` is available to that consumer without them ever referencing CommonPrimitives directly. That's what lets a uml4net-based generator resolve cross-model references between Forge's/Fabric's model and CommonPrimitives'.
+- The dependency version written into Forge's/Fabric's nuspec is CommonPrimitives' `<Version>` at the moment they're packed. **That exact version of `Mycelium.Model.CommonPrimitives` must already be published to NuGet.org** before (or in the same release batch as) a Forge/Fabric release that references it — otherwise consumers restoring Forge/Fabric get an unresolved-dependency restore failure. This is the one real ordering constraint on an otherwise independent release cadence: Forge/Fabric can still bump their own version freely without touching CommonPrimitives, but bumping *which* CommonPrimitives version they depend on requires CommonPrimitives to have shipped that version first.
+- Do **not** add `ReferenceOutputAssembly="false"` to these `<ProjectReference>` items — it silently suppresses nuspec dependency generation entirely (verified empirically: NuGet just drops the reference instead of turning it into a versioned dependency). The reference is otherwise harmless either way — neither project has any code to compile, so no real assembly gets linked.
+
 ## Releasing
 
 Releases are cut manually via the `Nuget-Release` GitHub Actions workflow (`workflow_dispatch`), which takes:
