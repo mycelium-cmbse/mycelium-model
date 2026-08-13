@@ -18,13 +18,13 @@
 			<element xmi:idref="EAPK_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a" xmi:type="uml:Package" name="CommonPrimitives" scope="public">
 				<model package2="EAID_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a" package="EAPK_3C4D5E6F_7081_4c3d_ae4f_5a6b7c8d9e0f" tpos="0" ea_localid="1" ea_eleType="package"/>
 				<properties isSpecification="false" sType="Package" nType="0" scope="public"/>
-				<project author="" version="0.1.0" phase="1.0" created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00" complexity="1" status="Proposed"/>
+				<project author="" version="0.0.1" phase="1.0" created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00" complexity="1" status="Proposed"/>
 				<code gentype="&lt;none&gt;"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
 				<extendedProperties tagged="0" package_name="Model"/>
-				<packageproperties version="0.1.0"/>
+				<packageproperties version="0.0.1"/>
 				<paths/>
 				<times created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00"/>
 				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0" packageFlags="isModel=1;VICON=3;"/>
