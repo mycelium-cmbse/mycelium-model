@@ -663,38 +663,43 @@
 							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000177_185E_4a8b_BF80_3C9CE8B4B7CE" value="1"/>
 							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000178_185E_4a8b_BF80_3C9CE8B4B7CE" value="1"/>
 						</ownedAttribute>
+						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B" name="origin">
+							<type xmi:idref="EAID_9854D83B_51B4_4ec8_BEC8_A8DCDB2093D9"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000179_7AB4_4608_95BD_E60428D81D1B" value="1"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000180_7AB4_4608_95BD_E60428D81D1B" value="1"/>
+						</ownedAttribute>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_98A41878_8269_4533_A0B2_0F3F7989F334" name="status">
 							<type xmi:idref="EAID_9A028E25_FC70_4657_AB28_7A637060D7AA"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000179_8269_4533_A0B2_0F3F7989F334" value="1"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000180_8269_4533_A0B2_0F3F7989F334" value="1"/>
-							<defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000181_8269_4533_A0B2_0F3F7989F334" value="ACTIVE"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000181_8269_4533_A0B2_0F3F7989F334" value="1"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000182_8269_4533_A0B2_0F3F7989F334" value="1"/>
+							<defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000183_8269_4533_A0B2_0F3F7989F334" value="ACTIVE"/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2F9A52BC_EA1F_4af4_B07C_0FA5005BCF26" name="website">
 							<type xmi:idref="EAID_6BF1EC44_C032_4bc1_9543_A2BF2B6179D9"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000181_EA1F_4af4_B07C_0FA5005BCF26" value="0"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000182_EA1F_4af4_B07C_0FA5005BCF26" value="1"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000183_EA1F_4af4_B07C_0FA5005BCF26" value="0"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000184_EA1F_4af4_B07C_0FA5005BCF26" value="1"/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst26755C_2E18_40f0_ABC3_15487E120A45" name="primaryAddress" association="EAID_1B26755C_2E18_40f0_ABC3_15487E120A45">
 							<type xmi:idref="EAID_5E20ADE8_09B7_4fdd_993D_A80F2328C5AE"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000183__2E18_40f0_ABC3_15487E120A45" value="1"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000184__2E18_40f0_ABC3_15487E120A45" value="1"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000185__2E18_40f0_ABC3_15487E120A45" value="1"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000186__2E18_40f0_ABC3_15487E120A45" value="1"/>
 							<subsettedProperty xmi:idref="EAID_dst71ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E"/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstAF0422_E33E_4c34_AA14_D530733FFD0B" name="ownedPackage" association="EAID_51AF0422_E33E_4c34_AA14_D530733FFD0B" aggregation="composite">
 							<type xmi:idref="EAID_65683CA4_032F_457d_B996_A3893C4293CA"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000185__E33E_4c34_AA14_D530733FFD0B" value="0"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000186__E33E_4c34_AA14_D530733FFD0B" value="*"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000187__E33E_4c34_AA14_D530733FFD0B" value="0"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000188__E33E_4c34_AA14_D530733FFD0B" value="*"/>
 						</ownedAttribute>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst19B56E_EDEF_4ae8_9DFA_BB957BFD237E" name="profileLink" association="EAID_7C19B56E_EDEF_4ae8_9DFA_BB957BFD237E" aggregation="composite">
 							<type xmi:idref="EAID_230199C8_76A7_4a35_8CD6_A3F9EEDAD982"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000187__EDEF_4ae8_9DFA_BB957BFD237E" value="0"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000188__EDEF_4ae8_9DFA_BB957BFD237E" value="*"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000189__EDEF_4ae8_9DFA_BB957BFD237E" value="0"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000190__EDEF_4ae8_9DFA_BB957BFD237E" value="*"/>
 						</ownedAttribute>
 						<generalization xmi:type="uml:Generalization" xmi:id="EAID_C714F267_A238_4de7_B4C3_E05CBF82DD9D" general="EAID_195786BF_3D5E_4b05_B9B1_BBC23C3CB058" isSubstitutable="true"/>
 						<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst71ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E" name="address" association="EAID_E671ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E" aggregation="composite">
 							<type xmi:idref="EAID_5E20ADE8_09B7_4fdd_993D_A80F2328C5AE"/>
-							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000189__0FA0_4c8c_BB03_2A1FCAD7F07E" value="0"/>
-							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000190__0FA0_4c8c_BB03_2A1FCAD7F07E" value="*"/>
+							<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000191__0FA0_4c8c_BB03_2A1FCAD7F07E" value="0"/>
+							<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000192__0FA0_4c8c_BB03_2A1FCAD7F07E" value="*"/>
 						</ownedAttribute>
 					</packagedElement>
 				</packagedElement>
@@ -724,13 +729,13 @@
 			<element xmi:idref="EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA" xmi:type="uml:Package" name="forge" scope="public">
 				<model package2="EAID_7BB26FE0_2515_41d2_BE26_0C544013AEEA" package="EAPK_CB027F6C_8ABE_40c6_A646_B5345916818C" tpos="0" ea_localid="3" ea_eleType="package"/>
 				<properties isSpecification="false" sType="Package" nType="0" scope="public"/>
-				<project author="sgerene" version="0.1.0" phase="1.0" created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56" complexity="1" status="Proposed"/>
+				<project author="sgerene" version="1.0" phase="1.0" created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56" complexity="1" status="Proposed"/>
 				<code gentype="&lt;none&gt;"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
 				<extendedProperties tagged="0" package_name="Model"/>
-				<packageproperties version="0.1.0"/>
+				<packageproperties version="1.0"/>
 				<paths/>
 				<times created="2026-08-09 13:38:17" modified="2026-08-12 13:04:56"/>
 				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0" packageFlags="isModel=1;VICON=3;"/>
@@ -2119,6 +2124,21 @@
 						<tags/>
 						<xrefs/>
 					</attribute>
+					<attribute xmi:idref="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B" name="origin" scope="Public">
+						<initial/>
+						<documentation value="Denotes whether the Scope was created local to this Forge instance, or whether it was proxied from another location. When the value states  &quot;local&quot;, then it is local to the current Forge instance, otherwise the value needs to be a URI pointing to the location it was proxied from."/>
+						<model ea_localid="69" ea_guid="{3A696494-7AB4-4608-95BD-E60428D81D1B}"/>
+						<properties type="String" collection="false" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0"/>
+						<containment containment="Not Specified" position="5"/>
+						<stereotype/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="volatile=0;union=0;"/>
+						<tags/>
+						<xrefs/>
+					</attribute>
 					<attribute xmi:idref="EAID_98A41878_8269_4533_A0B2_0F3F7989F334" name="status" scope="Public">
 						<initial body="ACTIVE"/>
 						<documentation value="The status of the Scope, when the Scope is an Account, inactive means the user that cannot login anymore. When the scope is an Organization, packages can no longer be published or uploaded, nor any PackageVersions"/>
@@ -2877,7 +2897,7 @@
 				<parameterSubstitutions/>
 				<documentation/>
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
-				<labels lb="*" rb="1..*" rt="+administrator"/>
+				<labels lb="*" rb="1..*&#xA;{subsets member}" rt="+administrator"/>
 				<extendedProperties/>
 				<style/>
 				<xrefs/>
@@ -3017,7 +3037,7 @@
 				<parameterSubstitutions/>
 				<documentation/>
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
-				<labels lb="1" lt="+forge" rb="1..*" rt="+administrator"/>
+				<labels lb="1" lt="+forge" rb="1..*&#xA;{subsets account}" rt="+administrator"/>
 				<extendedProperties/>
 				<style/>
 				<xrefs/>
@@ -3087,7 +3107,7 @@
 				<parameterSubstitutions/>
 				<documentation/>
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
-				<labels lb="1" lt="+primaryAddressOf" rb="1" rt="+primaryAddress"/>
+				<labels lb="1" lt="+primaryAddressOf" rb="1&#xA;{subsets address}" rt="+primaryAddress"/>
 				<extendedProperties/>
 				<style/>
 				<xrefs/>
