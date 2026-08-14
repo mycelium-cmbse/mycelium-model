@@ -88,6 +88,16 @@ jobs:
           sed -i "s/^  version:.*/  version: \"${VERSION}\"/" CITATION.cff
           sed -i "s/^  date-released:.*/  date-released: \"${DATE}\"/" CITATION.cff
 
+      - name: Update <Version> in the released project's .csproj
+        run: |
+          set -euo pipefail
+          # Keeps the csproj's own <Version> in sync with what's actually published, so that any
+          # other model's <ProjectReference> to this project (e.g. Forge/Fabric -> CommonPrimitives)
+          # resolves the correct nuspec dependency version at pack time — that resolution reads the
+          # referenced project's <Version> element on disk, not the -p:Version override below (NuGet
+          # strips Version/PackageVersion before evaluating ProjectReference dependency versions).
+          sed -i "0,/<Version>.*<\/Version>/s//<Version>${VERSION}<\/Version>/" "${PROJECT_PATH}"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
@@ -96,18 +106,18 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release -o ReleaseBuilds -p:Version=${{ env.VERSION }} "${{ env.PROJECT_PATH }}"
 
-      - name: Commit XMI version stamp and CITATION.cff to default branch
+      - name: Commit version stamps to default branch
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${XMI_PATH}" CITATION.cff
+          git add "${XMI_PATH}" "${PROJECT_PATH}" CITATION.cff
 
           if ! git diff --cached --quiet; then
-            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp model version in xmi, update CITATION.cff)"
+            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp model version in xmi and csproj, update CITATION.cff)"
             git push origin HEAD:${DEFAULT_BRANCH}
           else
-            echo "No changes to ${XMI_PATH} or CITATION.cff."
+            echo "No changes to ${XMI_PATH}, ${PROJECT_PATH}, or CITATION.cff."
           fi
 
       - name: Push to NuGet
