@@ -1,34 +1,29 @@
-<?xml  version='1.0' encoding='windows-1252' ?>
-<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:umldi="http://www.omg.org/spec/UML/20161101/UMLDI" xmlns:dc="http://www.omg.org/spec/UML/20161101/UMLDC">
-	<xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5" exporterID="1716"/>
-	<uml:Model xmi:type="uml:Model" name="mycelium-commonprimitives">
-		<packagedElement xmi:type="uml:Package" xmi:id="EAPK_3C4D5E6F_7081_4c3d_ae4f_5a6b7c8d9e0f" name="Model">
-			<packagedElement xmi:type="uml:Package" xmi:id="EAPK_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a" name="CommonPrimitives">
-			</packagedElement>
-		</packagedElement>
-	</uml:Model>
-	<xmi:Extension extender="Enterprise Architect" extenderID="6.5">
-		<elements>
-			<element xmi:idref="EAPK_3C4D5E6F_7081_4c3d_ae4f_5a6b7c8d9e0f">
-				<packageproperties version="1.0"/>
-				<paths/>
-				<times created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00" lastloaddate="2026-08-13 00:00:00" lastsavedate="2026-08-13 00:00:00"/>
-				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0" packageFlags="isModel=1;"/>
-			</element>
-			<element xmi:idref="EAPK_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a" xmi:type="uml:Package" name="CommonPrimitives" scope="public">
-				<model package2="EAID_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a" package="EAPK_3C4D5E6F_7081_4c3d_ae4f_5a6b7c8d9e0f" tpos="0" ea_localid="1" ea_eleType="package"/>
-				<properties isSpecification="false" sType="Package" nType="0" scope="public"/>
-				<project author="" version="0.2.0" phase="1.0" created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00" complexity="1" status="Proposed"/>
-				<code gentype="&lt;none&gt;"/>
-				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
-				<tags/>
-				<xrefs/>
-				<extendedProperties tagged="0" package_name="Model"/>
-				<packageproperties version="0.2.0"/>
-				<paths/>
-				<times created="2026-08-13 00:00:00" modified="2026-08-13 00:00:00"/>
-				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0" packageFlags="isModel=1;VICON=3;"/>
-			</element>
-		</elements>
-	</xmi:Extension>
+<?xml version="1.0" encoding="utf-8"?>
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <uml:Package xmi:type="uml:Package" xmi:id="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" name="mycelium-commonprimitives">
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" name="byte">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0-_ownedComment.0" body="An unsigned 8-bit primitive (0�255)" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_5A174943_DF4B_4223_AB56_590429667355" name="DateTime">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_5A174943_DF4B_4223_AB56_590429667355-_ownedComment.0" body="character string datatype that represents a calendar date and time in ISO 8601 format&#xA;&#xA;Note: The permissible syntax is specified in XML Schema W3C Recommendation for the dateTime datatype, see http://www.w3.org/TR/xmlschema-2/#dateTime.&#xA;&#xA;Example 1: &quot;2010-01-02T07:59:00Z&quot; represents 2nd of January 2010 at 7 hours 59 minutes and 0 seconds UTC.&#xA;&#xA;Example 2: &quot;2009-10-23T16:04:23.332+02&quot; represents 23rd of October 2009 at 16 hours 4 minutes and 23.332 seconds in a timezone 2 hours ahead of UTC. &#xA;" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_078B145D_785F_4823_BDC3_9BA54C023EB4" name="Dictionary&lt;string,string&gt;">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_078B145D_785F_4823_BDC3_9BA54C023EB4-_ownedComment.0" body="Represents a collection of keys and values, where keys and values are of type string." />
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" name="SemVer">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7-_ownedComment.0" body="A specialization of String that represents a version identifier conforming to the Semantic Versioning 2.0.0 specification: MAJOR.MINOR.PATCH, optionally followed by a pre-release label and build metadata (e.g. &quot;2.1.0&quot;, &quot;1.0.0-beta.1&quot;, &quot;1.4.2+build.20260812&quot;). Used as the type of PackageVersion.version, so the format constraint lives once on the type itself rather than being re-declared everywhere a version string is used" />
+      <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_D6E1_4194_A374_6EB38EF8C1C7" name="regexMatch">
+        <constrainedElement xmi:idref="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" />
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_D6E1_4194_A374_6EB38EF8C1C7">
+          <body>inv regexMatch: self.matches('^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$')</body>
+        </specification>
+      </ownedRule>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9" name="URI">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9-_ownedComment.0" body="character string datatype that represents a Uniform Resource Identifier (URI) and conforms to its syntax as specified in IETF RFC 3986&#xA;" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" name="UUID">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_8451AA96_A2B7_4914_B931_BF848355CDA2-_ownedComment.0" body="format = RFC 9562 UUID version 7" />
+    </packagedElement>
+  </uml:Package>
 </xmi:XMI>
