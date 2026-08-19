@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Mycelium.Model.CommonPrimitives</PackageId>
-    <Version>0.3.0</Version>
+    <Version>0.2.0</Version>
     <Title>Mycelium Model - CommonPrimitives</Title>
     <Description>UML 2.5.1 model (XMI) for Mycelium CommonPrimitives, for use with uml4net-based code generation.</Description>
     <PackageTags>UML XMI mycelium model commonprimitives uml4net</PackageTags>
