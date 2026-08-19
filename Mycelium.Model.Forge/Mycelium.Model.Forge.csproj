@@ -33,7 +33,7 @@
        time. See Directory.Build.targets for the shared StampModelVersionsInXmi mechanism. -->
   <ItemGroup Label="XMI version sync target">
     <MyceliumModelVersionTarget Include="mycelium-forge.xmi">
-      <PackageIdRef>EAPK_7BB26FE0_2515_41d2_BE26_0C544013AEEA</PackageIdRef>
+      <PackageIdRef>EAPK_30A684F4_E37F_453c_B99D_A9C71B00B06E</PackageIdRef>
     </MyceliumModelVersionTarget>
   </ItemGroup>
 

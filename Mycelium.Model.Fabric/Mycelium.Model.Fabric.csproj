@@ -36,7 +36,7 @@
        StampModelVersionsInXmi mechanism. -->
   <ItemGroup Label="XMI version sync target">
     <MyceliumModelVersionTarget Include="mycelium-fabric.xmi">
-      <PackageIdRef>EAPK_2B3C4D5E_6F70_4b2c_9d3e_4f5a6b7c8d9e</PackageIdRef>
+      <PackageIdRef>EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED</PackageIdRef>
     </MyceliumModelVersionTarget>
   </ItemGroup>
 

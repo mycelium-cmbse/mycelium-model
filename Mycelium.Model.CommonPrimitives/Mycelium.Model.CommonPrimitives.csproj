@@ -22,7 +22,7 @@
        StampModelVersionsInXmi mechanism. -->
   <ItemGroup Label="XMI version sync target">
     <MyceliumModelVersionTarget Include="mycelium-commonprimitives.xmi">
-      <PackageIdRef>EAPK_4D5E6F70_8192_4d4e_bf50_6b7c8d9e0f1a</PackageIdRef>
+      <PackageIdRef>EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2</PackageIdRef>
     </MyceliumModelVersionTarget>
   </ItemGroup>
 
