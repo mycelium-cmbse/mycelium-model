@@ -29,12 +29,4 @@
     <ProjectReference Include="..\Mycelium.Model.CommonPrimitives\Mycelium.Model.CommonPrimitives.csproj" />
   </ItemGroup>
 
-  <!-- Maps this project's xmi to the EA package id (xmi:idref) whose Version gets stamped at pack
-       time. See Directory.Build.targets for the shared StampModelVersionsInXmi mechanism. -->
-  <ItemGroup Label="XMI version sync target">
-    <MyceliumModelVersionTarget Include="mycelium-forge.xmi">
-      <PackageIdRef>EAPK_30A684F4_E37F_453c_B99D_A9C71B00B06E</PackageIdRef>
-    </MyceliumModelVersionTarget>
-  </ItemGroup>
-
 </Project>

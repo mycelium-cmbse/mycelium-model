@@ -29,15 +29,4 @@
     <ProjectReference Include="..\Mycelium.Model.CommonPrimitives\Mycelium.Model.CommonPrimitives.csproj" />
   </ItemGroup>
 
-  <!-- Placeholder xmi:idref, matching the bare-bones mycelium-fabric.xmi shipped here. When this file
-       is replaced with a real EA export, its top-level "fabric" package will get a fresh xmi:idref —
-       update PackageIdRef below to match, or dotnet pack will fail with a clear error instead of
-       silently stamping the wrong element. See Directory.Build.targets for the shared
-       StampModelVersionsInXmi mechanism. -->
-  <ItemGroup Label="XMI version sync target">
-    <MyceliumModelVersionTarget Include="mycelium-fabric.xmi">
-      <PackageIdRef>EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED</PackageIdRef>
-    </MyceliumModelVersionTarget>
-  </ItemGroup>
-
 </Project>
