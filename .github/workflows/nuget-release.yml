@@ -108,7 +108,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '8.0.x'
+          # 10.0.x, not 8.0.x: the release helpers in .github/scripts/release-tools.cs are a .NET 10
+          # file-based app (`dotnet run --file`). The model projects target netstandard2.0 with
+          # IncludeBuildOutput=false, so nothing about packing them depends on the SDK major.
+          dotnet-version: '10.0.x'
 
       - name: Inject mofext release tags into the model XMI
         run: |
@@ -117,7 +120,7 @@ jobs:
           # updates them in place if they are already there. Must run before Pack: NuGet stages the
           # <None Include="*.xmi" Pack="true"> content as part of Build (which the Pack target depends
           # on), so a later edit would never reach the package. The stamped file is committed below.
-          python3 .github/scripts/stamp-xmi-version.py "${XMI_PATH}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
+          dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi "${XMI_PATH}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
 
       - name: Pack
         # Deliberately NO -p:Version: Version is an MSBuild *global* property, so it propagates into the
@@ -155,7 +158,7 @@ jobs:
           # Every <dependency> in the produced nuspec must already exist on NuGet.org, or consumers
           # restoring this package fail. Enforces the Forge/Fabric -> CommonPrimitives release ordering
           # constraint described in README.md rather than leaving it as a human rule.
-          python3 .github/scripts/check-nuspec-dependencies.py "ReleaseBuilds/${PACKAGE_ID}.${VERSION}.nupkg"
+          dotnet run --file .github/scripts/release-tools.cs -- check-deps "ReleaseBuilds/${PACKAGE_ID}.${VERSION}.nupkg"
 
       - name: Push to NuGet
         env:

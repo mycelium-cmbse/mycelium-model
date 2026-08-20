@@ -22,6 +22,15 @@ dotnet build mycelium-model.sln
 dotnet pack -c Release -o ReleaseBuilds Mycelium.Model.Forge/Mycelium.Model.Forge.csproj
 ```
 
+The release helpers live in `.github/scripts/release-tools.cs`, a **.NET 10 file-based app** — one `.cs` file, no `.csproj`, no packages:
+
+```
+dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi <xmi-path> <version> <package-id> <release-date>
+dotnet run --file .github/scripts/release-tools.cs -- check-deps <nupkg-path>
+```
+
+Use the explicit `--file` form: `dotnet run`'s first-argument form only applies when there is no project in the current directory, and the repo root has `mycelium-model.sln`. The file's `#:property TargetFramework=net10.0` directive overrides the repo-root `Directory.Build.props`, which otherwise imposes `netstandard2.0` and leaves the app with no host. The .NET 10 SDK is the only prerequisite — there is no Python dependency.
+
 The packed version comes from the `<Version>` element in the model's own `.csproj`. **Do not add `-p:Version` to a release pack** — `Version` is an MSBuild global property, so it propagates into the `ProjectReference` build of CommonPrimitives and NuGet writes *that* value into Forge's/Fabric's nuspec `<dependency>`, pinning consumers to a CommonPrimitives version that was never published. Adding it to a throwaway local pack is fine as long as you don't trust the resulting dependency version.
 
 There are no unit tests in this repo. To sanity-check a packaging change, `dotnet pack` a single model project and inspect the resulting `.nupkg` (it's a zip) for the `model/`, `build/`, and `buildTransitive/` contents and the nuspec `<dependencies>` block.
@@ -40,14 +49,14 @@ Both Forge and Fabric carry a `<ProjectReference>` to `Mycelium.Model.CommonPrim
 
 "Current `<Version>` at pack time" means the element on disk — **unless the pack passes `-p:Version`, which overrides it.** `Version` is an MSBuild global property and propagates into the referenced project's build, so `dotnet pack -p:Version=9.9.9` on Forge emits `<dependency id="Mycelium.Model.CommonPrimitives" version="9.9.9" />` rather than CommonPrimitives' real `0.2.0` (verified empirically). The release workflow packs without the flag for exactly this reason.
 
-This creates one real ordering constraint on an otherwise fully independent release cadence: whatever CommonPrimitives version Forge/Fabric depend on **must already be published to NuGet.org** before/alongside a Forge/Fabric release, or downstream restores fail. `.github/scripts/check-nuspec-dependencies.py` enforces this — the workflow runs it on the packed `.nupkg` before `dotnet nuget push` and fails the release if any dependency version isn't live.
+This creates one real ordering constraint on an otherwise fully independent release cadence: whatever CommonPrimitives version Forge/Fabric depend on **must already be published to NuGet.org** before/alongside a Forge/Fabric release, or downstream restores fail. `release-tools.cs check-deps` enforces this — the workflow runs it on the packed `.nupkg` before `dotnet nuget push` and fails the release if any dependency version isn't live.
 
 The `-p:Version` bug shipped real broken packages before it was found: `Mycelium.Model.Forge` 0.1.0 and 0.3.0 on NuGet.org depend on CommonPrimitives 0.1.0 and 0.3.0 respectively, neither of which was ever published (only 0.0.1 and 0.2.0 exist), so neither can be restored. 0.2.0 works only because the two versions happened to coincide.
 
 ### XMI version tagging at release time
 
 The release version is carried in the `.xmi` as three OMG MOF extension tags, injected by
-`.github/scripts/stamp-xmi-version.py` and attached to the model's top-level `uml:Package`:
+`release-tools.cs stamp-xmi` and attached to the model's top-level `uml:Package`:
 
 ```xml
 <mofext:Tag xmi:id="mycelium-release-version"   name="eu.stariongroup.mycelium.version"     value="1.2.3" element="EAPK_…" />
@@ -61,7 +70,7 @@ The script is **add-or-update**: a tag that isn't in the file yet is appended be
 
 Two details in the script are load-bearing:
 
-- It does **text substitution on a `latin-1` round-trip**, not an `ElementTree` parse/serialise. The files declare `encoding="utf-8"` but actually hold windows-1252 bytes from EA's exporter; `latin-1` round-trips all 256 byte values losslessly (`cp1252` raises on the five it leaves undefined), and avoiding a re-serialise keeps EA's tab indentation, attribute order and self-closing tags byte-identical. The injected content is pure ASCII.
+- It does **text substitution on a `latin-1` round-trip**, not an `XDocument` parse/serialise. EA's exporter writes files that declare `encoding="utf-8"` while the bytes may be anything, so no validating decoder can be trusted; `latin-1` maps all 256 byte values one-to-one and round-trips losslessly whatever the file actually holds (windows-1252 leaves five undefined, utf-8 rejects invalid sequences). Avoiding a re-serialise keeps EA's tab indentation, attribute order and self-closing tags byte-identical. The injected content is pure ASCII. Note `mycelium-commonprimitives.xmi` carries a stray `EF BF BD` (U+FFFD) in the `byte` datatype's comment — a replacement character from some earlier tool's lossy decode; the round-trip preserves it rather than compounding it, but it is real data loss worth repairing in EA.
 - The `element` idref is **derived, not configured** — it's the `xmi:id` of the first element typed `xmi:type="uml:Package"`, which resolves to the top-level package for both shapes shipped here (a `packagedElement` under `uml:Model` for Forge/Fabric, a root `uml:Package` for CommonPrimitives). Nothing needs updating after an EA re-export assigns fresh GUIDs. If no such element exists the script exits non-zero and fails the release loudly.
 
 This replaced an earlier MSBuild task that stamped `version` on the `<project>`/`<packageproperties>` elements inside `<xmi:Extension extender="Enterprise Architect">`. That mechanism was unusable for `mycelium-commonprimitives.xmi`, which is hand-authored and has no EA extension block at all, so every `commonprimitives` release failed at pack. `mofext:Tag` is plain OMG XMI and works regardless of where a model was authored.
