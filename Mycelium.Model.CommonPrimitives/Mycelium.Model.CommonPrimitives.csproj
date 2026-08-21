@@ -15,15 +15,4 @@
     <None Include="buildTransitive\Mycelium.Model.CommonPrimitives.props" Pack="true" PackagePath="buildTransitive\" />
   </ItemGroup>
 
-  <!-- Placeholder xmi:idref, matching the bare-bones mycelium-commonprimitives.xmi shipped here. When
-       this file is replaced with a real EA export, its top-level "CommonPrimitives" package will get a
-       fresh xmi:idref — update PackageIdRef below to match, or dotnet pack will fail with a clear error
-       instead of silently stamping the wrong element. See Directory.Build.targets for the shared
-       StampModelVersionsInXmi mechanism. -->
-  <ItemGroup Label="XMI version sync target">
-    <MyceliumModelVersionTarget Include="mycelium-commonprimitives.xmi">
-      <PackageIdRef>EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2</PackageIdRef>
-    </MyceliumModelVersionTarget>
-  </ItemGroup>
-
 </Project>
