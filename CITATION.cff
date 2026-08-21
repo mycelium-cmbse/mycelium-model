@@ -4,7 +4,7 @@ message: "If you use this software, please cite it as below."
 title: "mycelium-model: The UML 2.5.1 models for CommonPrimitives, Fabric and Forge"
 abstract: "The UML 2.5.1 models for CommonPrimitives, Fabric and Forge used for uml4net code generation"
 version: "0.3.0"
-date-released: "2026-08-17"
+date-released: "2026-08-21"
 url: "https://github.com/mycelium-cmbse/mycelium-model"
 
 authors:
@@ -33,4 +33,4 @@ preferred-citation:
     - name: "Starion Group S.A."
   version: "0.3.0"
   url: "https://github.com/mycelium-cmbse/mycelium-model"
-  date-released: "2026-08-17"
+  date-released: "2026-08-21"
