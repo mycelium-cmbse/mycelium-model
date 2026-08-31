@@ -11,22 +11,22 @@
       </ownedRule>
       <packagedElement xmi:type="uml:Package" xmi:id="EAPK_6E9B5A1A_A344_457b_906A_E3D514EC350D" name="Common">
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" isAbstract="true" name="Thing">
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_C608D12F_75CD_46ed_9AEC_1E65CD83951B" name="createdAt">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_C608D12F_75CD_46ed_9AEC_1E65CD83951B" isID="true" isUnique="false" name="createdAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000001_75CD_46ed_9AEC_1E65CD83951B" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C608D12F_75CD_46ed_9AEC_1E65CD83951B-_ownedComment.0" body="The DateTime at which the Thing has been created." />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000002_75CD_46ed_9AEC_1E65CD83951B" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_3A963DC1_6E7A_4925_8686_A68C8799F12E" isID="true" name="id">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000003_6E7A_4925_8686_A68C8799F12E" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_3A963DC1_6E7A_4925_8686_A68C8799F12E-_ownedComment.0" body="Universally Unique Identifier (UUID) that uniquely identifies an instance of Thing. " />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000004_6E7A_4925_8686_A68C8799F12E" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_048B19C9_AA4A_4e41_A4BD_B28426AEC937" name="modifiedAt">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_048B19C9_AA4A_4e41_A4BD_B28426AEC937" isID="true" isUnique="false" name="modifiedAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000005_AA4A_4e41_A4BD_B28426AEC937" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_048B19C9_AA4A_4e41_A4BD_B28426AEC937-_ownedComment.0" body="The DateTime at which the Thing was last modified.&#xA;" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000006_AA4A_4e41_A4BD_B28426AEC937" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F-_ownedComment.0" body="Top level abstract superclass from which all domain concept classes in the model inherit." />
@@ -258,19 +258,19 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_795DCA68_B91A_4f22_80F4_8AB8C8705FAE" name="APIKey">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_7CB0429C_03A6_4deb_A59A_B3CC15E2F704" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2D476240_E031_4fa4_B4D1_2EAF94CB7DA5" name="expiresAt">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2D476240_E031_4fa4_B4D1_2EAF94CB7DA5" isID="true" isUnique="false" name="expiresAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000045_E031_4fa4_B4D1_2EAF94CB7DA5" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2D476240_E031_4fa4_B4D1_2EAF94CB7DA5-_ownedComment.0" body="The DateTime at which the API key expires." />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000046_E031_4fa4_B4D1_2EAF94CB7DA5" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_0843C514_04A0_446e_8209_4945B9C546D3" name="lastUsedAt">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_0843C514_04A0_446e_8209_4945B9C546D3" isID="true" isUnique="false" name="lastUsedAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000047_04A0_446e_8209_4945B9C546D3" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_0843C514_04A0_446e_8209_4945B9C546D3-_ownedComment.0" body="The DateTime when the API key was last used." />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000048_04A0_446e_8209_4945B9C546D3" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_C2F6FF93_7B10_437a_8A7B_DDCD5F120E5F" name="name">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_C2F6FF93_7B10_437a_8A7B_DDCD5F120E5F" isID="true" isUnique="false" name="name">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000049_7B10_437a_8A7B_DDCD5F120E5F" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C2F6FF93_7B10_437a_8A7B_DDCD5F120E5F-_ownedComment.0" body="a human readable name that makes it easy to identify" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
@@ -285,12 +285,13 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_E8AAF47E_58DB_42e3_901D_97F7677A9793" name="revokedAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000053_58DB_42e3_901D_97F7677A9793" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_E8AAF47E_58DB_42e3_901D_97F7677A9793-_ownedComment.0" body="The DateTime when the API key was revoked." />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000054_58DB_42e3_901D_97F7677A9793" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_796BF175_5F57_4cf9_A60D_AA7936A12A6C" name="secretHash">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000055_5F57_4cf9_A60D_AA7936A12A6C" value="1" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" />
+            <ownedComment xmi:type="uml:Comment" xmi:id="EAID_796BF175_5F57_4cf9_A60D_AA7936A12A6C-_ownedComment.0" body="The computed secret hashcode for the APIKey." />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000056_5F57_4cf9_A60D_AA7936A12A6C" value="*" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_795DCA68_B91A_4f22_80F4_8AB8C8705FAE-_ownedComment.0" body="Represents a programmatic credential that lets an Account authenticate against the Forge without a human interactively signing in. The mechanism a CI/CD pipeline or automated tool uses to publish or download Packages on that Account's behalf." />
@@ -309,7 +310,7 @@
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000062_D2FF_46df_886C_F3AA4A6DDAF5" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_1C566C14_B1D0_4046_A2B0_78434ACD1F62" name="Name">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_1C566C14_B1D0_4046_A2B0_78434ACD1F62" isID="true" isUnique="false" name="Name">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000063_B1D0_4046_A2B0_78434ACD1F62" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1C566C14_B1D0_4046_A2B0_78434ACD1F62-_ownedComment.0" body="The country's full official name (e.g. &quot;The Neterlands&quot;), used for display purposes." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
@@ -335,7 +336,7 @@
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_389F2B23_2132_4176_9EDC_8717B37B580A" general="EAID_195786BF_3D5E_4b05_B9B1_BBC23C3CB058" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_1E50A5E2_E9BC_49f3_87D5_C4D92C84B0FE" name="description">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000071_E9BC_49f3_87D5_C4D92C84B0FE" value="1" />
-            <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1E50A5E2_E9BC_49f3_87D5_C4D92C84B0FE-_ownedComment.0" body="A humand readable description of this instance of Forge" />
+            <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1E50A5E2_E9BC_49f3_87D5_C4D92C84B0FE-_ownedComment.0" body="A human readable description of this instance of Forge" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000072_E9BC_49f3_87D5_C4D92C84B0FE" value="1" />
           </ownedAttribute>
@@ -394,24 +395,24 @@
           <memberEnd xmi:idref="EAID_dst13B896_A2F7_494b_8A14_ABD1D4CD5362" />
           <memberEnd xmi:idref="EAID_src13B896_A2F7_494b_8A14_ABD1D4CD5362" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src13B896_A2F7_494b_8A14_ABD1D4CD5362" association="EAID_2113B896_A2F7_494b_8A14_ABD1D4CD5362" name="owner" type="EAID_17429100_7982_41d3_AD5A_241745EAC4FE">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000199__A2F7_494b_8A14_ABD1D4CD5362" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000200__A2F7_494b_8A14_ABD1D4CD5362" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000201__A2F7_494b_8A14_ABD1D4CD5362" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000202__A2F7_494b_8A14_ABD1D4CD5362" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_8410489B_3E2E_4795_AA63_0F70D1AB3F3A">
           <memberEnd xmi:idref="EAID_dst10489B_3E2E_4795_AA63_0F70D1AB3F3A" />
           <memberEnd xmi:idref="EAID_src10489B_3E2E_4795_AA63_0F70D1AB3F3A" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src10489B_3E2E_4795_AA63_0F70D1AB3F3A" association="EAID_8410489B_3E2E_4795_AA63_0F70D1AB3F3A" name="owner" type="EAID_17429100_7982_41d3_AD5A_241745EAC4FE">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000171__3E2E_4795_AA63_0F70D1AB3F3A" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000172__3E2E_4795_AA63_0F70D1AB3F3A" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000173__3E2E_4795_AA63_0F70D1AB3F3A" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000174__3E2E_4795_AA63_0F70D1AB3F3A" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_8FF15AA0_EBC4_4186_B88D_3B78570FFDFA">
           <memberEnd xmi:idref="EAID_dstF15AA0_EBC4_4186_B88D_3B78570FFDFA" />
           <memberEnd xmi:idref="EAID_srcF15AA0_EBC4_4186_B88D_3B78570FFDFA" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcF15AA0_EBC4_4186_B88D_3B78570FFDFA" association="EAID_8FF15AA0_EBC4_4186_B88D_3B78570FFDFA" name="owner" type="EAID_17429100_7982_41d3_AD5A_241745EAC4FE">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000147__EBC4_4186_B88D_3B78570FFDFA" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000148__EBC4_4186_B88D_3B78570FFDFA" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000149__EBC4_4186_B88D_3B78570FFDFA" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000150__EBC4_4186_B88D_3B78570FFDFA" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_95D42105_4640_4742_8548_6498D87AB908" isAbstract="true" name="Invitation">
@@ -419,7 +420,7 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_E3F82141_2DBE_4300_B7D9_A82A0816AFB2" name="experiesAt">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000087_2DBE_4300_B7D9_A82A0816AFB2" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_E3F82141_2DBE_4300_B7D9_A82A0816AFB2-_ownedComment.0" body="The DateTime at which the Invitation expires.&#xA;" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000088_2DBE_4300_B7D9_A82A0816AFB2" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_E6B5A8E1_3061_45bd_B6AB_E6F39B0FDE9F" isDerived="true" name="isExpired">
@@ -437,13 +438,13 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_195786BF_3D5E_4b05_B9B1_BBC23C3CB058" isAbstract="true" name="Namespace">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_32E4DAB9_30D9_4978_9DFF_5B8A6ACE75D9" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_4F9CE1B0_75B2_4f0f_96BE_251F42265A8D" name="name">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_4F9CE1B0_75B2_4f0f_96BE_251F42265A8D" isID="true" isUnique="false" name="name">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000093_75B2_4f0f_96BE_251F42265A8D" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_4F9CE1B0_75B2_4f0f_96BE_251F42265A8D-_ownedComment.0" body="A human readable character string in English by which a Namespace instance can be referred to.&#xA;&#xA;e.g. an Organization's full legal or display name, an Account's chosen display name, a Package's full name, or the Forge's own instance name. Mandatory, and globally unique across every Namespace subtype." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000094_75B2_4f0f_96BE_251F42265A8D" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_89C8F800_EE59_4169_853B_B38E6B1857AC" name="shortName">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_89C8F800_EE59_4169_853B_B38E6B1857AC" isID="true" isUnique="false" name="shortName">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000095_EE59_4169_853B_B38E6B1857AC" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_89C8F800_EE59_4169_853B_B38E6B1857AC-_ownedComment.0" body="A compact, typically lowercase, URL- and path-safe identifier for a Namespace instance. Used wherever the full name would be too long or contain characters unsuitable for URLs, CLI commands, or package references (e.g. spaces, punctuation). Mandatory, and globally unique across every Namespace subtype, independently of name's uniqueness. Functions as the practical &quot;handle&quot; or &quot;slug&quot; used in addresses, links, and package coordinates, while name remains the display-facing label" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
@@ -526,42 +527,48 @@
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_65683CA4_032F_457d_B996_A3893C4293CA" name="Package">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_74B98476_921E_492f_9E67_BAE9745882B7" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_C33B88E5_0A4D_4362_B8D9_59494CD4871B" general="EAID_195786BF_3D5E_4b05_B9B1_BBC23C3CB058" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_03CDEFB7_67B8_4310_A5D7_E3FA99CBDD57" isID="true" isUnique="false" name="description">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000115_67B8_4310_A5D7_E3FA99CBDD57" value="1" />
+            <ownedComment xmi:type="uml:Comment" xmi:id="EAID_03CDEFB7_67B8_4310_A5D7_E3FA99CBDD57-_ownedComment.0" body="A human readable description for the Package." />
+            <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000116_67B8_4310_A5D7_E3FA99CBDD57" value="1" />
+          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_92CAFF82_73D8_4c5d_86A2_5768EDE59367" isDerived="true" name="downloadCount">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000115_73D8_4c5d_86A2_5768EDE59367" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000117_73D8_4c5d_86A2_5768EDE59367" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_92CAFF82_73D8_4c5d_86A2_5768EDE59367-_ownedComment.0" body="Total downloads across the Package, computed as the sum of downloadCount over all its PackageVersions. Never set directly; always reflects the current totals of its versions." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Integer" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000116_73D8_4c5d_86A2_5768EDE59367" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000118_73D8_4c5d_86A2_5768EDE59367" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_4F8A692D_12D7_4a0e_BF07_B7BD116E7E01" name="listed">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000117_12D7_4a0e_BF07_B7BD116E7E01" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000119_12D7_4a0e_BF07_B7BD116E7E01" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_4F8A692D_12D7_4a0e_BF07_B7BD116E7E01-_ownedComment.0" body="Whether the Package appears in search results and browsable listings. When false, it's still reachable directly (e.g. by exact name or link) but hidden from discovery." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000118_12D7_4a0e_BF07_B7BD116E7E01" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000120_12D7_4a0e_BF07_B7BD116E7E01" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_84CB2554_8FEB_49ee_ADC4_8AEAECB7D2D1" name="visibility" type="EAID_09D68D98_A5CD_401f_A176_FCBDA91A47F2">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000119_8FEB_49ee_ADC4_8AEAECB7D2D1" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000121_8FEB_49ee_ADC4_8AEAECB7D2D1" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_84CB2554_8FEB_49ee_ADC4_8AEAECB7D2D1-_ownedComment.0" body="Controls who can see and access the Package. INTERNAL is invalid when the owning Scope is an Account, per the earlier invariant, since &quot;internal&quot; only makes sense within an organizational boundary" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000120_8FEB_49ee_ADC4_8AEAECB7D2D1" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000122_8FEB_49ee_ADC4_8AEAECB7D2D1" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst22907F_7B04_491a_9894_18D7F240B0C8" association="EAID_1122907F_7B04_491a_9894_18D7F240B0C8" name="packageType" type="EAID_367F204E_758E_41a5_892F_22A589405944">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000121__7B04_491a_9894_18D7F240B0C8" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000123__7B04_491a_9894_18D7F240B0C8" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst22907F_7B04_491a_9894_18D7F240B0C8-_ownedComment.0" body="The referenced PackageType that denotes what kind of Package this is." />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000122__7B04_491a_9894_18D7F240B0C8" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000124__7B04_491a_9894_18D7F240B0C8" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst10BE38_3F02_4f31_AB54_D3C754FAC7FE" association="EAID_4010BE38_3F02_4f31_AB54_D3C754FAC7FE" name="packageMaintainer" type="EAID_CE60B1AB_3927_4382_B362_016EA94A2C80">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000123__3F02_4f31_AB54_D3C754FAC7FE" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000125__3F02_4f31_AB54_D3C754FAC7FE" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst10BE38_3F02_4f31_AB54_D3C754FAC7FE-_ownedComment.0" body="The accounts that represent the Package maintainers" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000124__3F02_4f31_AB54_D3C754FAC7FE" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000126__3F02_4f31_AB54_D3C754FAC7FE" value="*" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst2A162D_DE42_4b01_9B5F_17A7DA9D182F" association="EAID_542A162D_DE42_4b01_9B5F_17A7DA9D182F" name="packageOwner" type="EAID_CE60B1AB_3927_4382_B362_016EA94A2C80">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000125__DE42_4b01_9B5F_17A7DA9D182F" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000127__DE42_4b01_9B5F_17A7DA9D182F" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst2A162D_DE42_4b01_9B5F_17A7DA9D182F-_ownedComment.0" body="The accounts that represent the Package owners" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000126__DE42_4b01_9B5F_17A7DA9D182F" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000128__DE42_4b01_9B5F_17A7DA9D182F" value="*" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstEAA194_978B_4aa5_BEBC_DC3C38829711" aggregation="composite" association="EAID_7BEAA194_978B_4aa5_BEBC_DC3C38829711" name="version" type="EAID_88E567A2_4C86_4df5_B815_57A992FC2912">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000127__978B_4aa5_BEBC_DC3C38829711" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000129__978B_4aa5_BEBC_DC3C38829711" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstEAA194_978B_4aa5_BEBC_DC3C38829711-_ownedComment.0" body="The PackageVersions that are owned by the Package" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000128__978B_4aa5_BEBC_DC3C38829711" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000130__978B_4aa5_BEBC_DC3C38829711" value="*" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_65683CA4_032F_457d_B996_A3893C4293CA-_ownedComment.0" body="A named, versioned unit of software published to the Forge, owned by exactly one Scope (an Organization or an Account) and containing one or more PackageVersions" />
           <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_032F_457d_B996_A3893C4293CA" name="ownedPackagesCannotBeInternal">
@@ -575,50 +582,50 @@
           <memberEnd xmi:idref="EAID_dst22907F_7B04_491a_9894_18D7F240B0C8" />
           <memberEnd xmi:idref="EAID_src22907F_7B04_491a_9894_18D7F240B0C8" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src22907F_7B04_491a_9894_18D7F240B0C8" association="EAID_1122907F_7B04_491a_9894_18D7F240B0C8" name="package" type="EAID_65683CA4_032F_457d_B996_A3893C4293CA">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000145__7B04_491a_9894_18D7F240B0C8" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000146__7B04_491a_9894_18D7F240B0C8" value="*" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000147__7B04_491a_9894_18D7F240B0C8" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000148__7B04_491a_9894_18D7F240B0C8" value="*" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_7BEAA194_978B_4aa5_BEBC_DC3C38829711">
           <memberEnd xmi:idref="EAID_dstEAA194_978B_4aa5_BEBC_DC3C38829711" />
           <memberEnd xmi:idref="EAID_srcEAA194_978B_4aa5_BEBC_DC3C38829711" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcEAA194_978B_4aa5_BEBC_DC3C38829711" association="EAID_7BEAA194_978B_4aa5_BEBC_DC3C38829711" name="owner" type="EAID_65683CA4_032F_457d_B996_A3893C4293CA">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000159__978B_4aa5_BEBC_DC3C38829711" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000160__978B_4aa5_BEBC_DC3C38829711" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000161__978B_4aa5_BEBC_DC3C38829711" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000162__978B_4aa5_BEBC_DC3C38829711" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_51AF0422_E33E_4c34_AA14_D530733FFD0B">
           <memberEnd xmi:idref="EAID_dstAF0422_E33E_4c34_AA14_D530733FFD0B" />
           <memberEnd xmi:idref="EAID_srcAF0422_E33E_4c34_AA14_D530733FFD0B" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcAF0422_E33E_4c34_AA14_D530733FFD0B" association="EAID_51AF0422_E33E_4c34_AA14_D530733FFD0B" name="owner" type="EAID_72DEAA6C_B955_498d_9BBE_A2478380CD29">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000129__E33E_4c34_AA14_D530733FFD0B" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000130__E33E_4c34_AA14_D530733FFD0B" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000131__E33E_4c34_AA14_D530733FFD0B" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000132__E33E_4c34_AA14_D530733FFD0B" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_FBDCE16A_F7BE_4be8_85B0_765D2E6348AF">
           <memberEnd xmi:idref="EAID_dstDCE16A_F7BE_4be8_85B0_765D2E6348AF" />
           <memberEnd xmi:idref="EAID_srcDCE16A_F7BE_4be8_85B0_765D2E6348AF" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcDCE16A_F7BE_4be8_85B0_765D2E6348AF" association="EAID_FBDCE16A_F7BE_4be8_85B0_765D2E6348AF" name="packageInvitation" type="EAID_78946262_88A9_441c_B65D_B0BD9BB8420A">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000131__F7BE_4be8_85B0_765D2E6348AF" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000132__F7BE_4be8_85B0_765D2E6348AF" value="*" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000133__F7BE_4be8_85B0_765D2E6348AF" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000134__F7BE_4be8_85B0_765D2E6348AF" value="*" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_78946262_88A9_441c_B65D_B0BD9BB8420A" name="PackageInvitation">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_77A619C7_44A6_4679_8D75_9CEE261F29CE" general="EAID_95D42105_4640_4742_8548_6498D87AB908" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_800C2AA2_A2C7_46fd_A407_BF2690393F4F" name="packageInvitationKind" type="EAID_99E6DF6B_5970_44c4_A0E8_60E5955EC10B">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000133_A2C7_46fd_A407_BF2690393F4F" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000135_A2C7_46fd_A407_BF2690393F4F" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_800C2AA2_A2C7_46fd_A407_BF2690393F4F-_ownedComment.0" body="Denotes which role the invited Account will receive if they accept." />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000134_A2C7_46fd_A407_BF2690393F4F" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000136_A2C7_46fd_A407_BF2690393F4F" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst987416_2AAB_4120_9898_1EEA35FA0EF9" association="EAID_CF987416_2AAB_4120_9898_1EEA35FA0EF9" name="target" type="EAID_CE60B1AB_3927_4382_B362_016EA94A2C80">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000135__2AAB_4120_9898_1EEA35FA0EF9" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000137__2AAB_4120_9898_1EEA35FA0EF9" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst987416_2AAB_4120_9898_1EEA35FA0EF9-_ownedComment.0" body="The Account that is being invitited to become an owner or maintainer of the Package" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000136__2AAB_4120_9898_1EEA35FA0EF9" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000138__2AAB_4120_9898_1EEA35FA0EF9" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstDCE16A_F7BE_4be8_85B0_765D2E6348AF" association="EAID_FBDCE16A_F7BE_4be8_85B0_765D2E6348AF" name="package" type="EAID_65683CA4_032F_457d_B996_A3893C4293CA">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000137__F7BE_4be8_85B0_765D2E6348AF" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000139__F7BE_4be8_85B0_765D2E6348AF" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstDCE16A_F7BE_4be8_85B0_765D2E6348AF-_ownedComment.0" body="The Package this is an invitation for" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000138__F7BE_4be8_85B0_765D2E6348AF" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000140__F7BE_4be8_85B0_765D2E6348AF" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_78946262_88A9_441c_B65D_B0BD9BB8420A-_ownedComment.0" body="An invitation owned by an Account sent to another account to request that target account to become a member of the Organization as either maintainer or owner.&#xA;&#xA;Only a package owner can create invitations." />
         </packagedElement>
@@ -629,70 +636,70 @@
           <memberEnd xmi:idref="EAID_dst94AFDF_F62B_4600_9B44_6076F54197E6" />
           <memberEnd xmi:idref="EAID_src94AFDF_F62B_4600_9B44_6076F54197E6" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src94AFDF_F62B_4600_9B44_6076F54197E6" association="EAID_B894AFDF_F62B_4600_9B44_6076F54197E6" name="owner" type="EAID_88E567A2_4C86_4df5_B815_57A992FC2912">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000139__F62B_4600_9B44_6076F54197E6" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000140__F62B_4600_9B44_6076F54197E6" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000141__F62B_4600_9B44_6076F54197E6" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000142__F62B_4600_9B44_6076F54197E6" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_367F204E_758E_41a5_892F_22A589405944" name="PackageType">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_224B05DA_CBCD_49d6_9208_F023F49AED5E" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_DB2CC1A3_0314_471e_BE53_04A8E620A06D" name="description">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000141_0314_471e_BE53_04A8E620A06D" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000143_0314_471e_BE53_04A8E620A06D" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_DB2CC1A3_0314_471e_BE53_04A8E620A06D-_ownedComment.0" body="A humand readable description of this PackageType&#xA;" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000142_0314_471e_BE53_04A8E620A06D" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000144_0314_471e_BE53_04A8E620A06D" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_932920D8_9B6C_4e9e_B832_DEB63E72B9E6" name="name">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000143_9B6C_4e9e_B832_DEB63E72B9E6" value="1" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_932920D8_9B6C_4e9e_B832_DEB63E72B9E6" isID="true" isUnique="false" name="name">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000145_9B6C_4e9e_B832_DEB63E72B9E6" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_932920D8_9B6C_4e9e_B832_DEB63E72B9E6-_ownedComment.0" body="Human readable character string in English by which something can be referred to." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000144_9B6C_4e9e_B832_DEB63E72B9E6" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000146_9B6C_4e9e_B832_DEB63E72B9E6" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_367F204E_758E_41a5_892F_22A589405944-_ownedComment.0" body="Identifies which packaging ecosystem a given Package (and its PackageVersions) belongs to; i.e., which language or platform's native package format, manifest structure, and versioning convention Forge should apply when storing, indexing, and serving that package. Because different ecosystems use incompatible manifest schemas, dependency-resolution rules, and file layouts, PackageType is effectively a discriminator: it determines which parsing logic, validation rules, and protocol-specific API endpoint the Forge routes a given Package through." />
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_88E567A2_4C86_4df5_B815_57A992FC2912" name="PackageVersion">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_211AAB8E_013F_4812_8612_AC546F13C330" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_133F00F0_42F5_4d22_AAF4_0BC7A44A6C0F" name="downloadCount">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000149_42F5_4d22_AAF4_0BC7A44A6C0F" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000151_42F5_4d22_AAF4_0BC7A44A6C0F" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_133F00F0_42F5_4d22_AAF4_0BC7A44A6C0F-_ownedComment.0" body="The amount of times the version has been downloaded since its creation" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Integer" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000150_42F5_4d22_AAF4_0BC7A44A6C0F" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000152_42F5_4d22_AAF4_0BC7A44A6C0F" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_BFB9588E_A91A_4546_978A_0B8A6F67EEE5" name="listed">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000151_A91A_4546_978A_0B8A6F67EEE5" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000153_A91A_4546_978A_0B8A6F67EEE5" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BFB9588E_A91A_4546_978A_0B8A6F67EEE5-_ownedComment.0" body="Whether this specific version appears in search/browse results. Lets you hide one problematic release from discovery without touching any other version." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000152_A91A_4546_978A_0B8A6F67EEE5" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000154_A91A_4546_978A_0B8A6F67EEE5" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_DFF03201_3242_41f9_B6C9_64ED075102AD" name="publicationDate">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000153_3242_41f9_B6C9_64ED075102AD" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000155_3242_41f9_B6C9_64ED075102AD" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_DFF03201_3242_41f9_B6C9_64ED075102AD-_ownedComment.0" body="The date at which the version was uploaded or published to Forge" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000154_3242_41f9_B6C9_64ED075102AD" value="1" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000156_3242_41f9_B6C9_64ED075102AD" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_5E3DB552_5872_48f8_BDA3_4CB2ECE6BC69" name="version">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000155_5872_48f8_BDA3_4CB2ECE6BC69" value="1" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000156_5872_48f8_BDA3_4CB2ECE6BC69" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000157_5872_48f8_BDA3_4CB2ECE6BC69" value="1" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000158_5872_48f8_BDA3_4CB2ECE6BC69" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst94AFDF_F62B_4600_9B44_6076F54197E6" aggregation="composite" association="EAID_B894AFDF_F62B_4600_9B44_6076F54197E6" name="metaData" type="EAID_5C5C60CB_80CD_4aef_9FE8_BC1E4803B3F1">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000157__F62B_4600_9B44_6076F54197E6" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000159__F62B_4600_9B44_6076F54197E6" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst94AFDF_F62B_4600_9B44_6076F54197E6-_ownedComment.0" body="the owned MetaDataDefinition" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000158__F62B_4600_9B44_6076F54197E6" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000160__F62B_4600_9B44_6076F54197E6" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_88E567A2_4C86_4df5_B815_57A992FC2912-_ownedComment.0" body="Represents one specific, published release of a Package,  a single, frozen snapshot identified by its version number. Once published, a PackageVersion cannot be modified; correcting or updating anything about a release means publishing an entirely new PackageVersion, never editing an existing one. This is why everything describing &quot;what this release actually is&quot; lives here rather than on Package, which only carries the shared, never-changing identity." />
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_230199C8_76A7_4a35_8CD6_A3F9EEDAD982" name="ProfileLink">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_46C87A94_FD7C_4c30_8C86_5BC2292F3D79" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_D49CC3FC_62EC_404e_9B1E_879EA59D11FD" name="uri">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000161_62EC_404e_9B1E_879EA59D11FD" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000163_62EC_404e_9B1E_879EA59D11FD" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D49CC3FC_62EC_404e_9B1E_879EA59D11FD-_ownedComment.0" body="The actual web address pointing to the Account's profile on the platform identified by the associated ProfileType" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_22870794_6112_48be_B11D_0E5641FDBFF9" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000162_62EC_404e_9B1E_879EA59D11FD" value="1" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_22870794_6112_48be_B11D_0E5641FDBFF9" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000164_62EC_404e_9B1E_879EA59D11FD" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst6CA9DA_2B68_4638_A050_F2C1D6256329" association="EAID_E46CA9DA_2B68_4638_A050_F2C1D6256329" name="profileType" type="EAID_A5813AB3_8596_4a27_9755_A3EC87649CF0">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000163__2B68_4638_A050_F2C1D6256329" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000165__2B68_4638_A050_F2C1D6256329" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst6CA9DA_2B68_4638_A050_F2C1D6256329-_ownedComment.0" body="The type of Profile that is being referenced" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000164__2B68_4638_A050_F2C1D6256329" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000166__2B68_4638_A050_F2C1D6256329" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_230199C8_76A7_4a35_8CD6_A3F9EEDAD982-_ownedComment.0" body="Represents the type of profile and the actual URI pointing to the online profile" />
         </packagedElement>
@@ -700,107 +707,108 @@
           <memberEnd xmi:idref="EAID_dst6CA9DA_2B68_4638_A050_F2C1D6256329" />
           <memberEnd xmi:idref="EAID_src6CA9DA_2B68_4638_A050_F2C1D6256329" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src6CA9DA_2B68_4638_A050_F2C1D6256329" association="EAID_E46CA9DA_2B68_4638_A050_F2C1D6256329" name="profileLink" type="EAID_230199C8_76A7_4a35_8CD6_A3F9EEDAD982">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000173__2B68_4638_A050_F2C1D6256329" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000174__2B68_4638_A050_F2C1D6256329" value="*" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000175__2B68_4638_A050_F2C1D6256329" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000176__2B68_4638_A050_F2C1D6256329" value="*" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="EAID_7C19B56E_EDEF_4ae8_9DFA_BB957BFD237E">
           <memberEnd xmi:idref="EAID_dst19B56E_EDEF_4ae8_9DFA_BB957BFD237E" />
           <memberEnd xmi:idref="EAID_src19B56E_EDEF_4ae8_9DFA_BB957BFD237E" />
           <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src19B56E_EDEF_4ae8_9DFA_BB957BFD237E" association="EAID_7C19B56E_EDEF_4ae8_9DFA_BB957BFD237E" name="owner" type="EAID_72DEAA6C_B955_498d_9BBE_A2478380CD29">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000165__EDEF_4ae8_9DFA_BB957BFD237E" value="1" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000166__EDEF_4ae8_9DFA_BB957BFD237E" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000167__EDEF_4ae8_9DFA_BB957BFD237E" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000168__EDEF_4ae8_9DFA_BB957BFD237E" value="1" />
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_A5813AB3_8596_4a27_9755_A3EC87649CF0" name="ProfileType">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_21E611BF_7A72_4951_A2D1_7CBB49E60143" general="EAID_7893E744_B7A0_400a_AA2A_00E1BD5F5A0F" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_6268AF10_C453_4cd4_9B02_C62B44703FB8" name="LogoBlobReference">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000167_C453_4cd4_9B02_C62B44703FB8" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000169_C453_4cd4_9B02_C62B44703FB8" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_6268AF10_C453_4cd4_9B02_C62B44703FB8-_ownedComment.0" body="An optional reference to the binary image data for a ProfileType's logo, a pointer to where the actual image bytes live in external blob storage." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000168_C453_4cd4_9B02_C62B44703FB8" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000170_C453_4cd4_9B02_C62B44703FB8" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_F210216A_54DC_4556_A7BC_A5AC6A2608A7" name="name">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000169_54DC_4556_A7BC_A5AC6A2608A7" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000171_54DC_4556_A7BC_A5AC6A2608A7" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F210216A_54DC_4556_A7BC_A5AC6A2608A7-_ownedComment.0" body="The name of the profile type" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000170_54DC_4556_A7BC_A5AC6A2608A7" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000172_54DC_4556_A7BC_A5AC6A2608A7" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_A5813AB3_8596_4a27_9755_A3EC87649CF0-_ownedComment.0" body="Identifies a distinct online platform where an Scope can maintain a professional or social presence; e.g. a professional networking site, a code-hosting platform, a social media site, or an organization or personal web site." />
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_72DEAA6C_B955_498d_9BBE_A2478380CD29" isAbstract="true" name="Scope">
           <generalization xmi:type="uml:Generalization" xmi:id="EAID_C714F267_A238_4de7_B4C3_E05CBF82DD9D" general="EAID_195786BF_3D5E_4b05_B9B1_BBC23C3CB058" />
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_73BA90A1_0569_48ac_82E7_27B0421290FB" name="billingEmail">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000175_0569_48ac_82E7_27B0421290FB" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000177_0569_48ac_82E7_27B0421290FB" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_73BA90A1_0569_48ac_82E7_27B0421290FB-_ownedComment.0" body="The email address to which billing information will be sent, such as invoices and reminders" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000176_0569_48ac_82E7_27B0421290FB" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000178_0569_48ac_82E7_27B0421290FB" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_32B9DDDF_0FF1_4922_9BFC_58D6204BBF0B" name="defaultPackageVisibility" type="EAID_09D68D98_A5CD_401f_A176_FCBDA91A47F2">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000179_0FF1_4922_9BFC_58D6204BBF0B" value="PRIVATE" />
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000177_0FF1_4922_9BFC_58D6204BBF0B" value="1" />
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000181_0FF1_4922_9BFC_58D6204BBF0B" value="PRIVATE" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000179_0FF1_4922_9BFC_58D6204BBF0B" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_32B9DDDF_0FF1_4922_9BFC_58D6204BBF0B-_ownedComment.0" body="The default visibility of a scope, this can only be set by the administrator(s) or owner of the Scope" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000178_0FF1_4922_9BFC_58D6204BBF0B" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000180_0FF1_4922_9BFC_58D6204BBF0B" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_A3370745_185E_4a8b_BF80_3C9CE8B4B7CE" name="email">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000179_185E_4a8b_BF80_3C9CE8B4B7CE" value="1" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_A3370745_185E_4a8b_BF80_3C9CE8B4B7CE" isID="true" isUnique="false" name="email">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000181_185E_4a8b_BF80_3C9CE8B4B7CE" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_A3370745_185E_4a8b_BF80_3C9CE8B4B7CE-_ownedComment.0" body="The email address where the Scope can be reached for anything unrelated to billing." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000180_185E_4a8b_BF80_3C9CE8B4B7CE" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000182_185E_4a8b_BF80_3C9CE8B4B7CE" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B" name="origin">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000183_7AB4_4608_95BD_E60428D81D1B" value="local" />
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000181_7AB4_4608_95BD_E60428D81D1B" value="1" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B" isID="true" isUnique="false" name="origin">
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000185_7AB4_4608_95BD_E60428D81D1B" value="local" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000183_7AB4_4608_95BD_E60428D81D1B" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B-_ownedComment.0" body="Denotes whether the Scope was created local to this Forge instance, or whether it was proxied from another location. When the value states  &quot;local&quot;, then it is local to the current Forge instance, otherwise the value needs to be a URI pointing to the location it was proxied from." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000182_7AB4_4608_95BD_E60428D81D1B" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000184_7AB4_4608_95BD_E60428D81D1B" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_98A41878_8269_4533_A0B2_0F3F7989F334" name="status" type="EAID_9A028E25_FC70_4657_AB28_7A637060D7AA">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000185_8269_4533_A0B2_0F3F7989F334" value="ACTIVE" />
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000183_8269_4533_A0B2_0F3F7989F334" value="1" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_98A41878_8269_4533_A0B2_0F3F7989F334" isID="true" isUnique="false" name="status" type="EAID_9A028E25_FC70_4657_AB28_7A637060D7AA">
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="EAID_LI000187_8269_4533_A0B2_0F3F7989F334" value="ACTIVE" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000185_8269_4533_A0B2_0F3F7989F334" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_98A41878_8269_4533_A0B2_0F3F7989F334-_ownedComment.0" body="The status of the Scope, when the Scope is an Account, inactive means the user that cannot login anymore. When the scope is an Organization, packages can no longer be published or uploaded, nor any PackageVersions" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000184_8269_4533_A0B2_0F3F7989F334" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000186_8269_4533_A0B2_0F3F7989F334" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2F9A52BC_EA1F_4af4_B07C_0FA5005BCF26" name="website">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000185_EA1F_4af4_B07C_0FA5005BCF26" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000187_EA1F_4af4_B07C_0FA5005BCF26" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2F9A52BC_EA1F_4af4_B07C_0FA5005BCF26-_ownedComment.0" body="The uri of the website of the scope" />
-            <type xmi:type="uml:DataType" href="mycelium-commonprimitives.xmi#EAID_22870794_6112_48be_B11D_0E5641FDBFF9" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000186_EA1F_4af4_B07C_0FA5005BCF26" value="1" />
+            <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_22870794_6112_48be_B11D_0E5641FDBFF9" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000188_EA1F_4af4_B07C_0FA5005BCF26" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst26755C_2E18_40f0_ABC3_15487E120A45" association="EAID_1B26755C_2E18_40f0_ABC3_15487E120A45" name="primaryAddress" type="EAID_5E20ADE8_09B7_4fdd_993D_A80F2328C5AE">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000187__2E18_40f0_ABC3_15487E120A45" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000189__2E18_40f0_ABC3_15487E120A45" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst26755C_2E18_40f0_ABC3_15487E120A45-_ownedComment.0" body="The primary address of the Scope" />
             <subsettedProperty xmi:idref="EAID_dst71ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000188__2E18_40f0_ABC3_15487E120A45" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000190__2E18_40f0_ABC3_15487E120A45" value="1" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstAF0422_E33E_4c34_AA14_D530733FFD0B" aggregation="composite" association="EAID_51AF0422_E33E_4c34_AA14_D530733FFD0B" name="ownedPackage" type="EAID_65683CA4_032F_457d_B996_A3893C4293CA">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000189__E33E_4c34_AA14_D530733FFD0B" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000191__E33E_4c34_AA14_D530733FFD0B" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstAF0422_E33E_4c34_AA14_D530733FFD0B-_ownedComment.0" body="The packages that are owned by the Scope" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000190__E33E_4c34_AA14_D530733FFD0B" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000192__E33E_4c34_AA14_D530733FFD0B" value="*" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst19B56E_EDEF_4ae8_9DFA_BB957BFD237E" aggregation="composite" association="EAID_7C19B56E_EDEF_4ae8_9DFA_BB957BFD237E" name="profileLink" type="EAID_230199C8_76A7_4a35_8CD6_A3F9EEDAD982">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000191__EDEF_4ae8_9DFA_BB957BFD237E" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000193__EDEF_4ae8_9DFA_BB957BFD237E" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst19B56E_EDEF_4ae8_9DFA_BB957BFD237E-_ownedComment.0" body="The ProfileLinks that are owned by the Scope" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000192__EDEF_4ae8_9DFA_BB957BFD237E" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000194__EDEF_4ae8_9DFA_BB957BFD237E" value="*" />
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst71ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E" aggregation="composite" association="EAID_E671ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E" name="address" type="EAID_5E20ADE8_09B7_4fdd_993D_A80F2328C5AE">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000193__0FA0_4c8c_BB03_2A1FCAD7F07E" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000195__0FA0_4c8c_BB03_2A1FCAD7F07E" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst71ABB8_0FA0_4c8c_BB03_2A1FCAD7F07E-_ownedComment.0" body="The addresses that are owned or contained by the Scope" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000194__0FA0_4c8c_BB03_2A1FCAD7F07E" value="*" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000196__0FA0_4c8c_BB03_2A1FCAD7F07E" value="*" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_72DEAA6C_B955_498d_9BBE_A2478380CD29-_ownedComment.0" body="The common abstraction shared by Account and Organization that makes sure Packages can be stored and that names and shortnames of scopes and packages owned or contained by the scopes are globally unique." />
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="EAID_B267D33A_7D03_4de8_BC66_066A0EC0DF2D" name="Tag">
           <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_99DCF2DF_5692_4f89_88DD_F3CEB21DA1D5" name="isCurated">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000195_5692_4f89_88DD_F3CEB21DA1D5" value="1" />
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000197_5692_4f89_88DD_F3CEB21DA1D5" value="1" />
+            <ownedComment xmi:type="uml:Comment" xmi:id="EAID_99DCF2DF_5692_4f89_88DD_F3CEB21DA1D5-_ownedComment.0" body="Indicates whether the tag is part of the Forge's curated global tag set rather than an ad-hoc, user-created label." />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Integer" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000196_5692_4f89_88DD_F3CEB21DA1D5" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000198_5692_4f89_88DD_F3CEB21DA1D5" value="1" />
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_969CFA62_079A_4551_A43D_88F5EA5FF592" name="name">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000197_079A_4551_A43D_88F5EA5FF592" value="1" />
+          <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_969CFA62_079A_4551_A43D_88F5EA5FF592" isID="true" isUnique="false" name="name">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000199_079A_4551_A43D_88F5EA5FF592" value="1" />
             <ownedComment xmi:type="uml:Comment" xmi:id="EAID_969CFA62_079A_4551_A43D_88F5EA5FF592-_ownedComment.0" body="the tag's text value, stored as a String. Unique after normalisation; what's displayed and matched against in search/autocomplete" />
             <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000198_079A_4551_A43D_88F5EA5FF592" value="1" />
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000200_079A_4551_A43D_88F5EA5FF592" value="1" />
           </ownedAttribute>
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B267D33A_7D03_4de8_BC66_066A0EC0DF2D-_ownedComment.0" body="a short, free-text label a user can attach to a project to describe what it relates to, used for search, filtering, and facet counts. It's normalised (lowercased, spaces→hyphens) and deduplicated on write, but not curated or restricted to a fixed list" />
         </packagedElement>
@@ -850,7 +858,7 @@
 						<initial />
 						<documentation value="The DateTime at which the Thing has been created." />
 						<model ea_localid="388" ea_guid="{C608D12F-75CD-46ed-9AEC-1E65CD83951B}" />
-						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="1" />
 						<stereotype />
@@ -859,7 +867,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={13E8B319-2342-4fb5-8CF7-7000841D4073}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={C608D12F-75CD-46ed-9AEC-1E65CD83951B}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_3A963DC1_6E7A_4925_8686_A68C8799F12E" name="id" scope="Public">
 						<initial />
@@ -880,7 +888,7 @@
 						<initial />
 						<documentation value="The DateTime at which the Thing was last modified.&#xA;" />
 						<model ea_localid="390" ea_guid="{048B19C9-AA4A-4e41-A4BD-B28426AEC937}" />
-						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="2" />
 						<stereotype />
@@ -889,7 +897,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={0622B6E6-F627-4746-B783-2919A89113A9}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={048B19C9-AA4A-4e41-A4BD-B28426AEC937}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 				</attributes>
 				<links>
@@ -1323,7 +1331,7 @@
 						<initial />
 						<documentation value="The DateTime at which the API key expires." />
 						<model ea_localid="410" ea_guid="{2D476240-E031-4fa4-B4D1-2EAF94CB7DA5}" />
-						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="2" />
 						<stereotype />
@@ -1332,13 +1340,13 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={AB2B0F0B-5FE3-4a98-A042-64E4796763E1}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2D476240-E031-4fa4-B4D1-2EAF94CB7DA5}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_0843C514_04A0_446e_8209_4945B9C546D3" name="lastUsedAt" scope="Public">
 						<initial />
 						<documentation value="The DateTime when the API key was last used." />
 						<model ea_localid="411" ea_guid="{0843C514-04A0-446e-8209-4945B9C546D3}" />
-						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="3" />
 						<stereotype />
@@ -1347,13 +1355,13 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={6EB4FAFA-6243-47ba-B610-18BD2741D782}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={0843C514-04A0-446e-8209-4945B9C546D3}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_C2F6FF93_7B10_437a_8A7B_DDCD5F120E5F" name="name" scope="Public">
 						<initial />
 						<documentation value="a human readable name that makes it easy to identify" />
 						<model ea_localid="412" ea_guid="{C2F6FF93-7B10-437a-8A7B-DDCD5F120E5F}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
 						<stereotype />
@@ -1362,7 +1370,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={CD10B5B9-98C8-4a2b-8216-FFD27335F97B}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={C2F6FF93-7B10-437a-8A7B-DDCD5F120E5F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_011DC793_E760_475c_B930_D338B5356217" name="permissions" scope="Public">
 						<initial />
@@ -1396,7 +1404,7 @@
 					</attribute>
 					<attribute xmi:idref="EAID_796BF175_5F57_4cf9_A60D_AA7936A12A6C" name="secretHash" scope="Public">
 						<initial />
-						<documentation />
+						<documentation value="The computed secret hashcode for the APIKey." />
 						<model ea_localid="415" ea_guid="{796BF175-5F57-4cf9-A60D-AA7936A12A6C}" />
 						<properties type="byte" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
@@ -1405,7 +1413,7 @@
 						<bounds lower="1" upper="*" />
 						<options />
 						<style />
-						<styleex value="volatile=0;" />
+						<styleex value="volatile=0;union=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -1459,7 +1467,7 @@
 						<initial />
 						<documentation value="The country's full official name (e.g. &quot;The Neterlands&quot;), used for display purposes." />
 						<model ea_localid="418" ea_guid="{1C566C14-B1D0-4046-A2B0-78434ACD1F62}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="3" />
 						<stereotype />
@@ -1468,7 +1476,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={BE46BFDB-5CB7-4f34-BB87-BBA77671D81E}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={1C566C14-B1D0-4046-A2B0-78434ACD1F62}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_1F1F6D7B_7983_497f_A3EF_DC0B785AA91C" name="NumericCode" scope="Public">
 						<initial />
@@ -1504,7 +1512,7 @@
 				<attributes>
 					<attribute xmi:idref="EAID_1E50A5E2_E9BC_49f3_87D5_C4D92C84B0FE" name="description" scope="Public">
 						<initial />
-						<documentation value="A humand readable description of this instance of Forge" />
+						<documentation value="A human readable description of this instance of Forge" />
 						<model ea_localid="420" ea_guid="{1E50A5E2-E9BC-49f3-87D5-C4D92C84B0FE}" />
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
@@ -1513,7 +1521,7 @@
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
-						<styleex value="volatile=0;" />
+						<styleex value="volatile=0;union=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -1611,7 +1619,7 @@
 						<initial />
 						<documentation value="A human readable character string in English by which a Namespace instance can be referred to.&#xA;&#xA;e.g. an Organization's full legal or display name, an Account's chosen display name, a Package's full name, or the Forge's own instance name. Mandatory, and globally unique across every Namespace subtype." />
 						<model ea_localid="424" ea_guid="{4F9CE1B0-75B2-4f0f-96BE-251F42265A8D}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
 						<stereotype />
@@ -1623,13 +1631,13 @@
 						<Constraints>
 							<Constraint name="Namespace.allInstances()-&gt;isUnique(name)" type="Invariant" />
 						</Constraints>
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={E65BB8B5-5777-4496-9A23-C99120728852}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={4F9CE1B0-75B2-4f0f-96BE-251F42265A8D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_89C8F800_EE59_4169_853B_B38E6B1857AC" name="shortName" scope="Public">
 						<initial />
 						<documentation value="A compact, typically lowercase, URL- and path-safe identifier for a Namespace instance. Used wherever the full name would be too long or contain characters unsuitable for URLs, CLI commands, or package references (e.g. spaces, punctuation). Mandatory, and globally unique across every Namespace subtype, independently of name's uniqueness. Functions as the practical &quot;handle&quot; or &quot;slug&quot; used in addresses, links, and package coordinates, while name remains the display-facing label" />
 						<model ea_localid="425" ea_guid="{89C8F800-EE59-4169-853B-B38E6B1857AC}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="1" />
 						<stereotype />
@@ -1638,7 +1646,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={29ECD935-95ED-49ef-B218-4C7F68F18611}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={89C8F800-EE59-4169-853B-B38E6B1857AC}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 				</attributes>
 				<constraints>
@@ -1733,6 +1741,21 @@
 				<xrefs />
 				<extendedProperties tagged="0" package_name="Packaging" />
 				<attributes>
+					<attribute xmi:idref="EAID_03CDEFB7_67B8_4310_A5D7_E3FA99CBDD57" name="description" scope="Public">
+						<initial />
+						<documentation value="A human readable description for the Package." />
+						<model ea_localid="476" ea_guid="{03CDEFB7-67B8-4310-A5D7-E3FA99CBDD57}" />
+						<properties type="String" collection="false" static="0" duplicates="1" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="3" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;union=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={CB37FC2E-771C-4968-A9FA-509729EC7A3C}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={03CDEFB7-67B8-4310-A5D7-E3FA99CBDD57}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					</attribute>
 					<attribute xmi:idref="EAID_92CAFF82_73D8_4c5d_86A2_5768EDE59367" name="downloadCount" scope="Public">
 						<initial />
 						<documentation value="Total downloads across the Package, computed as the sum of downloadCount over all its PackageVersions. Never set directly; always reflects the current totals of its versions." />
@@ -1872,7 +1895,7 @@
 						<initial />
 						<documentation value="Human readable character string in English by which something can be referred to." />
 						<model ea_localid="433" ea_guid="{932920D8-9B6C-4e9e-B832-DEB63E72B9E6}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
 						<stereotype />
@@ -1881,7 +1904,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={C473606D-F7AE-47c4-90E9-CA3A221DE3D6}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={932920D8-9B6C-4e9e-B832-DEB63E72B9E6}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 				</attributes>
 				<links>
@@ -2090,7 +2113,7 @@
 						<initial />
 						<documentation value="The email address where the Scope can be reached for anything unrelated to billing." />
 						<model ea_localid="443" ea_guid="{A3370745-185E-4a8b-BF80-3C9CE8B4B7CE}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="2" />
 						<stereotype />
@@ -2099,13 +2122,13 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={C008FEF3-6DF4-4364-A436-F302776F91C0}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={A3370745-185E-4a8b-BF80-3C9CE8B4B7CE}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_3A696494_7AB4_4608_95BD_E60428D81D1B" name="origin" scope="Public">
 						<initial body="local" />
 						<documentation value="Denotes whether the Scope was created local to this Forge instance, or whether it was proxied from another location. When the value states  &quot;local&quot;, then it is local to the current Forge instance, otherwise the value needs to be a URI pointing to the location it was proxied from." />
 						<model ea_localid="444" ea_guid="{3A696494-7AB4-4608-95BD-E60428D81D1B}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="5" />
 						<stereotype />
@@ -2114,13 +2137,13 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={CA7DE0F5-2C4A-49ae-8B57-4EE345FAE180}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={3A696494-7AB4-4608-95BD-E60428D81D1B}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_98A41878_8269_4533_A0B2_0F3F7989F334" name="status" scope="Public">
 						<initial body="ACTIVE" />
 						<documentation value="The status of the Scope, when the Scope is an Account, inactive means the user that cannot login anymore. When the scope is an Organization, packages can no longer be published or uploaded, nor any PackageVersions" />
 						<model ea_localid="445" ea_guid="{98A41878-8269-4533-A0B2-0F3F7989F334}" />
-						<properties type="ScopeStatusKind" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="ScopeStatusKind" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="1" />
 						<stereotype />
@@ -2129,7 +2152,7 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={2853AF6A-240D-4269-909D-94D3650FD404}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={98A41878-8269-4533-A0B2-0F3F7989F334}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_2F9A52BC_EA1F_4af4_B07C_0FA5005BCF26" name="website" scope="Public">
 						<initial />
@@ -2169,7 +2192,7 @@
 				<attributes>
 					<attribute xmi:idref="EAID_99DCF2DF_5692_4f89_88DD_F3CEB21DA1D5" name="isCurated" scope="Public">
 						<initial />
-						<documentation />
+						<documentation value="Indicates whether the tag is part of the Forge's curated global tag set rather than an ad-hoc, user-created label." />
 						<model ea_localid="447" ea_guid="{99DCF2DF-5692-4f89-88DD-F3CEB21DA1D5}" />
 						<properties type="Integer" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
@@ -2178,7 +2201,7 @@
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
-						<styleex value="volatile=0;" />
+						<styleex value="volatile=0;union=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -2186,7 +2209,7 @@
 						<initial />
 						<documentation value="the tag's text value, stored as a String. Unique after normalisation; what's displayed and matched against in search/autocomplete" />
 						<model ea_localid="448" ea_guid="{969CFA62-079A-4551-A43D-88F5EA5FF592}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="1" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
 						<stereotype />
@@ -2195,16 +2218,16 @@
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={1696BA00-390B-408f-8DEB-40C11B80863E}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={969CFA62-079A-4551-A43D-88F5EA5FF592}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 				</attributes>
 				<links>
 					<Association xmi:id="EAID_2113B896_A2F7_494b_8A14_ABD1D4CD5362" start="EAID_17429100_7982_41d3_AD5A_241745EAC4FE" end="EAID_B267D33A_7D03_4de8_BC66_066A0EC0DF2D" />
 				</links>
 			</element>
-  <element xmi:idref="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" xmi:type="uml:DataType" name="byte" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <element xmi:idref="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" xmi:type="uml:PrimitiveType" name="byte" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="633" ea_eleType="element" />
-				<properties documentation="An unsigned 8-bit primitive (0�255)" isSpecification="false" sType="DataType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<properties documentation="An unsigned 8-bit primitive (0�255)" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
 				<project author="sgerene" version="1.0" phase="1.0" created="2026-08-09 17:15:01" modified="2026-08-18 11:17:03" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
@@ -2212,9 +2235,9 @@
 				<xrefs />
 				<extendedProperties tagged="0" package_name="Primitives" />
 			</element>
-  <element xmi:idref="EAID_5A174943_DF4B_4223_AB56_590429667355" xmi:type="uml:DataType" name="DateTime" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <element xmi:idref="EAID_5A174943_DF4B_4223_AB56_590429667355" xmi:type="uml:PrimitiveType" name="DateTime" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="555" ea_eleType="element" />
-				<properties documentation="character string datatype that represents a calendar date and time in ISO 8601 format&#xA;&#xA;Note: The permissible syntax is specified in XML Schema W3C Recommendation for the dateTime datatype, see http://www.w3.org/TR/xmlschema-2/#dateTime.&#xA;&#xA;Example 1: &quot;2010-01-02T07:59:00Z&quot; represents 2nd of January 2010 at 7 hours 59 minutes and 0 seconds UTC.&#xA;&#xA;Example 2: &quot;2009-10-23T16:04:23.332+02&quot; represents 23rd of October 2009 at 16 hours 4 minutes and 23.332 seconds in a timezone 2 hours ahead of UTC. &#xA;" isSpecification="false" sType="DataType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<properties documentation="character string datatype that represents a calendar date and time in ISO 8601 format&#xA;&#xA;Note: The permissible syntax is specified in XML Schema W3C Recommendation for the dateTime datatype, see http://www.w3.org/TR/xmlschema-2/#dateTime.&#xA;&#xA;Example 1: &quot;2010-01-02T07:59:00Z&quot; represents 2nd of January 2010 at 7 hours 59 minutes and 0 seconds UTC.&#xA;&#xA;Example 2: &quot;2009-10-23T16:04:23.332+02&quot; represents 23rd of October 2009 at 16 hours 4 minutes and 23.332 seconds in a timezone 2 hours ahead of UTC. &#xA;" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
 				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 15:39:31" modified="2026-08-18 11:18:31" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
@@ -2222,9 +2245,9 @@
 				<xrefs />
 				<extendedProperties tagged="0" package_name="Primitives" />
 			</element>
-  <element xmi:idref="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" xmi:type="uml:DataType" name="SemVer" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <element xmi:idref="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" xmi:type="uml:PrimitiveType" name="SemVer" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="641" ea_eleType="element" />
-				<properties documentation="A specialization of String that represents a version identifier conforming to the Semantic Versioning 2.0.0 specification: MAJOR.MINOR.PATCH, optionally followed by a pre-release label and build metadata (e.g. &quot;2.1.0&quot;, &quot;1.0.0-beta.1&quot;, &quot;1.4.2+build.20260812&quot;). Used as the type of PackageVersion.version, so the format constraint lives once on the type itself rather than being re-declared everywhere a version string is used" isSpecification="false" sType="DataType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<properties documentation="A specialization of String that represents a version identifier conforming to the Semantic Versioning 2.0.0 specification: MAJOR.MINOR.PATCH, optionally followed by a pre-release label and build metadata (e.g. &quot;2.1.0&quot;, &quot;1.0.0-beta.1&quot;, &quot;1.4.2+build.20260812&quot;). Used as the type of PackageVersion.version, so the format constraint lives once on the type itself rather than being re-declared everywhere a version string is used" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
 				<project author="sgerene" version="1.0" phase="1.0" created="2026-08-12 10:32:10" modified="2026-08-18 15:12:21" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
@@ -2235,19 +2258,19 @@
 					<constraint name="regexMatch" description="inv regexMatch: self.matches('^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$')" type="OCL" weight="0,00" status="Approved" />
 				</constraints>
 			</element>
-  <element xmi:idref="EAID_22870794_6112_48be_B11D_0E5641FDBFF9" xmi:type="uml:DataType" name="URI" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <element xmi:idref="EAID_22870794_6112_48be_B11D_0E5641FDBFF9" xmi:type="uml:PrimitiveType" name="URI" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="568" ea_eleType="element" />
-				<properties documentation="character string datatype that represents a Uniform Resource Identifier (URI) and conforms to its syntax as specified in IETF RFC 3986&#xA;" isSpecification="false" sType="DataType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-23 11:51:48" modified="2026-08-18 11:19:21" complexity="1" status="Proposed" />
+				<properties documentation="character string datatype that represents a Uniform Resource Identifier (URI) and conforms to its syntax as specified in IETF RFC 3986&#xA;" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-23 11:51:48" modified="2026-08-31 09:38:14" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
 				<xrefs />
 				<extendedProperties tagged="0" package_name="Primitives" />
 			</element>
-  <element xmi:idref="EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" xmi:type="uml:DataType" name="UUID" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+  <element xmi:idref="EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" xmi:type="uml:PrimitiveType" name="UUID" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="556" ea_eleType="element" />
-				<properties documentation="format = RFC 9562 UUID version 7" isSpecification="false" sType="DataType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<properties documentation="format = RFC 9562 UUID version 7" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
 				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:22:57" modified="2026-08-18 11:19:29" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
@@ -3099,7 +3122,7 @@
 				<target xmi:idref="EAID_5E20ADE8_09B7_4fdd_993D_A80F2328C5AE">
 					<model ea_localid="648" type="Class" name="Address" />
 					<role name="primaryAddress" visibility="Public" targetScope="instance" />
-					<type multiplicity="1" aggregation="none" containment="Unspecified" />
+					<type multiplicity="0..1" aggregation="none" containment="Unspecified" />
 					<constraints />
 					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
 					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
@@ -3113,7 +3136,7 @@
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
-				<labels lb="1" lt="+primaryAddressOf" rb="1" rt="+primaryAddress" />
+				<labels lb="1" lt="+primaryAddressOf" rb="0..1" rt="+primaryAddress" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
