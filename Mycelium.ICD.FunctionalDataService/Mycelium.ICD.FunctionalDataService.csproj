@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Mycelium.ICD.FunctionalDataService</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Mycelium ICD - Functional Data Service</Title>
+    <Description>OpenAPI 3.1 interface control document (JSON) for the Mycelium Fabric Functional Data Service REST API, for use with OpenAPI-based client/server code generation.</Description>
+    <PackageTags>OpenAPI ICD REST mycelium fabric functional-data-service</PackageTags>
+    <PackageReleaseNotes>Initial release: the Functional Data Service OpenAPI document as generated from the Enterprise Architect software architecture model.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="mycelium-functional-data-service.openapi.json" Pack="true" PackagePath="icd/" />
+    <None Include="build\Mycelium.ICD.FunctionalDataService.props" Pack="true" PackagePath="build\" />
+    <None Include="buildTransitive\Mycelium.ICD.FunctionalDataService.props" Pack="true" PackagePath="buildTransitive\" />
+  </ItemGroup>
+
+</Project>

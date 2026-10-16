@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- $(MSBuildThisFileDirectory) = .../build/ or .../buildTransitive/ inside the installed package -->
+    <MyceliumIcdDir>$(MSBuildThisFileDirectory)../icd/</MyceliumIcdDir>
+    <MyceliumIcdFunctionalDataServiceOpenApiPath>$(MyceliumIcdDir)mycelium-functional-data-service.openapi.json</MyceliumIcdFunctionalDataServiceOpenApiPath>
+  </PropertyGroup>
+</Project>
