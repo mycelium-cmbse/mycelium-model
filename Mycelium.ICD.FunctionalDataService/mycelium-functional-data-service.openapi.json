@@ -1,0 +1,3413 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Mycelium Fabric — Functional Data Service API",
+    "version": "0.1.0",
+    "summary": "Platform data surrounding a SysML v2 model: organizations, projects, membership, ownership and reviews.",
+    "description": "The REST surface of the Mycelium Fabric Functional Data Service: the platform data\nthat surrounds a SysML v2 model, rather than the model itself. Projects, branches, commits and model\nelements belong to the Concurrent Server and are reached through the OMG Systems Modelling API; a\nreference held here to anything on that side is an identifier, never embedded content.\n\nGenerated from the Enterprise Architect model `SysML2_Software_Architecture.qea`, in which every\noperation is a `«route»` on an `«apiModule»` class. Three conventions follow from that and are not\nvisible in the paths:\n\n- **Authentication and authorization happen at the edge.** Every request passes an nginx\n  `auth_request` subrequest to `/internal/auth`, which answers 200, 401 or 403 and stamps the\n  resolved account onto the request it allows. No operation below declares 401 or 403, because the\n  gate produces them for all of them uniformly, and no operation takes a current-user parameter.\n- **A body never nests a composed child that has routes of its own.** A project body carries no\n  members, ownerships, reviews or protection rules; each is created and deleted through its own\n  path. The one exception is a project's policy, which has no routes and is therefore nested.\n- **Server-assigned values are `readOnly`.** Identifiers and the audit stamps are omitted from\n  request bodies and present in responses. A `PATCH` body is partial, so it is described by a\n  separate `…Patch` schema with nothing required.\n\nCollections are unpaged, deliberately: the expected volumes do not warrant it.\n\nOperations carry `x-satisfies`, listing the Software System Specification requirements they\nimplement. Twelve of the forty-two have none, which is accurate rather than an omission: the\nspecification does not cover reviews or comments at all, and the gate, session and policy-read\noperations are architectural."
+  },
+  "servers": [
+    {
+      "url": "https://{host}",
+      "variables": {
+        "host": {
+          "default": "mycelium.example.org",
+          "description": "The deployment host."
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "The nginx auth_request target, answering 200, 401 or 403 and stamping the resolved account onto the request it allows."
+    },
+    {
+      "name": "Session",
+      "description": "The single call a client makes when it opens a session."
+    },
+    {
+      "name": "Organizations",
+      "description": "The organization tree and its membership, including user creation since a user cannot exist outside an organization."
+    },
+    {
+      "name": "Projects",
+      "description": "The project and everything composed into it except reviews, which have their own module."
+    },
+    {
+      "name": "Users",
+      "description": "The mirror of a Keycloak identity, which is readable here but owned there."
+    },
+    {
+      "name": "Reviews",
+      "description": "Merge proposals on a project and the comment threads they carry."
+    }
+  ],
+  "paths": {
+    "/internal/auth": {
+      "get": {
+        "operationId": "checkAccess",
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Check access",
+        "x-internal": true,
+        "parameters": [
+          {
+            "name": "X-Original-URI",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "The request being checked, forwarded by nginx because the auth subrequest carries neither the original uri nor its method."
+          },
+          {
+            "name": "X-Original-Method",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The verb the action is inferred from; the auth subrequest itself is always a GET."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success."
+          },
+          "401": {
+            "description": "The request is not authenticated."
+          },
+          "403": {
+            "description": "The account may not perform the action."
+          }
+        }
+      }
+    },
+    "/mycelium/organizations": {
+      "post": {
+        "operationId": "createOrganization",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Create organization",
+        "x-satisfies": [
+          "SSS-IA-ORG-K8W",
+          "SSS-CC-SS-HV9"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Organization"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getOrganizations",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Get organizations",
+        "x-satisfies": [
+          "SSS-IA-ORG-V4R"
+        ],
+        "responses": {
+          "200": {
+            "description": "The organizations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mycelium/organizations/{organizationId}": {
+      "get": {
+        "operationId": "getOrganization",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Get organization",
+        "x-satisfies": [
+          "SSS-IA-ORG-M3J"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateOrganization",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Update organization",
+        "x-satisfies": [
+          "SSS-IA-ORG-K8W"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteOrganization",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Delete organization",
+        "description": "Composition carries the delete down to the policy and to every project beneath.",
+        "x-satisfies": [
+          "SSS-IA-ORG-K8W"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/organizations/{organizationId}/members": {
+      "get": {
+        "operationId": "getOrganizationMembers",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Get organization members",
+        "x-satisfies": [
+          "SSS-OA-USR-T18"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization members.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganizationMember"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addOrganizationMember",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Add organization member",
+        "x-satisfies": [
+          "SSS-IA-USR-H7F",
+          "SSS-OA-ROLE-TBX"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationMember"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The organization member.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/organizations/{organizationId}/members/{memberId}": {
+      "patch": {
+        "operationId": "updateOrganizationMember",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Update organization member",
+        "x-satisfies": [
+          "SSS-OA-ROLE-TBX"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationMemberPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The organization member.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "removeOrganizationMember",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Remove organization member",
+        "description": "Removing the last member is refused, because an organization is modelled as having at least one.",
+        "x-satisfies": [
+          "SSS-IA-USR-H7F"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/mycelium/organizations/{organizationId}/policy": {
+      "get": {
+        "operationId": "getOrganizationPolicy",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Get organization policy",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization policy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationPolicy"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateOrganizationPolicy",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Update organization policy",
+        "x-satisfies": [
+          "SSS-OA-ROLE-PQH"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationPolicyPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The organization policy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationPolicy"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/organizations/{organizationId}/users": {
+      "post": {
+        "operationId": "createUser",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Create user",
+        "description": "Scoped to an organization, because a user is modelled as belonging to at least one.",
+        "x-satisfies": [
+          "SSS-IA-USR-Q2N",
+          "SSS-OA-USR-N35"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects": {
+      "post": {
+        "operationId": "createProject",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Create project",
+        "description": "The requesting user becomes the project administrator, and the policy is created with the project.",
+        "x-satisfies": [
+          "SSS-CC-SS-FUU",
+          "SSS-OA-PROJ-TWK",
+          "SSS-PA-STATE-Q8L"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FunctionalProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The functional project.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FunctionalProject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getProjects",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get projects",
+        "description": "Scoped by visibility, so a public project appears across organizations.",
+        "x-satisfies": [
+          "SSS-CC-PROF-L6D",
+          "SSS-CC-SS-LEZ"
+        ],
+        "responses": {
+          "200": {
+            "description": "The functional projects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionalProject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}": {
+      "get": {
+        "operationId": "getProject",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get project",
+        "x-satisfies": [
+          "SSS-CC-SS-LEZ"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The functional project.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FunctionalProject"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateProject",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Update project",
+        "description": "Carries the lifecycle, the mode and the policy flags, so the handler authorises each field rather than the route.",
+        "x-satisfies": [
+          "SSS-PA-MGMT-B3R",
+          "SSS-PA-MGMT-73C",
+          "SSS-PA-STATE-K7N",
+          "SSS-PA-STATE-M8T"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FunctionalProjectPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The functional project.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FunctionalProject"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteProject",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Delete project",
+        "description": "Composition carries the delete down to the policy, the members, the ownerships, the reviews and the protection rules.",
+        "x-satisfies": [
+          "SSS-OA-PROJ-PFY"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/branch-protection-rules": {
+      "get": {
+        "operationId": "getBranchProtectionRules",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get branch protection rules",
+        "x-satisfies": [
+          "SSS-PA-VC-28D"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The branch protection rules.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BranchProtectionRule"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "operationId": "replaceBranchProtectionRules",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Replace branch protection rules",
+        "description": "The whole set is replaced, since nothing references a rule by identity.",
+        "x-satisfies": [
+          "SSS-PA-VC-28D"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BranchProtectionRule"
+                }
+              }
+            }
+          },
+          "description": "The complete rule set for the project."
+        },
+        "responses": {
+          "200": {
+            "description": "The branch protection rules.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BranchProtectionRule"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/members": {
+      "get": {
+        "operationId": "getProjectMembers",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get project members",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The project members.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectMember"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addProjectMember",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Add project member",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMember"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The project member.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/members/{memberId}": {
+      "patch": {
+        "operationId": "updateProjectMember",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Update project member",
+        "description": "Transferring administration and reassigning an ownership are both changes to the membership.",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF",
+          "SSS-PA-MGMT-KYM",
+          "SSS-PT-UI-256"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMemberPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The project member.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "removeProjectMember",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Remove project member",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/ownerships": {
+      "get": {
+        "operationId": "getProjectOwnerships",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get project ownerships",
+        "x-satisfies": [
+          "SSS-PA-MGMT-YC1"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The ownerships.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ownership"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createProjectOwnership",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Create project ownership",
+        "x-satisfies": [
+          "SSS-PA-MGMT-YC1"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ownership"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The ownership.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ownership"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/ownerships/{ownershipId}": {
+      "patch": {
+        "operationId": "updateProjectOwnership",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Update project ownership",
+        "x-satisfies": [
+          "SSS-PA-MGMT-YC1"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "ownershipId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnershipPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The ownership.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ownership"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteProjectOwnership",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Delete project ownership",
+        "description": "Refused while a member is still assigned to it.",
+        "x-satisfies": [
+          "SSS-PA-MGMT-YC1"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "ownershipId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews": {
+      "get": {
+        "operationId": "getReviews",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get reviews",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The reviews.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createReview",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Create review",
+        "description": "Both branches live in the Concurrent Server, so only their identifiers are held here.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The review.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews/{reviewId}": {
+      "get": {
+        "operationId": "getReview",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get review",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The review.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateReview",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Update review",
+        "description": "Carries the status and the reviewer set, so submitting, approving and requesting changes are all status changes.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The review.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteReview",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Delete review",
+        "description": "Composition carries the delete down to every comment thread.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews/{reviewId}/comments": {
+      "get": {
+        "operationId": "getReviewComments",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get review comments",
+        "description": "The thread is returned whole, since a reply and a quote each reference another comment.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The comments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addReviewComment",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Add review comment",
+        "description": "A reply or a quote is a comment carrying the comment it answers.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The comment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews/{reviewId}/comments/{commentId}": {
+      "patch": {
+        "operationId": "updateReviewComment",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Update review comment",
+        "description": "Resolving a comment is a status change.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The comment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteReviewComment",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Delete review comment",
+        "description": "Composition carries the delete down to the replies.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/session": {
+      "get": {
+        "operationId": "getSession",
+        "tags": [
+          "Session"
+        ],
+        "summary": "Get session",
+        "responses": {
+          "200": {
+            "description": "The session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mycelium/users": {
+      "get": {
+        "operationId": "getUsers",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get users",
+        "x-satisfies": [
+          "SSS-IA-USR-B6P"
+        ],
+        "responses": {
+          "200": {
+            "description": "The users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mycelium/users/{userId}": {
+      "get": {
+        "operationId": "getUser",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user",
+        "x-satisfies": [
+          "SSS-CC-PROF-L6D"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateUser",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user",
+        "description": "Limited to the preferences and the platform status, because Keycloak owns the name, the mail and the identifier.",
+        "x-satisfies": [
+          "SSS-IA-USR-Q2N",
+          "SSS-OA-USR-N35"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/mycelium/users/{userId}/projects": {
+      "get": {
+        "operationId": "getUserProjects",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user projects",
+        "description": "The projects the user is a member of, which is narrower than what visibility would let them open.",
+        "x-satisfies": [
+          "SSS-CC-PROF-L6D",
+          "SSS-CC-PROF-52O"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The functional projects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FunctionalProject"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "An access token issued by the identity provider the deployment is configured against. The gate validates it; no service below sees a credential."
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "No such resource.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "The request conflicts with a constraint of the data model.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ActivationStatus": {
+        "type": "string",
+        "enum": [
+          "Active",
+          "Pending",
+          "Suspended",
+          "Archived",
+          "Deleted"
+        ],
+        "description": "Defines the lifecycle status shared by User and Organization entities, controlling platform access and visibility."
+      },
+      "BranchProtectionRule": {
+        "type": "object",
+        "description": "Defines protection rules for a specific engineering branch, controlling merge permissions and review requirements.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "reviewRequired": {
+            "type": "boolean",
+            "description": "Indicates whether at least one approved Review is required before a merge can proceed."
+          },
+          "engineeringBranchId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the protected branch in the Concurrent Server."
+          },
+          "mergeAllowedFor": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectMemberRole"
+            },
+            "minItems": 1,
+            "description": "The set of ProjectMemberRole values permitted to merge into this protected branch."
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name of the current rule."
+          },
+          "minimumRequiredApproval": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Gets or sets the number of approval(s) required before being allowed to merge a Branch."
+          },
+          "defaultReviewers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each User."
+          }
+        },
+        "required": [
+          "engineeringBranchId",
+          "mergeAllowedFor",
+          "minimumRequiredApproval",
+          "name",
+          "reviewRequired"
+        ],
+        "additionalProperties": false
+      },
+      "Comment": {
+        "type": "object",
+        "description": "Represents a user comment attached to a Review, targeting a specific model element. Supports threaded replies.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "content": {
+            "type": "string",
+            "description": "The textual content of the comment."
+          },
+          "targetElementId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid of the SysML v2 model element this comment is attached to in the Concurrent Server."
+          },
+          "commentStatus": {
+            "$ref": "#/components/schemas/CommentStatus",
+            "description": "Defines the current status of the current Comment."
+          },
+          "author": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "replies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Comment, each of which has its own routes."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identifies the Comment, which has its own routes."
+          }
+        },
+        "required": [
+          "author",
+          "commentStatus",
+          "content",
+          "targetElementId"
+        ],
+        "additionalProperties": false
+      },
+      "CommentPatch": {
+        "type": "object",
+        "description": "A partial Comment; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "content": {
+            "type": "string",
+            "description": "The textual content of the comment."
+          },
+          "targetElementId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid of the SysML v2 model element this comment is attached to in the Concurrent Server."
+          },
+          "commentStatus": {
+            "$ref": "#/components/schemas/CommentStatus",
+            "description": "Defines the current status of the current Comment."
+          },
+          "author": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "replies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Comment, each of which has its own routes."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identifies the Comment, which has its own routes."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CommentStatus": {
+        "type": "string",
+        "enum": [
+          "Open",
+          "Resolved"
+        ],
+        "description": "Defines all possible status that a Comment can have."
+      },
+      "FunctionalProject": {
+        "type": "object",
+        "description": "Represents the Functional Data Server projection of an engineering project, linking platform metadata to the corresponding SysML v2 model in the Concurrent Server.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "engineeringProjectId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the corresponding OMG Systems Modelling API Project in the Concurrent Server."
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/ProjectVisibility",
+            "description": "The ProjectVisibility controlling who can discover and access this project."
+          },
+          "lifecycle": {
+            "$ref": "#/components/schemas/ProjectLifecycleKind",
+            "description": "The current ProjectLifecycleKind controlling editing permissions across the project."
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the project."
+          },
+          "currentMode": {
+            "$ref": "#/components/schemas/ProjectMode",
+            "description": "The current ProjectMode (Regular or Concurrent) governing ownership enforcement for this project."
+          },
+          "description": {
+            "type": "string",
+            "description": "A short human-readable description of the project purpose."
+          },
+          "sharedPreferences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collects all preferences created and shared by users, to create common custom views."
+          },
+          "belongsTo": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Organization."
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Review, each of which has its own routes."
+          },
+          "involves": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each ProjectMember, each of which has its own routes."
+          },
+          "defines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Ownership, each of which has its own routes."
+          },
+          "branchRules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each BranchProtectionRule, each of which has its own routes."
+          },
+          "policy": {
+            "$ref": "#/components/schemas/FunctionalProjectPolicy"
+          }
+        },
+        "required": [
+          "belongsTo",
+          "currentMode",
+          "description",
+          "engineeringProjectId",
+          "lifecycle",
+          "name",
+          "policy",
+          "sharedPreferences",
+          "visibility"
+        ],
+        "additionalProperties": false
+      },
+      "FunctionalProjectPatch": {
+        "type": "object",
+        "description": "A partial FunctionalProject; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "engineeringProjectId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the corresponding OMG Systems Modelling API Project in the Concurrent Server."
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/ProjectVisibility",
+            "description": "The ProjectVisibility controlling who can discover and access this project."
+          },
+          "lifecycle": {
+            "$ref": "#/components/schemas/ProjectLifecycleKind",
+            "description": "The current ProjectLifecycleKind controlling editing permissions across the project."
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the project."
+          },
+          "currentMode": {
+            "$ref": "#/components/schemas/ProjectMode",
+            "description": "The current ProjectMode (Regular or Concurrent) governing ownership enforcement for this project."
+          },
+          "description": {
+            "type": "string",
+            "description": "A short human-readable description of the project purpose."
+          },
+          "sharedPreferences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collects all preferences created and shared by users, to create common custom views."
+          },
+          "belongsTo": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Organization."
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Review, each of which has its own routes."
+          },
+          "involves": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each ProjectMember, each of which has its own routes."
+          },
+          "defines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Ownership, each of which has its own routes."
+          },
+          "branchRules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each BranchProtectionRule, each of which has its own routes."
+          },
+          "policy": {
+            "$ref": "#/components/schemas/FunctionalProjectPolicy"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FunctionalProjectPolicy": {
+        "type": "object",
+        "description": "The FunctionalProjectPolicy defines policies t associated to as specific FunctionalProject.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "allowAutoPublishMode": {
+            "type": "boolean",
+            "description": "Asserts if publish mode can be set on this project or not."
+          },
+          "allowAutoNamespaceImport": {
+            "type": "boolean",
+            "description": "Asserts if automatically importing namespace is allowed or not."
+          },
+          "allowVersionBranching": {
+            "type": "boolean",
+            "description": "Asserts that the branching system for the version control is allowed or not."
+          }
+        },
+        "required": [
+          "allowAutoNamespaceImport",
+          "allowAutoPublishMode",
+          "allowVersionBranching"
+        ],
+        "additionalProperties": false
+      },
+      "Organization": {
+        "type": "object",
+        "description": "Represents a tenant boundary in the Mycelium platform. On SaaS each customer maps to one Organization; on-premise deployments may host multiple.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the organization."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivationStatus",
+            "description": "The current ActivationStatus of the organization, controlling platform access for all its members."
+          },
+          "description": {
+            "type": "string",
+            "description": "A short human-readable description of the organization."
+          },
+          "policy": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identifies the OrganizationPolicy, which has its own routes."
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each FunctionalProject, each of which has its own routes."
+          }
+        },
+        "required": [
+          "description",
+          "name",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "OrganizationMember": {
+        "type": "object",
+        "description": "Represents the membership of a User within an Organization, carrying the organization-level role.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/OrganizationMembershipRole",
+            "description": "The OrganizationMembershipRole assigned to the user within the organization."
+          },
+          "organization": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Organization."
+          }
+        },
+        "required": [
+          "organization",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "OrganizationMemberPatch": {
+        "type": "object",
+        "description": "A partial OrganizationMember; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/OrganizationMembershipRole",
+            "description": "The OrganizationMembershipRole assigned to the user within the organization."
+          },
+          "organization": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Organization."
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganizationMembershipRole": {
+        "type": "string",
+        "enum": [
+          "Administrator",
+          "Member",
+          "Owner"
+        ],
+        "description": "Defines the role a User holds within an Organization."
+      },
+      "OrganizationPatch": {
+        "type": "object",
+        "description": "A partial Organization; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the organization."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivationStatus",
+            "description": "The current ActivationStatus of the organization, controlling platform access for all its members."
+          },
+          "description": {
+            "type": "string",
+            "description": "A short human-readable description of the organization."
+          },
+          "policy": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identifies the OrganizationPolicy, which has its own routes."
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each FunctionalProject, each of which has its own routes."
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganizationPolicy": {
+        "type": "object",
+        "description": "Holds configurable policy settings for an Organization. Separated from identity data to allow independent auditing of policy changes.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "allowProjectCreation": {
+            "type": "boolean",
+            "description": "When true, Organization Members are permitted to create new projects within this organization."
+          },
+          "defaultProjectLifecycleOnCreate": {
+            "$ref": "#/components/schemas/ProjectLifecycleKind",
+            "description": "Defines the default ProjectLifecycle that should be set on a newly created project."
+          },
+          "grantReadOnlyViewForAudit": {
+            "type": "boolean",
+            "description": "When true, grants the Organization Administrator implicit read-only access to all projects in the organization for audit purposes."
+          }
+        },
+        "required": [
+          "allowProjectCreation",
+          "defaultProjectLifecycleOnCreate",
+          "grantReadOnlyViewForAudit"
+        ],
+        "additionalProperties": false
+      },
+      "OrganizationPolicyPatch": {
+        "type": "object",
+        "description": "A partial OrganizationPolicy; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "allowProjectCreation": {
+            "type": "boolean",
+            "description": "When true, Organization Members are permitted to create new projects within this organization."
+          },
+          "defaultProjectLifecycleOnCreate": {
+            "$ref": "#/components/schemas/ProjectLifecycleKind",
+            "description": "Defines the default ProjectLifecycle that should be set on a newly created project."
+          },
+          "grantReadOnlyViewForAudit": {
+            "type": "boolean",
+            "description": "When true, grants the Organization Administrator implicit read-only access to all projects in the organization for audit purposes."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ownership": {
+        "type": "object",
+        "description": "Defines a named domain of responsibility within a FunctionalProject. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full display name of the ownership domain (e.g. \"Thermal\", \"Power\")."
+          },
+          "shortName": {
+            "type": "string",
+            "description": "An abbreviated label used for ownership indicators in diagrams and UI elements (e.g. \"THM\", \"PWR\")."
+          },
+          "description": {
+            "type": "string",
+            "description": "Gets or sets the description of the current ownership."
+          },
+          "engineeringMetadataId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Gets the engineering metadata definition that has to be mapped to replicate the Ownership on the concurrent server."
+          }
+        },
+        "required": [
+          "description",
+          "engineeringMetadataId",
+          "name",
+          "shortName"
+        ],
+        "additionalProperties": false
+      },
+      "OwnershipPatch": {
+        "type": "object",
+        "description": "A partial Ownership; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full display name of the ownership domain (e.g. \"Thermal\", \"Power\")."
+          },
+          "shortName": {
+            "type": "string",
+            "description": "An abbreviated label used for ownership indicators in diagrams and UI elements (e.g. \"THM\", \"PWR\")."
+          },
+          "description": {
+            "type": "string",
+            "description": "Gets or sets the description of the current ownership."
+          },
+          "engineeringMetadataId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Gets the engineering metadata definition that has to be mapped to replicate the Ownership on the concurrent server."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Problem": {
+        "type": "object",
+        "description": "A problem detail document, as defined by RFC 9457.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "ProjectLifecycleKind": {
+        "type": "string",
+        "enum": [
+          "Preparation",
+          "Open",
+          "Review",
+          "Archived"
+        ],
+        "description": "Defines the lifecycle phase of a FunctionalProject, controlling which roles may perform editing operations."
+      },
+      "ProjectMember": {
+        "type": "object",
+        "description": "Represents the membership of a User within a FunctionalProject, carrying the project-level role and optional ownership assignment.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/ProjectMemberRole",
+            "description": "The ProjectMemberRole assigned to the user within the project, determining their editing and access permissions."
+          },
+          "isOutsideCollaborator": {
+            "type": "boolean",
+            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner."
+          },
+          "isPartOf": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the FunctionalProject."
+          },
+          "owns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each Ownership."
+          },
+          "activeOwnership": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Ownership."
+          }
+        },
+        "required": [
+          "isOutsideCollaborator",
+          "isPartOf",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "ProjectMemberPatch": {
+        "type": "object",
+        "description": "A partial ProjectMember; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/ProjectMemberRole",
+            "description": "The ProjectMemberRole assigned to the user within the project, determining their editing and access permissions."
+          },
+          "isOutsideCollaborator": {
+            "type": "boolean",
+            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner."
+          },
+          "isPartOf": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the FunctionalProject."
+          },
+          "owns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each Ownership."
+          },
+          "activeOwnership": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Ownership."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectMemberRole": {
+        "type": "string",
+        "enum": [
+          "Administrator",
+          "Participant",
+          "Viewer"
+        ],
+        "description": "Defines the role a User holds within a FunctionalProject, governing editing permissions and ownership enforcement."
+      },
+      "ProjectMode": {
+        "type": "string",
+        "enum": [
+          "Regular",
+          "Concurrent"
+        ],
+        "description": "Defines the editing mode of a FunctionalProject, controlling whether ownership enforcement is active."
+      },
+      "ProjectVisibility": {
+        "type": "string",
+        "enum": [
+          "Private",
+          "Organization",
+          "Public"
+        ],
+        "description": "Controls who can discover and access a FunctionalProject."
+      },
+      "Review": {
+        "type": "object",
+        "description": "Represents a merge proposal from a source branch into a protected target branch, tracking review status, designated reviewers, and associated comments.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "sourceBranchId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the source branch in the Concurrent Server whose changes are proposed for merge."
+          },
+          "targetBranchId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the protected target branch in the Concurrent Server into which the merge is proposed."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReviewStatus",
+            "description": "The current ReviewStatus of this review, tracking its progression from Draft to Closed."
+          },
+          "title": {
+            "type": "string",
+            "description": "Gets or sets the given title of the current review."
+          },
+          "description": {
+            "type": "string",
+            "description": "Gets or sets the description of the current Review."
+          },
+          "author": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "reviewers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each User."
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Comment, each of which has its own routes."
+          }
+        },
+        "required": [
+          "author",
+          "description",
+          "sourceBranchId",
+          "status",
+          "targetBranchId",
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewPatch": {
+        "type": "object",
+        "description": "A partial Review; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "sourceBranchId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the source branch in the Concurrent Server whose changes are proposed for merge."
+          },
+          "targetBranchId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Guid referencing the protected target branch in the Concurrent Server into which the merge is proposed."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReviewStatus",
+            "description": "The current ReviewStatus of this review, tracking its progression from Draft to Closed."
+          },
+          "title": {
+            "type": "string",
+            "description": "Gets or sets the given title of the current review."
+          },
+          "description": {
+            "type": "string",
+            "description": "Gets or sets the description of the current Review."
+          },
+          "author": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "reviewers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each User."
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each Comment, each of which has its own routes."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewStatus": {
+        "type": "string",
+        "enum": [
+          "Draft",
+          "Ready",
+          "Approved",
+          "ChangesRequested",
+          "Closed"
+        ],
+        "description": "Tracks the progression of a Review through its lifecycle from creation to closure."
+      },
+      "Session": {
+        "type": "object",
+        "description": "Everything a client needs when it opens a session, so the bootstrap is one round trip.",
+        "properties": {
+          "Account": {
+            "$ref": "#/components/schemas/User",
+            "description": "The account the request is authenticated as, resolved from the identity the gate stamped."
+          },
+          "PushAvailable": {
+            "type": "boolean",
+            "description": "Whether a push connection can be opened, rather than leaving a client to infer it from a failure."
+          }
+        },
+        "required": [
+          "Account",
+          "PushAvailable"
+        ],
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "description": "A lightweight mirror of an identity managed by Keycloak. Holds only the data required by the Functional Server for permission resolution and UI display.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the user, cached from Keycloak for UI rendering."
+          },
+          "mail": {
+            "type": "string",
+            "description": "The email address of the user, cached from Keycloak for display purposes."
+          },
+          "externalIdentifier": {
+            "type": "string",
+            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivationStatus",
+            "description": "The current ActivationStatus of the user. Set to Deleted when Keycloak publishes a user removal event, preserving referential integrity before cascade cleanup."
+          },
+          "userPreferences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collects all preferences of the current User to create custom views."
+          },
+          "isPartOfProjects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each ProjectMember."
+          },
+          "isPartOfOrganizations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each OrganizationMember.",
+            "minItems": 1
+          }
+        },
+        "required": [
+          "externalIdentifier",
+          "isPartOfOrganizations",
+          "mail",
+          "name",
+          "status",
+          "userPreferences"
+        ],
+        "additionalProperties": false
+      },
+      "UserPatch": {
+        "type": "object",
+        "description": "A partial User; omitted properties are left unchanged.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the user, cached from Keycloak for UI rendering."
+          },
+          "mail": {
+            "type": "string",
+            "description": "The email address of the user, cached from Keycloak for display purposes."
+          },
+          "externalIdentifier": {
+            "type": "string",
+            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivationStatus",
+            "description": "The current ActivationStatus of the user. Set to Deleted when Keycloak publishes a user removal event, preserving referential integrity before cascade cleanup."
+          },
+          "userPreferences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collects all preferences of the current User to create custom views."
+          },
+          "isPartOfProjects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each ProjectMember."
+          },
+          "isPartOfOrganizations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each OrganizationMember.",
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

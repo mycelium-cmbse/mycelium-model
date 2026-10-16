@@ -1,22 +1,23 @@
 # mycelium-model
 
-The UML 2.5.1 models for Mycelium: CommonPrimitives, Fabric and Forge.
+The design artifacts for Mycelium: the UML 2.5.1 models (CommonPrimitives, Fabric and Forge) and the interface control documents (Functional Data Service).
 
-Each model lives in its own project folder (`mycelium-model.sln`) and is distributed as its own independently-versioned NuGet package, so each model's release lifecycle (version, release notes, release cadence) is fully independent of the others:
+Each artifact lives in its own project folder (`mycelium-model.sln`) and is distributed as its own independently-versioned NuGet package, so each one's release lifecycle (version, release notes, release cadence) is fully independent of the others:
 
-| Model | Project | Package | Status |
+| Artifact | Project | Package | Status |
 |---|---|---|---|
 | Forge | `Mycelium.Model.Forge/` | `Mycelium.Model.Forge` | modeled — real content in `mycelium-forge.xmi` |
 | Fabric | `Mycelium.Model.Fabric/` | `Mycelium.Model.Fabric` | scaffolding only — bare-bones placeholder `mycelium-fabric.xmi` |
 | CommonPrimitives | `Mycelium.Model.CommonPrimitives/` | `Mycelium.Model.CommonPrimitives` | scaffolding only — bare-bones placeholder `mycelium-commonprimitives.xmi` |
+| Functional Data Service | `Mycelium.ICD.FunctionalDataService/` | `Mycelium.ICD.FunctionalDataService` | specified — OpenAPI 3.1 document in `mycelium-functional-data-service.openapi.json` |
 
 Fabric and CommonPrimitives are fully wired up (csproj, packaging, version stamping, workflow release option) ahead of any real modeling, so dropping in the real EA export is a two-step swap — see "Replacing a placeholder xmi with the real model" below.
 
-## Consuming a model package
+## Consuming a package
 
-Each package ships its `.xmi` file under a `model/` folder inside the package and contains no compiled code — it's a data-only package meant to be consumed by a `uml4net`-based code-generation project.
+Each model package ships its `.xmi` file under a `model/` folder inside the package, and each ICD package ships its OpenAPI document under an `icd/` folder. Neither contains compiled code — they're data-only packages, meant to be consumed by a `uml4net`-based code-generation project (models) or an OpenAPI generator (ICDs).
 
-Adding a `PackageReference` automatically imports an MSBuild property pointing at the `.xmi` file's absolute path inside the local NuGet package cache. No copying or extra restore step is required — the property is available immediately after `dotnet restore`.
+Adding a `PackageReference` automatically imports an MSBuild property pointing at the data file's absolute path inside the local NuGet package cache. No copying or extra restore step is required — the property is available immediately after `dotnet restore`.
 
 ```xml
 <PackageReference Include="Mycelium.Model.Forge" Version="1.0.0" />
@@ -28,11 +29,12 @@ Adding a `PackageReference` automatically imports an MSBuild property pointing a
 
 Available properties:
 
-| Model | Package | MSBuild property |
+| Artifact | Package | MSBuild property |
 |---|---|---|
 | Forge | `Mycelium.Model.Forge` | `$(MyceliumModelForgeXmiPath)` |
 | Fabric | `Mycelium.Model.Fabric` | `$(MyceliumModelFabricXmiPath)` |
 | CommonPrimitives | `Mycelium.Model.CommonPrimitives` | `$(MyceliumModelCommonPrimitivesXmiPath)` |
+| Functional Data Service | `Mycelium.ICD.FunctionalDataService` | `$(MyceliumIcdFunctionalDataServiceOpenApiPath)` |
 
 ## Model dependencies
 
@@ -43,16 +45,17 @@ Forge and Fabric both depend on CommonPrimitives. That's expressed as a real NuG
 - **Never pack a release with `-p:Version`.** `Version` is an MSBuild *global* property, so it propagates into the `ProjectReference` build of CommonPrimitives and NuGet resolves the nuspec `<dependency>` against *that* value instead of CommonPrimitives' own `<Version>`. Verified empirically: `dotnet pack -p:Version=9.9.9` on Forge emits `<dependency id="Mycelium.Model.CommonPrimitives" version="9.9.9" />`, while the same pack without the flag correctly emits `version="0.2.0"`. The release workflow therefore packs with no `-p:Version` and takes the version from the `.csproj` element it stamped moments earlier. This bug shipped in real packages — `Mycelium.Model.Forge` 0.1.0 and 0.3.0 on NuGet.org each depend on a CommonPrimitives version that was never published, and cannot be restored.
 - Every release now runs `.github/scripts/release-tools.cs check-deps` against the packed `.nupkg` before `dotnet nuget push`, failing the run if any nuspec `<dependency>` names a version that isn't on NuGet.org. The ordering constraint in the next bullet is therefore enforced, not merely documented.
 - **That exact version of `Mycelium.Model.CommonPrimitives` must already be published to NuGet.org** before (or in the same release batch as) a Forge/Fabric release that references it — otherwise consumers restoring Forge/Fabric get an unresolved-dependency restore failure. This is the one real ordering constraint on an otherwise independent release cadence: Forge/Fabric can still bump their own version freely without touching CommonPrimitives, but bumping *which* CommonPrimitives version they depend on requires CommonPrimitives to have shipped that version first.
+- The ICD packages have no `<ProjectReference>` and therefore no nuspec `<dependency>` at all: an OpenAPI document is self-contained, and nothing in it resolves against a UML model.
 - Do **not** add `ReferenceOutputAssembly="false"` to these `<ProjectReference>` items — it silently suppresses nuspec dependency generation entirely (verified empirically: NuGet just drops the reference instead of turning it into a versioned dependency). The reference is otherwise harmless either way — neither project has any code to compile, so no real assembly gets linked.
 
 ## Releasing
 
 Releases are cut manually via the `Nuget-Release` GitHub Actions workflow (`workflow_dispatch`), which takes:
 
-- **model** — `forge`, `fabric`, or `commonprimitives`. Selects which model's project gets packed and released; the other two are untouched.
-- **version** — a SemVer string for that model's next release (e.g. `1.2.3` or `1.2.3-beta.1`).
+- **model** — `forge`, `fabric`, `commonprimitives`, or `functionaldataservice`. Selects which project gets packed and released; the others are untouched.
+- **version** — a SemVer string for that artifact's next release (e.g. `1.2.3` or `1.2.3-beta.1`).
 
-A run packs only the selected model's project, stamps that version into the model's own `.xmi` (as OMG MOF extension tags — see "Version tags in the xmi" below) **and** into the `<Version>` element of the model's own `.csproj`, commits both stamps back to the default branch, pushes the single resulting `.nupkg` to NuGet.org, tags the commit, and drafts a GitHub release with the `.nupkg` attached. Because each model is packed and tagged independently, releasing Forge never touches Fabric's or CommonPrimitives' version, tag, or package — releasing different models is safe to do independently, on independent schedules.
+A run packs only the selected project, stamps that version into the packaged data file itself (OMG MOF extension tags for a model `.xmi`, `info` keys for an ICD OpenAPI document — see the two subsections below) **and** into the `<Version>` element of that project's own `.csproj`, commits both stamps back to the default branch, pushes the single resulting `.nupkg` to NuGet.org, tags the commit, and drafts a GitHub release with the `.nupkg` attached. Because each artifact is packed and tagged independently, releasing Forge never touches Fabric's, CommonPrimitives' or the Functional Data Service's version, tag, or package — releasing different artifacts is safe to do independently, on independent schedules.
 
 ### Version tags in the xmi
 
@@ -70,6 +73,23 @@ The `element` idref is derived from the file: the `xmi:id` of the first element 
 
 This replaced an MSBuild task that stamped the `version` attribute inside `<xmi:Extension extender="Enterprise Architect">`. `mycelium-commonprimitives.xmi` is hand-authored and has no EA extension block, so that mechanism made every `commonprimitives` release fail at pack; `mofext:Tag` is plain OMG XMI and works for any model regardless of authoring tool.
 
+### Version stamps in the OpenAPI document
+
+`.github/scripts/release-tools.cs stamp-openapi` is the ICD counterpart, writing the same three values into the document's `info` object:
+
+```json
+"info": {
+  "version": "1.2.3",
+  "x-mycelium-version": "1.2.3",
+  "x-mycelium-packageId": "Mycelium.ICD.FunctionalDataService",
+  "x-mycelium-releaseDate": "2026-08-20"
+}
+```
+
+`info.version` is overwritten, so the document's own version always equals the published package version — the API version and the package version are deliberately the same number. The `x-mycelium-*` extension keys carry the rest and are added on first release, updated in place afterwards.
+
+Unlike `stamp-xmi`, this parses and re-serialises the file instead of doing text substitution: JSON has no significant formatting, and the document is generated from the Enterprise Architect software architecture model rather than hand-maintained. Reproducing the generator's layout (two-space indent, unescaped non-ASCII, the source file's newline style) keeps a release diff down to the stamped keys.
+
 The `.csproj`'s own `<Version>` element is the single source of the published version — the workflow packs without `-p:Version` deliberately, and fails the run if the stamp didn't take or if the resulting `.nupkg` isn't named for the requested version. It's also the value any *other* model's `<ProjectReference>` resolves against when computing its nuspec dependency version, which is exactly why `-p:Version` must not be used — see "Model dependencies" above.
 
 **Concurrency caveat:** the "commit version stamps" step pushes directly to the default branch. If two release runs (e.g. `forge` and `fabric`) are triggered within moments of each other, the second one's push can hit a non-fast-forward conflict against the first's commit and need to be re-run. This isn't a design flaw — sequential independent releases (the normal case) work cleanly — just don't expect two releases to succeed from truly simultaneous runs.
@@ -78,7 +98,7 @@ The `.csproj`'s own `<Version>` element is the single source of the published ve
 
 ### Tagging convention
 
-Tags are namespaced per model as `<model>/<version>`, using the same lowercase `model` value as the workflow's selector — e.g. `forge/1.0.0`, `fabric/0.2.0`, `commonprimitives/0.1.0`. This keeps each model's release history independently listable (`git tag -l 'forge/*'`) and avoids the ambiguity of a single shared tag standing in for three independently-versioned packages. The GitHub release title uses the full package id instead, e.g. `Mycelium.Model.Forge 1.0.0`.
+Tags are namespaced per artifact as `<model>/<version>`, using the same lowercase `model` value as the workflow's selector — e.g. `forge/1.0.0`, `fabric/0.2.0`, `commonprimitives/0.1.0`, `functionaldataservice/0.1.0`. This keeps each artifact's release history independently listable (`git tag -l 'forge/*'`) and avoids the ambiguity of a single shared tag standing in for several independently-versioned packages. The GitHub release title uses the full package id instead, e.g. `Mycelium.Model.Forge 1.0.0`.
 
 ## Replacing a placeholder xmi with the real model
 
@@ -87,9 +107,9 @@ Fabric and CommonPrimitives currently ship a bare-bones placeholder `.xmi` (just
 1. Export the real model from EA and overwrite the placeholder file in place (e.g. `Mycelium.Model.Fabric/mycelium-fabric.xmi`).
 2. Everything else — the project's `PackageId`, the `build`/`buildTransitive` props, the solution reference, the workflow's model option — already works unchanged. The release tags' `element` idref is derived from the file, so the fresh GUID EA assigns needs no follow-up edit, and the next release re-adds the tags the export overwrote.
 
-## Adding an entirely new (fourth+) model
+## Adding an entirely new model or ICD
 
-1. Create `Mycelium.Model.<Name>/Mycelium.Model.<Name>.csproj` (copy an existing model's `.csproj` as a template) and add its `.xmi` alongside it.
-2. Add `build/Mycelium.Model.<Name>.props` and `buildTransitive/Mycelium.Model.<Name>.props` exposing `$(MyceliumModel<Name>XmiPath)`.
+1. Create `Mycelium.Model.<Name>/Mycelium.Model.<Name>.csproj` (copy an existing model's `.csproj` as a template) and add its `.xmi` alongside it. For an ICD, the naming is `Mycelium.ICD.<Name>` and the data file is an OpenAPI document packed under `icd/` rather than `model/`.
+2. Add `build/Mycelium.Model.<Name>.props` and `buildTransitive/Mycelium.Model.<Name>.props` exposing `$(MyceliumModel<Name>XmiPath)` (for an ICD: `$(MyceliumIcd<Name>OpenApiPath)`).
 3. Add the project to `mycelium-model.sln` (`dotnet sln mycelium-model.sln add Mycelium.Model.<Name>/Mycelium.Model.<Name>.csproj`).
-4. Add a `<name>` case (lowercase) to the `model` selector in `.github/workflows/nuget-release.yml`.
+4. Add a `<name>` case (lowercase) to the `model` selector in `.github/workflows/nuget-release.yml`, setting `PACKAGE_ID`, `PROJECT_PATH`, `ARTIFACT_PATH` and `ARTIFACT_KIND` (`xmi` or `openapi`).
