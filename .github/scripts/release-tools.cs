@@ -3,8 +3,9 @@
 // Release helpers for .github/workflows/nuget-release.yml, as a .NET 10 file-based app: one .cs file,
 // no .csproj, no packages, run by the SDK the workflow already installs.
 //
-//   dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi  <xmi-path> <version> <package-id> <release-date>
-//   dotnet run --file .github/scripts/release-tools.cs -- check-deps <nupkg-path>
+//   dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi     <xmi-path> <version> <package-id> <release-date>
+//   dotnet run --file .github/scripts/release-tools.cs -- stamp-openapi <json-path> <version> <package-id> <release-date>
+//   dotnet run --file .github/scripts/release-tools.cs -- check-deps    <nupkg-path>
 //
 // Use the explicit --file form: the workflow runs from the repository root, which contains
 // mycelium-model.sln, and `dotnet run`'s first-argument form only applies when there is no project in the
@@ -23,7 +24,9 @@ using System.Net;
 using System.Net.Http;
 using System.Security;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -50,6 +53,17 @@ internal static class ReleaseTools
     // three-line diff into a whole-file rewrite.
     private static readonly Encoding XmiEncoding = Encoding.Latin1;
 
+    // JSON is required to be UTF-8, and the OpenAPI documents here are tool-generated rather than
+    // hand-edited, so a strict decoder is right: a file that is not valid UTF-8 is a defect to fail on,
+    // not something to round-trip. No BOM on the way out, which is what the generator writes.
+    private static readonly Encoding OpenApiEncoding = new UTF8Encoding(false, true);
+
+    private static readonly JsonSerializerOptions OpenApiFormat = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     private static async Task<int> Main(string[] args)
     {
         if (args.Length == 0)
@@ -68,6 +82,15 @@ internal static class ReleaseTools
                 StampXmi(args[1], args[2], args[3], args[4]);
                 return 0;
 
+            case "stamp-openapi":
+                if (args.Length != 5)
+                {
+                    Fail("usage: stamp-openapi <json-path> <version> <package-id> <release-date>");
+                }
+
+                StampOpenApi(args[1], args[2], args[3], args[4]);
+                return 0;
+
             case "check-deps":
                 if (args.Length != 2)
                 {
@@ -78,7 +101,8 @@ internal static class ReleaseTools
                 return 0;
 
             default:
-                Fail($"unknown command '{args[0]}'; expected 'stamp-xmi' or 'check-deps'");
+                Fail(
+                    $"unknown command '{args[0]}'; expected 'stamp-xmi', 'stamp-openapi' or 'check-deps'");
                 return 1;
         }
     }
@@ -88,8 +112,9 @@ internal static class ReleaseTools
     {
         Fail(
             "usage:\n"
-            + "  stamp-xmi  <xmi-path> <version> <package-id> <release-date>\n"
-            + "  check-deps <nupkg-path>");
+            + "  stamp-xmi     <xmi-path> <version> <package-id> <release-date>\n"
+            + "  stamp-openapi <json-path> <version> <package-id> <release-date>\n"
+            + "  check-deps    <nupkg-path>");
     }
 
     [DoesNotReturn]
@@ -232,6 +257,80 @@ internal static class ReleaseTools
 
         var updatedRoot = root.Value[..^1].TrimEnd() + $" xmlns:mofext=\"{MofNamespace}\">";
         return content[..root.Index] + updatedRoot + content[(root.Index + root.Length)..];
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // stamp-openapi
+    // ---------------------------------------------------------------------------------------------
+
+    // Writes the release metadata into a Mycelium ICD OpenAPI document's `info` object.
+    //
+    // The counterpart of stamp-xmi for the ICD packages, run at the same point in the release: just
+    // before `dotnet pack`, with the result committed back to the default branch.
+    //
+    //   "info": {
+    //     "version": "1.2.3",
+    //     "x-mycelium-version": "1.2.3",
+    //     "x-mycelium-packageId": "Mycelium.ICD.FunctionalDataService",
+    //     "x-mycelium-releaseDate": "2026-08-20"
+    //   }
+    //
+    // `info.version` is overwritten, so the document's own version always equals the published package
+    // version; the `x-mycelium-*` extension keys carry the rest, and are add-or-update like the
+    // mofext:Tag elements are. Unlike stamp-xmi this parses and re-serialises rather than doing text
+    // surgery: JSON has no significant formatting, and the document is generated rather than
+    // hand-maintained, so reproducing its layout (two-space indent, unescaped non-ASCII, the source
+    // file's newline style) is enough to keep a release diff down to the stamped keys.
+    private static void StampOpenApi(string jsonPath, string version, string packageId, string releaseDate)
+    {
+        string content;
+        try
+        {
+            content = OpenApiEncoding.GetString(File.ReadAllBytes(jsonPath));
+        }
+        catch (Exception error) when (error is IOException or DecoderFallbackException)
+        {
+            Fail($"could not read {jsonPath}: {error.Message}");
+            return;
+        }
+
+        JsonNode? document;
+        try
+        {
+            document = JsonNode.Parse(content);
+        }
+        catch (JsonException error)
+        {
+            Fail($"{jsonPath} is not valid JSON: {error.Message}");
+            return;
+        }
+
+        if (document?["info"] is not JsonObject info)
+        {
+            Fail($"no `info` object found in {jsonPath} — not an OpenAPI document");
+            return;
+        }
+
+        info["version"] = version;
+        info["x-mycelium-version"] = version;
+        info["x-mycelium-packageId"] = packageId;
+        info["x-mycelium-releaseDate"] = releaseDate;
+
+        // The writer indents with Environment.NewLine, so normalise before adopting the source file's
+        // newline style — otherwise a CRLF file gains a second carriage return per line on Windows.
+        var newline = content.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var stamped = document.ToJsonString(OpenApiFormat).Replace("\r\n", "\n").Replace("\n", newline);
+
+        if (content.EndsWith('\n'))
+        {
+            stamped += newline;
+        }
+
+        File.WriteAllBytes(jsonPath, OpenApiEncoding.GetBytes(stamped));
+
+        Console.WriteLine(
+            $"release-tools: {jsonPath} <- version={version} packageId={packageId} "
+            + $"releaseDate={releaseDate}");
     }
 
     // ---------------------------------------------------------------------------------------------

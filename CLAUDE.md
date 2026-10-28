@@ -4,15 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-This is a **data-only** repository: three UML 2.5.1 models (Enterprise Architect `.xmi` exports), each packaged and released independently as a NuGet package for consumption by `uml4net`-based code generators. There is no application code, no compiled logic, and no tests to run — the "source" is the `.xmi` files, and the "build" is packaging plumbing (MSBuild + a GitHub Actions release workflow).
+This is a **data-only** repository: three UML 2.5.1 models (Enterprise Architect `.xmi` exports) and one interface control document (an OpenAPI 3.1 JSON), each packaged and released independently as a NuGet package for consumption by `uml4net`-based code generators and OpenAPI generators. There is no application code, no compiled logic, and no tests to run — the "source" is the `.xmi`/`.json` data files, and the "build" is packaging plumbing (MSBuild + a GitHub Actions release workflow).
 
-| Model | Project | Package | Status |
+| Artifact | Project | Package | Status |
 |---|---|---|---|
 | Forge | `Mycelium.Model.Forge/` | `Mycelium.Model.Forge` | modeled — real content in `mycelium-forge.xmi` |
 | Fabric | `Mycelium.Model.Fabric/` | `Mycelium.Model.Fabric` | scaffolding only — placeholder `mycelium-fabric.xmi` |
 | CommonPrimitives | `Mycelium.Model.CommonPrimitives/` | `Mycelium.Model.CommonPrimitives` | scaffolding only — placeholder `mycelium-commonprimitives.xmi` |
+| Functional Data Service | `Mycelium.ICD.FunctionalDataService/` | `Mycelium.ICD.FunctionalDataService` | specified — `mycelium-functional-data-service.openapi.json` |
 
-Each model's `.xmi` is edited exclusively in Enterprise Architect (EA), not by hand. Claude Code's role here is almost entirely about the **packaging/versioning/release plumbing**, not the modeled content itself.
+Each model's `.xmi` is edited exclusively in Enterprise Architect (EA), not by hand; the OpenAPI document is likewise generated from EA's `SysML2_Software_Architecture.qea`. Claude Code's role here is almost entirely about the **packaging/versioning/release plumbing**, not the modeled content itself.
 
 ## Commands
 
@@ -26,6 +27,7 @@ The release helpers live in `.github/scripts/release-tools.cs`, a **.NET 10 file
 
 ```
 dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi <xmi-path> <version> <package-id> <release-date>
+dotnet run --file .github/scripts/release-tools.cs -- stamp-openapi <json-path> <version> <package-id> <release-date>
 dotnet run --file .github/scripts/release-tools.cs -- check-deps <nupkg-path>
 ```
 
@@ -33,15 +35,17 @@ Use the explicit `--file` form: `dotnet run`'s first-argument form only applies 
 
 The packed version comes from the `<Version>` element in the model's own `.csproj`. **Do not add `-p:Version` to a release pack** — `Version` is an MSBuild global property, so it propagates into the `ProjectReference` build of CommonPrimitives and NuGet writes *that* value into Forge's/Fabric's nuspec `<dependency>`, pinning consumers to a CommonPrimitives version that was never published. Adding it to a throwaway local pack is fine as long as you don't trust the resulting dependency version.
 
-There are no unit tests in this repo. To sanity-check a packaging change, `dotnet pack` a single model project and inspect the resulting `.nupkg` (it's a zip) for the `model/`, `build/`, and `buildTransitive/` contents and the nuspec `<dependencies>` block.
+There are no unit tests in this repo. To sanity-check a packaging change, `dotnet pack` a single project and inspect the resulting `.nupkg` (it's a zip) for the `model/` (or `icd/`), `build/`, and `buildTransitive/` contents and the nuspec `<dependencies>` block.
 
-Each model project packs independently — always pass a specific `.csproj` path to `dotnet pack`, not the solution.
+Each project packs independently — always pass a specific `.csproj` path to `dotnet pack`, not the solution.
 
 ## Architecture
 
 ### Content-only NuGet packaging
 
-Every model project (`Mycelium.Model.{Forge,Fabric,CommonPrimitives}.csproj`) is a `netstandard2.0` SDK project with `IncludeBuildOutput=false` — there's no code, just an `.xmi` packed under `model/` plus two MSBuild props files packed under `build/` and `buildTransitive/`. Those props files expose an absolute path to the packed `.xmi` as an MSBuild property (e.g. `$(MyceliumModelForgeXmiPath)`) to any project that adds a `PackageReference` — no copying or extra restore step needed. Shared repo-wide settings live in `Directory.Build.props` (imported at the top of every project) and `Directory.Build.targets` (imported at the bottom); per-model values (`PackageId`, `Version`, `Description`, etc.) stay in each model's own `.csproj` so release lifecycles stay fully independent.
+Every project (`Mycelium.Model.{Forge,Fabric,CommonPrimitives}.csproj`, `Mycelium.ICD.FunctionalDataService.csproj`) is a `netstandard2.0` SDK project with `IncludeBuildOutput=false` — there's no code, just the data file packed under `model/` (ICDs: `icd/`) plus two MSBuild props files packed under `build/` and `buildTransitive/`. Those props files expose an absolute path to the packed data file as an MSBuild property (e.g. `$(MyceliumModelForgeXmiPath)`, `$(MyceliumIcdFunctionalDataServiceOpenApiPath)`) to any project that adds a `PackageReference` — no copying or extra restore step needed. Shared repo-wide settings live in `Directory.Build.props` (imported at the top of every project) and `Directory.Build.targets` (imported at the bottom); per-project values (`PackageId`, `Version`, `Description`, etc.) stay in each project's own `.csproj` so release lifecycles stay fully independent.
+
+The ICD project carries no `ProjectReference` and so no nuspec dependency — an OpenAPI document is self-contained.
 
 ### Cross-model dependency: Forge/Fabric → CommonPrimitives
 
@@ -75,22 +79,28 @@ Two details in the script are load-bearing:
 
 This replaced an earlier MSBuild task that stamped `version` on the `<project>`/`<packageproperties>` elements inside `<xmi:Extension extender="Enterprise Architect">`. That mechanism was unusable for `mycelium-commonprimitives.xmi`, which is hand-authored and has no EA extension block at all, so every `commonprimitives` release failed at pack. `mofext:Tag` is plain OMG XMI and works regardless of where a model was authored.
 
+### OpenAPI version stamping at release time
+
+`release-tools.cs stamp-openapi` is the ICD counterpart, writing the same three values into the document's `info` object as `version` (overwriting the API version, so it always equals the package version), `x-mycelium-version`, `x-mycelium-packageId` and `x-mycelium-releaseDate`. Also add-or-update, also run immediately before `dotnet pack`, with the result committed back to the default branch.
+
+It parses and re-serialises rather than doing text surgery — JSON carries no significant formatting, and the document is EA-generated rather than hand-maintained. Keeping the release diff down to the stamped keys relies on reproducing the generator's layout: two-space indent (`WriteIndented`), unescaped non-ASCII (`UnsafeRelaxedJsonEscaping`, otherwise every em dash in the descriptions comes back as a numeric character escape), and the source file's newline style — the writer indents with `Environment.NewLine`, so its output is normalised to `\n` before the file's own convention is applied, or a CRLF file gains a second `\r` per line.
+
 ### Releasing (`.github/workflows/nuget-release.yml`)
 
-Releases are manual (`workflow_dispatch`) with two inputs: `model` (`forge`/`fabric`/`commonprimitives`) and `version` (SemVer). A run, for the selected model only:
+Releases are manual (`workflow_dispatch`) with two inputs: `model` (`forge`/`fabric`/`commonprimitives`/`functionaldataservice`) and `version` (SemVer). The `model` selector resolves `PACKAGE_ID`, `PROJECT_PATH`, `ARTIFACT_PATH` (the packaged data file) and `ARTIFACT_KIND` (`xmi` or `openapi`, which picks the stamping verb); everything after that is kind-agnostic. A run, for the selected artifact only:
 
 1. Validates the version is SemVer, sets prerelease flag if it has a `-` suffix.
 2. Updates `CITATION.cff`'s top-level and `preferred-citation` `version`/`date-released` fields.
-3. Stamps `<Version>` into the model's `.csproj`, failing the run if the substitution didn't take — that element is the sole source of the published version.
-4. Adds or updates the `mofext:Tag` release tags in the model's `.xmi` (see above), then packs the selected model's `.csproj` — **without `-p:Version`** (see the cross-model dependency section) — and asserts the produced file is `<PackageId>.<version>.nupkg`.
-5. Commits the stamped `.xmi` + the `.csproj` `<Version>` stamp + the `CITATION.cff` change directly to the default branch and pushes.
+3. Stamps `<Version>` into the project's `.csproj`, failing the run if the substitution didn't take — that element is the sole source of the published version.
+4. Adds or updates the release metadata in the packaged data file (see above), then packs the selected `.csproj` — **without `-p:Version`** (see the cross-model dependency section) — and asserts the produced file is `<PackageId>.<version>.nupkg`.
+5. Commits the stamped data file + the `.csproj` `<Version>` stamp + the `CITATION.cff` change directly to the default branch and pushes.
 6. Verifies every nuspec `<dependency>` version is already live on NuGet.org, then pushes the `.nupkg` to NuGet.org.
 7. Tags the commit `<model>/<version>` (e.g. `forge/1.0.0`) and pushes the tag.
 8. Drafts a GitHub release (title `<PackageId> <version>`) with the `.nupkg` attached.
 
-Releasing one model never touches another's version, tag, or package. **Concurrency caveat:** the direct-push-to-default-branch step means two releases triggered near-simultaneously can hit a non-fast-forward conflict and need re-running — sequential releases (the normal case) are fine.
+Releasing one artifact never touches another's version, tag, or package. **Concurrency caveat:** the direct-push-to-default-branch step means two releases triggered near-simultaneously can hit a non-fast-forward conflict and need re-running — sequential releases (the normal case) are fine.
 
-`CITATION.cff` is a single shared file across all three models, so its `version` always reflects whichever model released *most recently* — not any one model's version. Use git tags/package versions for a specific model's version.
+`CITATION.cff` is a single shared file across every package here, so its `version` always reflects whichever one released *most recently* — not any one artifact's version. Use git tags/package versions for a specific artifact's version.
 
 ### Replacing a placeholder xmi with the real model
 
@@ -99,12 +109,12 @@ Fabric and CommonPrimitives currently ship bare-bones placeholder `.xmi` files (
 1. Export from EA and overwrite the placeholder `.xmi` in place.
 2. Nothing else needs to change (`PackageId`, props files, solution reference, workflow's `model` option already work). The release tags' `element` idref is derived from the file itself, so the fresh GUIDs EA assigns need no follow-up edit; the next release re-adds the tags the export dropped.
 
-### Adding a fourth+ model
+### Adding another model or ICD
 
-1. Copy an existing model's `.csproj`/folder layout as a template; add the new `.xmi`.
-2. Add `build/Mycelium.Model.<Name>.props` and `buildTransitive/Mycelium.Model.<Name>.props` exposing `$(MyceliumModel<Name>XmiPath)`.
-3. `dotnet sln mycelium-model.sln add Mycelium.Model.<Name>/Mycelium.Model.<Name>.csproj`.
-4. Add a lowercase `<name>` case to the `model` selector in `.github/workflows/nuget-release.yml`.
+1. Copy an existing project's `.csproj`/folder layout as a template; add the new data file. Models are `Mycelium.Model.<Name>` with an `.xmi` packed under `model/`; ICDs are `Mycelium.ICD.<Name>` with an OpenAPI document packed under `icd/`.
+2. Add `build/<PackageId>.props` and `buildTransitive/<PackageId>.props` exposing `$(MyceliumModel<Name>XmiPath)` or `$(MyceliumIcd<Name>OpenApiPath)`.
+3. `dotnet sln mycelium-model.sln add <PackageId>/<PackageId>.csproj`.
+4. Add a lowercase `<name>` case to the `model` selector in `.github/workflows/nuget-release.yml`, setting `PACKAGE_ID`, `PROJECT_PATH`, `ARTIFACT_PATH` and `ARTIFACT_KIND`.
 
 ## Contribution workflow
 

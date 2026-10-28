@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       model:
-        description: 'Which model to release'
+        description: 'Which model or ICD to release'
         required: true
         type: choice
         options:
           - forge
           - fabric
           - commonprimitives
+          - functionaldataservice
       version:
         description: 'SemVer (e.g., 1.2.3 or 1.2.3-beta.1)'
         required: true
@@ -32,24 +33,35 @@ jobs:
           fetch-depth: 0
           ref: ${{ env.DEFAULT_BRANCH }}
 
-      - name: Resolve model project
+      - name: Resolve project
         run: |
           set -euo pipefail
+          # ARTIFACT_PATH is the data file the package exists to ship, and ARTIFACT_KIND selects which
+          # release-tools stamping verb applies to it.
           case "$MODEL" in
             forge)
               echo "PACKAGE_ID=Mycelium.Model.Forge" >> "$GITHUB_ENV"
               echo "PROJECT_PATH=Mycelium.Model.Forge/Mycelium.Model.Forge.csproj" >> "$GITHUB_ENV"
-              echo "XMI_PATH=Mycelium.Model.Forge/mycelium-forge.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_PATH=Mycelium.Model.Forge/mycelium-forge.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_KIND=xmi" >> "$GITHUB_ENV"
               ;;
             fabric)
               echo "PACKAGE_ID=Mycelium.Model.Fabric" >> "$GITHUB_ENV"
               echo "PROJECT_PATH=Mycelium.Model.Fabric/Mycelium.Model.Fabric.csproj" >> "$GITHUB_ENV"
-              echo "XMI_PATH=Mycelium.Model.Fabric/mycelium-fabric.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_PATH=Mycelium.Model.Fabric/mycelium-fabric.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_KIND=xmi" >> "$GITHUB_ENV"
               ;;
             commonprimitives)
               echo "PACKAGE_ID=Mycelium.Model.CommonPrimitives" >> "$GITHUB_ENV"
               echo "PROJECT_PATH=Mycelium.Model.CommonPrimitives/Mycelium.Model.CommonPrimitives.csproj" >> "$GITHUB_ENV"
-              echo "XMI_PATH=Mycelium.Model.CommonPrimitives/mycelium-commonprimitives.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_PATH=Mycelium.Model.CommonPrimitives/mycelium-commonprimitives.xmi" >> "$GITHUB_ENV"
+              echo "ARTIFACT_KIND=xmi" >> "$GITHUB_ENV"
+              ;;
+            functionaldataservice)
+              echo "PACKAGE_ID=Mycelium.ICD.FunctionalDataService" >> "$GITHUB_ENV"
+              echo "PROJECT_PATH=Mycelium.ICD.FunctionalDataService/Mycelium.ICD.FunctionalDataService.csproj" >> "$GITHUB_ENV"
+              echo "ARTIFACT_PATH=Mycelium.ICD.FunctionalDataService/mycelium-functional-data-service.openapi.json" >> "$GITHUB_ENV"
+              echo "ARTIFACT_KIND=openapi" >> "$GITHUB_ENV"
               ;;
             *)
               echo "Unknown model '$MODEL'." >&2
@@ -113,14 +125,26 @@ jobs:
           # IncludeBuildOutput=false, so nothing about packing them depends on the SDK major.
           dotnet-version: '10.0.x'
 
-      - name: Inject mofext release tags into the model XMI
+      - name: Stamp release metadata into the packaged artifact
         run: |
           set -euo pipefail
-          # Adds the <mofext:Tag> elements carrying version/packageId/releaseDate if they are absent,
-          # updates them in place if they are already there. Must run before Pack: NuGet stages the
-          # <None Include="*.xmi" Pack="true"> content as part of Build (which the Pack target depends
-          # on), so a later edit would never reach the package. The stamped file is committed below.
-          dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi "${XMI_PATH}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
+          # Adds the version/packageId/releaseDate metadata if it is absent, updates it in place if it is
+          # already there — <mofext:Tag> elements for a model XMI, `info` keys for an ICD OpenAPI
+          # document. Must run before Pack: NuGet stages the <None Pack="true"> content as part of Build
+          # (which the Pack target depends on), so a later edit would never reach the package. The
+          # stamped file is committed below.
+          case "$ARTIFACT_KIND" in
+            xmi)
+              dotnet run --file .github/scripts/release-tools.cs -- stamp-xmi "${ARTIFACT_PATH}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
+              ;;
+            openapi)
+              dotnet run --file .github/scripts/release-tools.cs -- stamp-openapi "${ARTIFACT_PATH}" "${VERSION}" "${PACKAGE_ID}" "${DATE}"
+              ;;
+            *)
+              echo "Unknown artifact kind '$ARTIFACT_KIND'." >&2
+              exit 1
+              ;;
+          esac
 
       - name: Pack
         # Deliberately NO -p:Version: Version is an MSBuild *global* property, so it propagates into the
@@ -143,13 +167,13 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${XMI_PATH}" "${PROJECT_PATH}" CITATION.cff
+          git add "${ARTIFACT_PATH}" "${PROJECT_PATH}" CITATION.cff
 
           if ! git diff --cached --quiet; then
-            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp model version in xmi and csproj, update CITATION.cff)"
+            git commit -m "chore: release ${PACKAGE_ID} ${VERSION} (stamp version in ${ARTIFACT_KIND} and csproj, update CITATION.cff)"
             git push origin HEAD:${DEFAULT_BRANCH}
           else
-            echo "No changes to ${XMI_PATH}, ${PROJECT_PATH}, or CITATION.cff."
+            echo "No changes to ${ARTIFACT_PATH}, ${PROJECT_PATH}, or CITATION.cff."
           fi
 
       - name: Verify nuspec dependencies are published
