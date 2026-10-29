@@ -249,9 +249,16 @@ inv viewerCannotMerge: self.mergeAllowedFor-&amp;gt;excludes(ProjectMemberRole::
 inv atLeastOneAdministrator: self.involves-&amp;gt;exists(m | m.role = ProjectMemberRole::Administrator)</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_BCE1_489a_B521_BE9277F760A4" name="uniqueUserMembership">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_BCE1_489a_B521_BE9277F760A4" name="uniqueBranchRule">
           <constrainedElement xmi:idref="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
           <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_BCE1_489a_B521_BE9277F760A4">
+            <body>-- Source: Fabric model / BranchProtectionRule documentation
+inv uniqueBranchRule: self.branchRules-&amp;gt;isUnique(r | r.engineeringBranchId)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_BCE1_489a_B521_BE9277F760A4" name="uniqueUserMembership">
+          <constrainedElement xmi:idref="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000002_BCE1_489a_B521_BE9277F760A4">
             <body>-- Source: Roles-and-Permissions / Role Assignment Rule 3
 inv uniqueUserMembership: self.involves-&amp;gt;isUnique(m | m.user)</body>
           </specification>
@@ -1147,6 +1154,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</attributes>
 				<constraints>
 					<constraint name="atLeastOneAdministrator" description="-- Source: Roles-and-Permissions / Role Assignment Rule 7&#xA;inv atLeastOneAdministrator: self.involves-&amp;gt;exists(m | m.role = ProjectMemberRole::Administrator)" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="uniqueBranchRule" description="-- Source: Fabric model / BranchProtectionRule documentation&#xA;inv uniqueBranchRule: self.branchRules-&amp;gt;isUnique(r | r.engineeringBranchId)" type="OCL" weight="0,00" status="Approved" />
 					<constraint name="uniqueUserMembership" description="-- Source: Roles-and-Permissions / Role Assignment Rule 3&#xA;inv uniqueUserMembership: self.involves-&amp;gt;isUnique(m | m.user)" type="OCL" weight="0,00" status="Approved" />
 				</constraints>
 				<links>
