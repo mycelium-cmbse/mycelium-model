@@ -4,7 +4,7 @@
     "title": "Mycelium Fabric — Functional Data Service API",
     "version": "0.1.0",
     "summary": "Platform data surrounding a SysML v2 model: organizations, projects, membership, ownership and reviews.",
-    "description": "The REST surface of the Mycelium Fabric Functional Data Service: the platform data\nthat surrounds a SysML v2 model, rather than the model itself. Projects, branches, commits and model\nelements belong to the Concurrent Server and are reached through the OMG Systems Modelling API; a\nreference held here to anything on that side is an identifier, never embedded content.\n\nGenerated from the Enterprise Architect model `SysML2_Software_Architecture.qea`, in which every\noperation is a `«route»` on an `«apiModule»` class. Three conventions follow from that and are not\nvisible in the paths:\n\n- **Authentication and authorization happen at the edge.** Every request passes an nginx\n  `auth_request` subrequest to `/internal/auth`, which answers 200, 401 or 403 and stamps the\n  resolved account onto the request it allows. No operation below declares 401 or 403, because the\n  gate produces them for all of them uniformly, and no operation takes a current-user parameter.\n- **A body never nests a composed child that has routes of its own.** A project body carries no\n  members, ownerships, reviews or protection rules; each is created and deleted through its own\n  path. The one exception is a project's policy, which has no routes and is therefore nested.\n- **Server-assigned values are `readOnly`.** Identifiers and the audit stamps are omitted from\n  request bodies and present in responses. A `PATCH` body is partial, so it is described by a\n  separate `…Patch` schema with nothing required.\n\nCollections are unpaged, deliberately: the expected volumes do not warrant it.\n\nOperations carry `x-satisfies`, listing the Software System Specification requirements they\nimplement. Twelve of the forty-two have none, which is accurate rather than an omission: the\nspecification does not cover reviews or comments at all, and the gate, session and policy-read\noperations are architectural."
+    "description": "The REST surface of the Mycelium Fabric Functional Data Service: the platform data\nthat surrounds a SysML v2 model, rather than the model itself. Projects, branches, commits and model\nelements belong to the Concurrent Server and are reached through the OMG Systems Modelling API; a\nreference held here to anything on that side is an identifier, never embedded content.\n\nGenerated from the Enterprise Architect model `SysML2_Software_Architecture.qea`, in which every\noperation is a `«route»` on an `«apiModule»` class. Five conventions follow from that and are not\nvisible in the paths:\n\n- **Authentication and authorization happen at the edge.** Every request passes an nginx\n  `auth_request` subrequest to `/internal/auth`, which answers 200, 401 or 403 and stamps the\n  resolved account onto the request it allows. No operation below declares 401 or 403, because the\n  gate produces them for all of them uniformly, and no operation takes a current-user parameter.\n- **A body never nests a composed child that has routes of its own.** A project body carries no\n  members, ownerships, reviews or protection rules; each is created and deleted through its own\n  path. The one exception is a project's policy, which has no routes and is therefore nested.\n- **A read can widen to the graph around it.** Every `GET` returning model data accepts\n  `includeReferenced` and `includeComposed`. With neither set the response is the resource itself;\n  with either it is a flat array of `Thing`, discriminated by `@type`, holding the resource first and\n  then everything it references and/or composes, each once.\n- **Every failure carries an `Error`**, the body defined by the OMG Systems Modeling API PSM, so a\n  client reads errors from either server identically.\n- **Server-assigned values are `readOnly`.** Identifiers and the audit stamps are omitted from\n  request bodies and present in responses. A `PATCH` body is partial, so it is described by a\n  separate `…Patch` schema with nothing required.\n\nCollections are unpaged, deliberately: the expected volumes do not warrant it.\n\nOperations carry `x-satisfies`, listing the Software System Specification requirements they\nimplement. Sixteen of the forty-six have none, which is accurate rather than an omission: the\nspecification does not cover reviews or comments at all, and the gate, session and policy-read\noperations are architectural."
   },
   "servers": [
     {
@@ -122,6 +122,9 @@
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -134,19 +137,40 @@
         "x-satisfies": [
           "SSS-IA-ORG-V4R"
         ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "The organizations.",
+            "description": "The organizations, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Organization"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Organization"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -170,21 +194,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The organization.",
+            "description": "The organization, or the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Organization"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Organization"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -231,6 +274,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -261,6 +307,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -284,24 +333,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The organization members.",
+            "description": "The organization members, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrganizationMember"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrganizationMember"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -311,6 +379,7 @@
           "Organizations"
         ],
         "summary": "Add organization member",
+        "description": "Refused when the user is already a member of the organization.",
         "x-satisfies": [
           "SSS-IA-USR-H7F",
           "SSS-OA-ROLE-TBX"
@@ -349,6 +418,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -360,6 +435,7 @@
           "Organizations"
         ],
         "summary": "Update organization member",
+        "description": "Refused when it would leave the organization without an administrator.",
         "x-satisfies": [
           "SSS-OA-ROLE-TBX"
         ],
@@ -406,6 +482,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -415,7 +497,7 @@
           "Organizations"
         ],
         "summary": "Remove organization member",
-        "description": "Removing the last member is refused, because an organization is modelled as having at least one.",
+        "description": "Removing the last member or the last administrator is refused, because an organization is modelled as having at least one of each.",
         "x-satisfies": [
           "SSS-IA-USR-H7F"
         ],
@@ -448,6 +530,9 @@
           },
           "409": {
             "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -468,21 +553,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The organization policy.",
+            "description": "The organization policy, or the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationPolicy"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OrganizationPolicy"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -529,6 +633,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -579,6 +686,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -616,6 +726,9 @@
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -630,19 +743,40 @@
           "SSS-CC-PROF-L6D",
           "SSS-CC-SS-LEZ"
         ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "The functional projects.",
+            "description": "The functional projects, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FunctionalProject"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/FunctionalProject"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -666,21 +800,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The functional project.",
+            "description": "The functional project, or the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FunctionalProject"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FunctionalProject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -731,6 +884,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -761,6 +917,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -784,24 +943,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The branch protection rules.",
+            "description": "The branch protection rules, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BranchProtectionRule"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BranchProtectionRule"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -811,7 +989,7 @@
           "Projects"
         ],
         "summary": "Replace branch protection rules",
-        "description": "The whole set is replaced, since nothing references a rule by identity.",
+        "description": "The whole set is replaced, since nothing references a rule by identity. Refused when two rules protect the same branch.",
         "x-satisfies": [
           "SSS-PA-VC-28D"
         ],
@@ -856,6 +1034,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -879,24 +1063,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The project members.",
+            "description": "The project members, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectMember"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProjectMember"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -906,6 +1109,7 @@
           "Projects"
         ],
         "summary": "Add project member",
+        "description": "Refused when the user is already a member of the project, or when an outside collaborator would be made administrator.",
         "x-satisfies": [
           "SSS-PA-MGMT-8EF"
         ],
@@ -943,6 +1147,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -954,7 +1164,7 @@
           "Projects"
         ],
         "summary": "Update project member",
-        "description": "Transferring administration and reassigning an ownership are both changes to the membership.",
+        "description": "Transferring administration and reassigning an ownership are both changes to the membership. Refused when it would leave the project without an administrator, make an outside collaborator administrator, or activate an ownership the member does not hold.",
         "x-satisfies": [
           "SSS-PA-MGMT-8EF",
           "SSS-PA-MGMT-KYM",
@@ -1003,6 +1213,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1012,6 +1228,7 @@
           "Projects"
         ],
         "summary": "Remove project member",
+        "description": "Removing the last administrator is refused.",
         "x-satisfies": [
           "SSS-PA-MGMT-8EF"
         ],
@@ -1041,6 +1258,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1064,24 +1287,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The ownerships.",
+            "description": "The ownerships, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Ownership"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Ownership"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1128,6 +1370,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1185,6 +1430,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1227,6 +1475,9 @@
           },
           "409": {
             "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1247,24 +1498,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The reviews.",
+            "description": "The reviews, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Review"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Review"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1274,7 +1544,7 @@
           "Reviews"
         ],
         "summary": "Create review",
-        "description": "Both branches live in the Concurrent Server, so only their identifiers are held here.",
+        "description": "Both branches live in the Concurrent Server, so only their identifiers are held here. Refused unless the target branch is protected and every reviewer is a project member.",
         "parameters": [
           {
             "name": "projectId",
@@ -1309,6 +1579,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1338,21 +1614,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The review.",
+            "description": "The review, or the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Review"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1362,7 +1657,7 @@
           "Reviews"
         ],
         "summary": "Update review",
-        "description": "Carries the status and the reviewer set, so submitting, approving and requesting changes are all status changes.",
+        "description": "Carries the status and the reviewer set, so submitting, approving and requesting changes are all status changes. Refused unless every reviewer of an open review is a project member.",
         "parameters": [
           {
             "name": "projectId",
@@ -1406,6 +1701,12 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1442,6 +1743,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1453,7 +1757,7 @@
           "Reviews"
         ],
         "summary": "Get review comments",
-        "description": "The thread is returned whole, since a reply and a quote each reference another comment.",
+        "description": "Replies are identified rather than nested; includeComposed brings them into the same response.",
         "parameters": [
           {
             "name": "projectId",
@@ -1472,24 +1776,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The comments.",
+            "description": "The comments, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Comment"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Comment"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1499,7 +1822,7 @@
           "Reviews"
         ],
         "summary": "Add review comment",
-        "description": "A reply or a quote is a comment carrying the comment it answers.",
+        "description": "A quote is a comment carrying the message it quotes; a reply is posted on the comment's own replies route.",
         "parameters": [
           {
             "name": "projectId",
@@ -1543,6 +1866,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1607,6 +1933,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1652,6 +1981,279 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews/{reviewId}/comments/{commentId}/replies": {
+      "get": {
+        "operationId": "getReviewCommentReplies",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Get review comment replies",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The replies, or the Things they include when an include parameter is set.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Reply"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "post": {
+        "operationId": "addReviewCommentReply",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Add review comment reply",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reply"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The reply.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reply"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/reviews/{reviewId}/comments/{commentId}/replies/{replyId}": {
+      "patch": {
+        "operationId": "updateReviewCommentReply",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Update review comment reply",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "replyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplyPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The reply.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reply"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteReviewCommentReply",
+        "tags": [
+          "Reviews"
+        ],
+        "summary": "Delete review comment reply",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "replyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1673,6 +2275,9 @@
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1687,19 +2292,40 @@
         "x-satisfies": [
           "SSS-IA-USR-B6P"
         ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "The users.",
+            "description": "The users, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1723,21 +2349,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The user.",
+            "description": "The user, or the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       },
@@ -1786,6 +2431,9 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1811,24 +2459,43 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
           }
         ],
         "responses": {
           "200": {
-            "description": "The functional projects.",
+            "description": "The functional projects, or the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FunctionalProject"
-                  }
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/FunctionalProject"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thing"
+                      }
+                    }
+                  ]
                 }
               }
             }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
           }
         }
       }
@@ -1847,9 +2514,17 @@
       "NotFound": {
         "description": "No such resource.",
         "content": {
-          "application/problem+json": {
+          "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Problem"
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Error": {
+                "value": {
+                  "@type": "Error",
+                  "description": "Resource not found"
+                }
+              }
             }
           }
         }
@@ -1857,9 +2532,35 @@
       "Conflict": {
         "description": "The request conflicts with a constraint of the data model.",
         "content": {
-          "application/problem+json": {
+          "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Problem"
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Error": {
+                "value": {
+                  "@type": "Error",
+                  "description": "Constraint violated"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "description": "Unexpected error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Error": {
+                "value": {
+                  "@type": "Error",
+                  "description": "Unexpected error"
+                }
+              }
             }
           }
         }
@@ -1881,6 +2582,12 @@
         "type": "object",
         "description": "Defines protection rules for a specific engineering branch, controlling merge permissions and review requirements.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "BranchProtectionRule",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -1932,10 +2639,11 @@
             "type": "string",
             "description": "Gets or sets the name of the current rule."
           },
-          "minimumRequiredApproval": {
+          "minimumRequiredApprovals": {
             "type": "integer",
             "format": "int32",
-            "description": "Gets or sets the number of approval(s) required before being allowed to merge a Branch."
+            "description": "Gets or sets the number of approval(s) required before being allowed to merge a Branch.",
+            "minimum": 0
           },
           "defaultReviewers": {
             "type": "array",
@@ -1947,9 +2655,10 @@
           }
         },
         "required": [
+          "@type",
           "engineeringBranchId",
           "mergeAllowedFor",
-          "minimumRequiredApproval",
+          "minimumRequiredApprovals",
           "name",
           "reviewRequired"
         ],
@@ -1959,6 +2668,12 @@
         "type": "object",
         "description": "Represents a user comment attached to a Review, targeting a specific model element. Supports threaded replies.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Comment",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -1991,21 +2706,21 @@
           },
           "content": {
             "type": "string",
-            "description": "The textual content of the comment."
+            "description": "The textual content of the message."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the quoted Message, which is either a Comment or a Reply."
+          },
+          "status": {
+            "$ref": "#/components/schemas/CommentStatus",
+            "description": "Defines the current status of the current Comment."
           },
           "targetElementId": {
             "type": "string",
             "format": "uuid",
             "description": "The Guid of the SysML v2 model element this comment is attached to in the Concurrent Server."
-          },
-          "commentStatus": {
-            "$ref": "#/components/schemas/CommentStatus",
-            "description": "Defines the current status of the current Comment."
-          },
-          "author": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identifies the User."
           },
           "replies": {
             "type": "array",
@@ -2014,19 +2729,13 @@
               "format": "uuid"
             },
             "readOnly": true,
-            "description": "Identifies each Comment, each of which has its own routes."
-          },
-          "quotes": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "Identifies the Comment, which has its own routes."
+            "description": "Identifies each Reply, each of which has its own routes."
           }
         },
         "required": [
-          "author",
-          "commentStatus",
+          "@type",
           "content",
+          "status",
           "targetElementId"
         ],
         "additionalProperties": false
@@ -2035,6 +2744,12 @@
         "type": "object",
         "description": "A partial Comment; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Comment",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2067,21 +2782,21 @@
           },
           "content": {
             "type": "string",
-            "description": "The textual content of the comment."
+            "description": "The textual content of the message."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the quoted Message, which is either a Comment or a Reply."
+          },
+          "status": {
+            "$ref": "#/components/schemas/CommentStatus",
+            "description": "Defines the current status of the current Comment."
           },
           "targetElementId": {
             "type": "string",
             "format": "uuid",
             "description": "The Guid of the SysML v2 model element this comment is attached to in the Concurrent Server."
-          },
-          "commentStatus": {
-            "$ref": "#/components/schemas/CommentStatus",
-            "description": "Defines the current status of the current Comment."
-          },
-          "author": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identifies the User."
           },
           "replies": {
             "type": "array",
@@ -2090,13 +2805,7 @@
               "format": "uuid"
             },
             "readOnly": true,
-            "description": "Identifies each Comment, each of which has its own routes."
-          },
-          "quotes": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "Identifies the Comment, which has its own routes."
+            "description": "Identifies each Reply, each of which has its own routes."
           }
         },
         "additionalProperties": false
@@ -2109,10 +2818,41 @@
         ],
         "description": "Defines all possible status that a Comment can have."
       },
+      "Error": {
+        "$id": "https://www.omg.org/spec/SystemsModelingAPI/20230201/Error",
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Error"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "@type",
+          "description"
+        ],
+        "additionalProperties": true
+      },
       "FunctionalProject": {
         "type": "object",
         "description": "Represents the Functional Data Server projection of an engineering project, linking platform metadata to the corresponding SysML v2 model in the Concurrent Server.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "FunctionalProject",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2221,6 +2961,7 @@
           }
         },
         "required": [
+          "@type",
           "belongsTo",
           "currentMode",
           "description",
@@ -2237,6 +2978,12 @@
         "type": "object",
         "description": "A partial FunctionalProject; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "FunctionalProject",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2350,6 +3097,12 @@
         "type": "object",
         "description": "The FunctionalProjectPolicy defines policies t associated to as specific FunctionalProject.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "FunctionalProjectPolicy",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2394,6 +3147,7 @@
           }
         },
         "required": [
+          "@type",
           "allowAutoNamespaceImport",
           "allowAutoPublishMode",
           "allowVersionBranching"
@@ -2404,6 +3158,12 @@
         "type": "object",
         "description": "Represents a tenant boundary in the Mycelium platform. On SaaS each customer maps to one Organization; on-premise deployments may host multiple.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Organization",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2445,6 +3205,16 @@
           "description": {
             "type": "string",
             "description": "A short human-readable description of the organization."
+          },
+          "involvedUser": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each OrganizationMember, each of which has its own routes.",
+            "minItems": 1
           },
           "policy": {
             "type": "string",
@@ -2463,6 +3233,7 @@
           }
         },
         "required": [
+          "@type",
           "description",
           "name",
           "status"
@@ -2473,6 +3244,12 @@
         "type": "object",
         "description": "Represents the membership of a User within an Organization, carrying the organization-level role.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "OrganizationMember",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2511,11 +3288,18 @@
             "type": "string",
             "format": "uuid",
             "description": "Identifies the Organization."
+          },
+          "user": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
           }
         },
         "required": [
+          "@type",
           "organization",
-          "role"
+          "role",
+          "user"
         ],
         "additionalProperties": false
       },
@@ -2523,6 +3307,12 @@
         "type": "object",
         "description": "A partial OrganizationMember; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "OrganizationMember",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2561,6 +3351,11 @@
             "type": "string",
             "format": "uuid",
             "description": "Identifies the Organization."
+          },
+          "user": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
           }
         },
         "additionalProperties": false
@@ -2578,6 +3373,12 @@
         "type": "object",
         "description": "A partial Organization; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Organization",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2619,6 +3420,16 @@
           "description": {
             "type": "string",
             "description": "A short human-readable description of the organization."
+          },
+          "involvedUser": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "readOnly": true,
+            "description": "Identifies each OrganizationMember, each of which has its own routes.",
+            "minItems": 1
           },
           "policy": {
             "type": "string",
@@ -2642,6 +3453,12 @@
         "type": "object",
         "description": "Holds configurable policy settings for an Organization. Separated from identity data to allow independent auditing of policy changes.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "OrganizationPolicy",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2686,6 +3503,7 @@
           }
         },
         "required": [
+          "@type",
           "allowProjectCreation",
           "defaultProjectLifecycleOnCreate",
           "grantReadOnlyViewForAudit"
@@ -2696,6 +3514,12 @@
         "type": "object",
         "description": "A partial OrganizationPolicy; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "OrganizationPolicy",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2745,6 +3569,12 @@
         "type": "object",
         "description": "Defines a named domain of responsibility within a FunctionalProject. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Ownership",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2794,6 +3624,7 @@
           }
         },
         "required": [
+          "@type",
           "description",
           "engineeringMetadataId",
           "name",
@@ -2805,6 +3636,12 @@
         "type": "object",
         "description": "A partial Ownership; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Ownership",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2854,30 +3691,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "Problem": {
-        "type": "object",
-        "description": "A problem detail document, as defined by RFC 9457.",
-        "properties": {
-          "type": {
-            "type": "string",
-            "format": "uri"
-          },
-          "title": {
-            "type": "string"
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "detail": {
-            "type": "string"
-          },
-          "instance": {
-            "type": "string",
-            "format": "uri"
-          }
-        }
       },
       "ProjectLifecycleKind": {
         "type": "string",
@@ -2893,6 +3706,12 @@
         "type": "object",
         "description": "Represents the membership of a User within a FunctionalProject, carrying the project-level role and optional ownership assignment.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "ProjectMember",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2929,7 +3748,8 @@
           },
           "isOutsideCollaborator": {
             "type": "boolean",
-            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner."
+            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner. Derived from the user's organization memberships.",
+            "readOnly": true
           },
           "isPartOf": {
             "type": "string",
@@ -2948,12 +3768,18 @@
             "type": "string",
             "format": "uuid",
             "description": "Identifies the Ownership."
+          },
+          "user": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
           }
         },
         "required": [
-          "isOutsideCollaborator",
+          "@type",
           "isPartOf",
-          "role"
+          "role",
+          "user"
         ],
         "additionalProperties": false
       },
@@ -2961,6 +3787,12 @@
         "type": "object",
         "description": "A partial ProjectMember; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "ProjectMember",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2997,7 +3829,8 @@
           },
           "isOutsideCollaborator": {
             "type": "boolean",
-            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner."
+            "description": "Asserts that the current ProjectMember is part of an external Organization than the related FunctionalProject owner. Derived from the user's organization memberships.",
+            "readOnly": true
           },
           "isPartOf": {
             "type": "string",
@@ -3016,6 +3849,11 @@
             "type": "string",
             "format": "uuid",
             "description": "Identifies the Ownership."
+          },
+          "user": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
           }
         },
         "additionalProperties": false
@@ -3046,10 +3884,124 @@
         ],
         "description": "Controls who can discover and access a FunctionalProject."
       },
+      "Reply": {
+        "type": "object",
+        "description": "Represents a specific reply for a specific comment.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Reply",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "content": {
+            "type": "string",
+            "description": "The textual content of the message."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the quoted Message, which is either a Comment or a Reply."
+          }
+        },
+        "required": [
+          "@type",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "ReplyPatch": {
+        "type": "object",
+        "description": "A partial Reply; omitted properties are left unchanged.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Reply",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification.",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "content": {
+            "type": "string",
+            "description": "The textual content of the message."
+          },
+          "quotes": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the quoted Message, which is either a Comment or a Reply."
+          }
+        },
+        "additionalProperties": false
+      },
       "Review": {
         "type": "object",
         "description": "Represents a merge proposal from a source branch into a protected target branch, tracking review status, designated reviewers, and associated comments.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Review",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -3101,11 +4053,6 @@
           "description": {
             "type": "string",
             "description": "Gets or sets the description of the current Review."
-          },
-          "author": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identifies the User."
           },
           "reviewers": {
             "type": "array",
@@ -3126,7 +4073,7 @@
           }
         },
         "required": [
-          "author",
+          "@type",
           "description",
           "sourceBranchId",
           "status",
@@ -3139,6 +4086,12 @@
         "type": "object",
         "description": "A partial Review; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Review",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -3190,11 +4143,6 @@
           "description": {
             "type": "string",
             "description": "Gets or sets the description of the current Review."
-          },
-          "author": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identifies the User."
           },
           "reviewers": {
             "type": "array",
@@ -3246,10 +4194,74 @@
         ],
         "additionalProperties": false
       },
+      "Thing": {
+        "description": "Any entity of the Functional Data model, identified by its @type.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/BranchProtectionRule"
+          },
+          {
+            "$ref": "#/components/schemas/Comment"
+          },
+          {
+            "$ref": "#/components/schemas/FunctionalProject"
+          },
+          {
+            "$ref": "#/components/schemas/FunctionalProjectPolicy"
+          },
+          {
+            "$ref": "#/components/schemas/Organization"
+          },
+          {
+            "$ref": "#/components/schemas/OrganizationMember"
+          },
+          {
+            "$ref": "#/components/schemas/OrganizationPolicy"
+          },
+          {
+            "$ref": "#/components/schemas/Ownership"
+          },
+          {
+            "$ref": "#/components/schemas/ProjectMember"
+          },
+          {
+            "$ref": "#/components/schemas/Reply"
+          },
+          {
+            "$ref": "#/components/schemas/Review"
+          },
+          {
+            "$ref": "#/components/schemas/User"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "BranchProtectionRule": "#/components/schemas/BranchProtectionRule",
+            "Comment": "#/components/schemas/Comment",
+            "FunctionalProject": "#/components/schemas/FunctionalProject",
+            "FunctionalProjectPolicy": "#/components/schemas/FunctionalProjectPolicy",
+            "Organization": "#/components/schemas/Organization",
+            "OrganizationMember": "#/components/schemas/OrganizationMember",
+            "OrganizationPolicy": "#/components/schemas/OrganizationPolicy",
+            "Ownership": "#/components/schemas/Ownership",
+            "ProjectMember": "#/components/schemas/ProjectMember",
+            "Reply": "#/components/schemas/Reply",
+            "Review": "#/components/schemas/Review",
+            "User": "#/components/schemas/User"
+          }
+        }
+      },
       "User": {
         "type": "object",
         "description": "A lightweight mirror of an identity managed by Keycloak. Holds only the data required by the Functional Server for permission resolution and UI display.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "User",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -3284,7 +4296,7 @@
             "type": "string",
             "description": "The display name of the user, cached from Keycloak for UI rendering."
           },
-          "mail": {
+          "email": {
             "type": "string",
             "description": "The email address of the user, cached from Keycloak for display purposes."
           },
@@ -3322,9 +4334,10 @@
           }
         },
         "required": [
+          "@type",
+          "email",
           "externalIdentifier",
           "isPartOfOrganizations",
-          "mail",
           "name",
           "status",
           "userPreferences"
@@ -3335,6 +4348,12 @@
         "type": "object",
         "description": "A partial User; omitted properties are left unchanged.",
         "properties": {
+          "@type": {
+            "type": "string",
+            "const": "User",
+            "readOnly": true,
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -3369,7 +4388,7 @@
             "type": "string",
             "description": "The display name of the user, cached from Keycloak for UI rendering."
           },
-          "mail": {
+          "email": {
             "type": "string",
             "description": "The email address of the user, cached from Keycloak for display purposes."
           },
@@ -3407,6 +4426,28 @@
           }
         },
         "additionalProperties": false
+      }
+    },
+    "parameters": {
+      "includeReferenced": {
+        "name": "includeReferenced",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        },
+        "description": "Adds every Thing referenced, other than by composition, by a returned Thing."
+      },
+      "includeComposed": {
+        "name": "includeComposed",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        },
+        "description": "Adds every Thing composed, directly or transitively, into a returned Thing."
       }
     }
   }
