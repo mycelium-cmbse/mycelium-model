@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Mycelium.ICD.FunctionalDataService</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Title>Mycelium ICD - Functional Data Service</Title>
     <Description>OpenAPI 3.1 interface control document (JSON) for the Mycelium Fabric Functional Data Service REST API, for use with OpenAPI-based client/server code generation.</Description>
     <PackageTags>OpenAPI ICD REST mycelium fabric functional-data-service</PackageTags>
