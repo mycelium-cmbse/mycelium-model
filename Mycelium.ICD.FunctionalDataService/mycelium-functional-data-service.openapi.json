@@ -4,7 +4,7 @@
     "title": "Mycelium Fabric — Functional Data Service API",
     "version": "0.2.0",
     "summary": "Platform data surrounding a SysML v2 model: organizations, projects, membership, ownership and reviews.",
-    "description": "The REST surface of the Mycelium Fabric Functional Data Service: the platform data\nthat surrounds a SysML v2 model, rather than the model itself. Projects, branches, commits and model\nelements belong to the Concurrent Server and are reached through the OMG Systems Modelling API; a\nreference held here to anything on that side is an identifier, never embedded content.\n\nGenerated from the Enterprise Architect model `SysML2_Software_Architecture.qea`, in which every\noperation is a `«route»` on an `«apiModule»` class. Five conventions follow from that and are not\nvisible in the paths:\n\n- **Authentication and authorization happen at the edge.** Every request passes an nginx\n  `auth_request` subrequest to `/internal/auth`, which answers 200, 401 or 403 and stamps the\n  resolved account onto the request it allows. No operation below declares 401 or 403, because the\n  gate produces them for all of them uniformly, and no operation takes a current-user parameter.\n- **A body never nests a composed child that has routes of its own.** A project body carries no\n  members, ownerships, reviews or protection rules; each is created and deleted through its own\n  path. The one exception is a project's policy, which has no routes and is therefore nested.\n- **A read can widen to the graph around it.** Every `GET` returning model data accepts\n  `includeReferenced` and `includeComposed`. With neither set the response is the resource itself;\n  with either it is a flat array of `Thing`, discriminated by `@type`, holding the resource first and\n  then everything it references and/or composes, each once.\n- **Every failure carries an `Error`**, the body defined by the OMG Systems Modeling API PSM, so a\n  client reads errors from either server identically.\n- **Server-assigned values are `readOnly`.** Identifiers and the audit stamps are omitted from\n  request bodies and present in responses. A `PATCH` body is partial, so it is described by a\n  separate `…Patch` schema with nothing required.\n\nCollections are unpaged, deliberately: the expected volumes do not warrant it.\n\nOperations carry `x-satisfies`, listing the Software System Specification requirements they\nimplement. Sixteen of the forty-six have none, which is accurate rather than an omission: the\nspecification does not cover reviews or comments at all, and the gate, session and policy-read\noperations are architectural.",
+    "description": "The REST surface of the Mycelium Fabric Functional Data Service: the platform data\nthat surrounds a SysML v2 model, rather than the model itself. Projects, branches, commits and model\nelements belong to the Concurrent Server and are reached through the OMG Systems Modelling API; a\nreference held here to anything on that side is an identifier, never embedded content.\n\nGenerated from the Enterprise Architect model `SysML2_Software_Architecture.qea`, in which every\noperation is a `«route»` on an `«apiModule»` class. Six conventions follow from that and are not\nvisible in the paths:\n\n- **Authentication and authorization happen at the edge.** Every request passes an nginx\n  `auth_request` subrequest to `/internal/auth`, which answers 200, 401 or 403 and stamps the\n  resolved account onto the request it allows. No operation below declares 401 or 403, because the\n  gate produces them for all of them uniformly, and no operation takes a current-user parameter.\n- **A body never nests a composed child that has routes of its own.** A project body carries no\n  members, ownerships, reviews or protection rules; each is created and deleted through its own\n  path. The one exception is a project's policy, which has no routes and is therefore nested.\n- **Every response carrying model data is a flat array of `Thing`**, discriminated by `@type`, so\n  a client deserialises every read and write the same way. A single resource arrives as a\n  one-element array.\n- **A read can widen to the graph around it.** Every `GET` returning model data accepts\n  `includeReferenced` and `includeComposed`. With neither set the array holds only the requested\n  resources; with either it holds them first and then everything they reference and/or compose,\n  each once.\n- **Every failure carries an `Error`**, the body defined by the OMG Systems Modeling API PSM, so a\n  client reads errors from either server identically.\n- **Server-assigned values are `readOnly`.** The audit stamps and every attribute modelled\n  `«managed»` are omitted from request bodies and present in responses. An identifier may be\n  assigned by the client, so that one request can create several Things that reference each\n  other; otherwise the server assigns it. A `PATCH` body is partial, so it is described by a\n  separate `…Patch` schema with nothing required.\n\nCollections are unpaged, deliberately: the expected volumes do not warrant it.\n\nOperations carry `x-satisfies`, listing the Software System Specification requirements they\nimplement. Seventeen of the fifty-five have none, which is accurate rather than an omission: the\nspecification does not cover reviews, comments or the revocation of an invitation, and the gate,\nsession and policy-read operations are architectural.",
     "x-mycelium-version": "0.2.0",
     "x-mycelium-packageId": "Mycelium.ICD.FunctionalDataService",
     "x-mycelium-releaseDate": "2026-11-06"
@@ -45,6 +45,10 @@
     {
       "name": "Users",
       "description": "The mirror of a Keycloak identity, which is readable here but owned there."
+    },
+    {
+      "name": "Invitations",
+      "description": "Invitations to join an organization or a project, visible only to their sender and their invitee."
     },
     {
       "name": "Reviews",
@@ -94,6 +98,179 @@
         }
       }
     },
+    "/mycelium/invitations": {
+      "get": {
+        "operationId": "getInvitations",
+        "tags": [
+          "Invitations"
+        ],
+        "summary": "Get invitations",
+        "description": "The pending invitations addressed to the requesting user, of both kinds.",
+        "x-satisfies": [
+          "SSS-FB-AUTH-L0Z",
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The invitations, followed by the Things they include when an include parameter is set.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/invitations/{invitationId}": {
+      "delete": {
+        "operationId": "revokeInvitation",
+        "tags": [
+          "Invitations"
+        ],
+        "summary": "Revoke invitation",
+        "description": "Marks the invitation Revoked and keeps the record. Limited to its sender, and refused once it is no longer pending.",
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Revoked."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/invitations/{invitationId}/accept": {
+      "post": {
+        "operationId": "acceptInvitation",
+        "tags": [
+          "Invitations"
+        ],
+        "summary": "Accept invitation",
+        "description": "Creates the organization or project membership the invitation describes and marks it Accepted. Limited to its invitee, and refused once it has expired or is no longer pending.",
+        "x-satisfies": [
+          "SSS-FB-AUTH-L0Z",
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The accepted invitation, followed by the membership it created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/invitations/{invitationId}/decline": {
+      "post": {
+        "operationId": "declineInvitation",
+        "tags": [
+          "Invitations"
+        ],
+        "summary": "Decline invitation",
+        "description": "Marks the invitation Declined. Limited to its invitee, and refused once it has expired or is no longer pending.",
+        "x-satisfies": [
+          "SSS-FB-AUTH-L0Z",
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The declined invitation, as a one-element array.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/mycelium/organizations": {
       "post": {
         "operationId": "createOrganization",
@@ -101,6 +278,7 @@
           "Organizations"
         ],
         "summary": "Create organization",
+        "description": "The body holds the organization, its policy and the requesting user's administrator membership, linked by client-assigned identifiers, and is created in one transaction.",
         "x-satisfies": [
           "SSS-IA-ORG-K8W",
           "SSS-CC-SS-HV9"
@@ -110,18 +288,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Organization"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Thing"
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "The organization.",
+            "description": "The created organization, policy and membership.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Organization"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -150,24 +334,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The organizations, or the Things they include when an include parameter is set.",
+            "description": "The organizations, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Organization"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -207,21 +381,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The organization, or the Things it includes when an include parameter is set.",
+            "description": "The organization, followed by the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/Organization"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -266,11 +433,14 @@
         },
         "responses": {
           "200": {
-            "description": "The organization.",
+            "description": "The organization, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Organization"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -317,6 +487,113 @@
         }
       }
     },
+    "/mycelium/organizations/{organizationId}/invitations": {
+      "post": {
+        "operationId": "createOrganizationInvitation",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Create organization invitation",
+        "description": "Invites a user, by account or by email address, to join the organization with a role; the membership is created only when the invitee accepts. Refused when the invitee is already a member or already holds a pending invitation to it.",
+        "x-satisfies": [
+          "SSS-FB-AUTH-L0Z"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationInvitation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The organization invitation, as a one-element array.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getOrganizationInvitations",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Get organization invitations",
+        "description": "Only the invitations the requesting user sent, since an invitation is visible to its sender and its invitee alone.",
+        "x-satisfies": [
+          "SSS-FB-AUTH-L0Z"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization invitations, followed by the Things they include when an include parameter is set.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/mycelium/organizations/{organizationId}/members": {
       "get": {
         "operationId": "getOrganizationMembers",
@@ -346,24 +623,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The organization members, or the Things they include when an include parameter is set.",
+            "description": "The organization members, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/OrganizationMember"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -410,11 +677,14 @@
         },
         "responses": {
           "201": {
-            "description": "The organization member.",
+            "description": "The organization member, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationMember"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -474,11 +744,14 @@
         },
         "responses": {
           "200": {
-            "description": "The organization member.",
+            "description": "The organization member, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationMember"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -566,21 +839,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The organization policy, or the Things it includes when an include parameter is set.",
+            "description": "The organization policy, followed by the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/OrganizationPolicy"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -625,64 +891,14 @@
         },
         "responses": {
           "200": {
-            "description": "The organization policy.",
+            "description": "The organization policy, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationPolicy"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "default": {
-            "$ref": "#/components/responses/default"
-          }
-        }
-      }
-    },
-    "/mycelium/organizations/{organizationId}/users": {
-      "post": {
-        "operationId": "createUser",
-        "tags": [
-          "Organizations"
-        ],
-        "summary": "Create user",
-        "description": "Scoped to an organization, because a user is modelled as belonging to at least one.",
-        "x-satisfies": [
-          "SSS-IA-USR-Q2N",
-          "SSS-OA-USR-N35"
-        ],
-        "parameters": [
-          {
-            "name": "organizationId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "The user.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -703,7 +919,7 @@
           "Projects"
         ],
         "summary": "Create project",
-        "description": "The requesting user becomes the project administrator, and the policy is created with the project.",
+        "description": "The body holds the project, its policy and the requesting user's administrator membership, optionally with further members, ownerships and branch protection rules, linked by client-assigned identifiers, and is created in one transaction.",
         "x-satisfies": [
           "SSS-CC-SS-FUU",
           "SSS-OA-PROJ-TWK",
@@ -714,18 +930,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionalProject"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Thing"
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "The functional project.",
+            "description": "The created project and the things created with it.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FunctionalProject"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -756,24 +978,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The functional projects, or the Things they include when an include parameter is set.",
+            "description": "The functional projects, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/FunctionalProject"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -813,21 +1025,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The functional project, or the Things it includes when an include parameter is set.",
+            "description": "The functional project, followed by the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/FunctionalProject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -876,11 +1081,14 @@
         },
         "responses": {
           "200": {
-            "description": "The functional project.",
+            "description": "The functional project, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FunctionalProject"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -956,24 +1164,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The branch protection rules, or the Things they include when an include parameter is set.",
+            "description": "The branch protection rules, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/BranchProtectionRule"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1029,7 +1227,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BranchProtectionRule"
+                    "$ref": "#/components/schemas/Thing"
                   }
                 }
               }
@@ -1040,6 +1238,113 @@
           },
           "409": {
             "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/mycelium/projects/{projectId}/invitations": {
+      "post": {
+        "operationId": "createProjectInvitation",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Create project invitation",
+        "description": "Invites a user, by account or by email address, to join the project with a role; the membership is created only when the invitee accepts. Refused when the invitee is already a member or already holds a pending invitation to it.",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectInvitation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The project invitation, as a one-element array.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getProjectInvitations",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get project invitations",
+        "description": "Only the invitations the requesting user sent, since an invitation is visible to its sender and its invitee alone.",
+        "x-satisfies": [
+          "SSS-PA-MGMT-8EF"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/includeReferenced"
+          },
+          {
+            "$ref": "#/components/parameters/includeComposed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The project invitations, followed by the Things they include when an include parameter is set.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
           },
           "default": {
             "$ref": "#/components/responses/default"
@@ -1076,24 +1381,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The project members, or the Things they include when an include parameter is set.",
+            "description": "The project members, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ProjectMember"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1139,11 +1434,14 @@
         },
         "responses": {
           "201": {
-            "description": "The project member.",
+            "description": "The project member, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectMember"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1205,11 +1503,14 @@
         },
         "responses": {
           "200": {
-            "description": "The project member.",
+            "description": "The project member, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectMember"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1300,24 +1601,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The ownerships, or the Things they include when an include parameter is set.",
+            "description": "The ownerships, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Ownership"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1362,11 +1653,14 @@
         },
         "responses": {
           "201": {
-            "description": "The ownership.",
+            "description": "The ownership, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ownership"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1422,11 +1716,14 @@
         },
         "responses": {
           "200": {
-            "description": "The ownership.",
+            "description": "The ownership, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ownership"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1511,24 +1808,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The reviews, or the Things they include when an include parameter is set.",
+            "description": "The reviews, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Review"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1571,11 +1858,14 @@
         },
         "responses": {
           "201": {
-            "description": "The review.",
+            "description": "The review, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1627,21 +1917,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The review, or the Things it includes when an include parameter is set.",
+            "description": "The review, followed by the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/Review"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1693,11 +1976,14 @@
         },
         "responses": {
           "200": {
-            "description": "The review.",
+            "description": "The review, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1789,24 +2075,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The comments, or the Things they include when an include parameter is set.",
+            "description": "The comments, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1858,11 +2134,14 @@
         },
         "responses": {
           "201": {
-            "description": "The comment.",
+            "description": "The comment, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -1925,11 +2204,14 @@
         },
         "responses": {
           "200": {
-            "description": "The comment.",
+            "description": "The comment, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Comment"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2035,24 +2317,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The replies, or the Things they include when an include parameter is set.",
+            "description": "The replies, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Reply"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2112,11 +2384,14 @@
         },
         "responses": {
           "201": {
-            "description": "The reply.",
+            "description": "The reply, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reply"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2187,11 +2462,14 @@
         },
         "responses": {
           "200": {
-            "description": "The reply.",
+            "description": "The reply, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reply"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2286,6 +2564,49 @@
       }
     },
     "/mycelium/users": {
+      "post": {
+        "operationId": "createUser",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create user",
+        "description": "The body holds the user, their personal organization, its policy and the user's administrator membership of it, linked by client-assigned identifiers, and is created in one transaction.",
+        "x-satisfies": [
+          "SSS-IA-USR-Q2N",
+          "SSS-OA-USR-N35"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Thing"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created user, organization, policy and membership.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
       "get": {
         "operationId": "getUsers",
         "tags": [
@@ -2305,24 +2626,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The users, or the Things they include when an include parameter is set.",
+            "description": "The users, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2362,21 +2673,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The user, or the Things it includes when an include parameter is set.",
+            "description": "The user, followed by the Things it includes when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/User"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2423,14 +2727,51 @@
         },
         "responses": {
           "200": {
-            "description": "The user.",
+            "description": "The user, as a one-element array.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUser",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete user",
+        "description": "Removes the identity from Keycloak and marks the user Deleted, keeping the record for the things that reference it. Refused when the user is the last administrator of an organization.",
+        "x-satisfies": [
+          "SSS-IA-USR-Q2N",
+          "SSS-OA-USR-N35"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
@@ -2472,24 +2813,14 @@
         ],
         "responses": {
           "200": {
-            "description": "The functional projects, or the Things they include when an include parameter is set.",
+            "description": "The functional projects, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/FunctionalProject"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Thing"
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thing"
+                  }
                 }
               }
             }
@@ -2588,14 +2919,12 @@
           "@type": {
             "type": "string",
             "const": "BranchProtectionRule",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -2853,14 +3182,12 @@
           "@type": {
             "type": "string",
             "const": "FunctionalProject",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3103,14 +3430,12 @@
           "@type": {
             "type": "string",
             "const": "FunctionalProjectPolicy",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3157,6 +3482,16 @@
         ],
         "additionalProperties": false
       },
+      "InvitationStatus": {
+        "type": "string",
+        "enum": [
+          "Pending",
+          "Accepted",
+          "Declined",
+          "Revoked"
+        ],
+        "description": "Defines the response state of an Invitation. Expiry is not a state: a Pending invitation whose expiresOn has passed is expired."
+      },
       "Organization": {
         "type": "object",
         "description": "Represents a tenant boundary in the Mycelium platform. On SaaS each customer maps to one Organization; on-premise deployments may host multiple.",
@@ -3164,14 +3499,12 @@
           "@type": {
             "type": "string",
             "const": "Organization",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3243,6 +3576,87 @@
         ],
         "additionalProperties": false
       },
+      "OrganizationInvitation": {
+        "type": "object",
+        "description": "An Invitation to join an Organization with an OrganizationMembershipRole. Accepting it creates the corresponding OrganizationMember.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "OrganizationInvitation",
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification."
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "inviteeEmail": {
+            "type": "string",
+            "description": "The email address the invitation was sent to when the invitee is not yet identified as a User; matched against a user's verified email at first sign-in."
+          },
+          "status": {
+            "$ref": "#/components/schemas/InvitationStatus",
+            "description": "The current InvitationStatus, changed only by the accept, decline and revoke operations.",
+            "readOnly": true
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The DateTime after which a Pending invitation can no longer be accepted, computed from the configured invitation lifetime.",
+            "readOnly": true
+          },
+          "respondedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The DateTime at which the invitation was accepted, declined or revoked.",
+            "readOnly": true
+          },
+          "invitee": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "role": {
+            "$ref": "#/components/schemas/OrganizationMembershipRole",
+            "description": "The OrganizationMembershipRole granted to the invitee on acceptance."
+          },
+          "organization": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the Organization."
+          }
+        },
+        "required": [
+          "@type",
+          "organization",
+          "role"
+        ],
+        "additionalProperties": false
+      },
       "OrganizationMember": {
         "type": "object",
         "description": "Represents the membership of a User within an Organization, carrying the organization-level role.",
@@ -3250,14 +3664,12 @@
           "@type": {
             "type": "string",
             "const": "OrganizationMember",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3459,14 +3871,12 @@
           "@type": {
             "type": "string",
             "const": "OrganizationPolicy",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3575,14 +3985,12 @@
           "@type": {
             "type": "string",
             "const": "Ownership",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -3695,6 +4103,95 @@
         },
         "additionalProperties": false
       },
+      "ProjectInvitation": {
+        "type": "object",
+        "description": "An Invitation to join a FunctionalProject with a ProjectMemberRole and, optionally, a set of Ownership domains. Accepting it creates the corresponding ProjectMember.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "ProjectInvitation",
+            "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Represents the unique identifier that allow entity identification."
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the creation DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Provides the last modification DateTime of the current AuditableThing",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User.",
+            "readOnly": true
+          },
+          "inviteeEmail": {
+            "type": "string",
+            "description": "The email address the invitation was sent to when the invitee is not yet identified as a User; matched against a user's verified email at first sign-in."
+          },
+          "status": {
+            "$ref": "#/components/schemas/InvitationStatus",
+            "description": "The current InvitationStatus, changed only by the accept, decline and revoke operations.",
+            "readOnly": true
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The DateTime after which a Pending invitation can no longer be accepted, computed from the configured invitation lifetime.",
+            "readOnly": true
+          },
+          "respondedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The DateTime at which the invitation was accepted, declined or revoked.",
+            "readOnly": true
+          },
+          "invitee": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the User."
+          },
+          "role": {
+            "$ref": "#/components/schemas/ProjectMemberRole",
+            "description": "The ProjectMemberRole granted to the invitee on acceptance."
+          },
+          "project": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifies the FunctionalProject."
+          },
+          "ownerships": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identifies each Ownership."
+          }
+        },
+        "required": [
+          "@type",
+          "project",
+          "role"
+        ],
+        "additionalProperties": false
+      },
       "ProjectLifecycleKind": {
         "type": "string",
         "enum": [
@@ -3712,14 +4209,12 @@
           "@type": {
             "type": "string",
             "const": "ProjectMember",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -4216,6 +4711,9 @@
             "$ref": "#/components/schemas/Organization"
           },
           {
+            "$ref": "#/components/schemas/OrganizationInvitation"
+          },
+          {
             "$ref": "#/components/schemas/OrganizationMember"
           },
           {
@@ -4223,6 +4721,9 @@
           },
           {
             "$ref": "#/components/schemas/Ownership"
+          },
+          {
+            "$ref": "#/components/schemas/ProjectInvitation"
           },
           {
             "$ref": "#/components/schemas/ProjectMember"
@@ -4245,9 +4746,11 @@
             "FunctionalProject": "#/components/schemas/FunctionalProject",
             "FunctionalProjectPolicy": "#/components/schemas/FunctionalProjectPolicy",
             "Organization": "#/components/schemas/Organization",
+            "OrganizationInvitation": "#/components/schemas/OrganizationInvitation",
             "OrganizationMember": "#/components/schemas/OrganizationMember",
             "OrganizationPolicy": "#/components/schemas/OrganizationPolicy",
             "Ownership": "#/components/schemas/Ownership",
+            "ProjectInvitation": "#/components/schemas/ProjectInvitation",
             "ProjectMember": "#/components/schemas/ProjectMember",
             "Reply": "#/components/schemas/Reply",
             "Review": "#/components/schemas/Review",
@@ -4262,14 +4765,12 @@
           "@type": {
             "type": "string",
             "const": "User",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",

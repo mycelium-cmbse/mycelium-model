@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:mofext="http://www.omg.org/spec/MOF/20131001">
-  <xmi:Documentation exporter="Enterprise Architect" exporterID="1704" exporterVersion="6.5" />
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:Mycelium="http://www.sparxsystems.com/profiles/Mycelium/1.1" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:mofext="http://www.omg.org/spec/MOF/20131001">
+  <xmi:documentation xmi:type="xmi:Documentation" exporter="Enterprise Architect" exporterID="1704" exporterVersion="6.5" />
   <uml:Model xmi:type="uml:Model" name="mycelium-fabric">
     <packagedElement xmi:type="uml:Package" xmi:id="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" name="Fabric">
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" isAbstract="true" name="AuditableThing">
@@ -27,22 +27,22 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst4A4107_F7C8_4627_A8E1_68B971194315-_ownedComment.0" body="References the &lt;see cref=&quot;User&quot; /&gt; that created the current &lt;see cref=&quot;AuditableThing&quot; /&gt;." />
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000210__F7C8_4627_A8E1_68B971194315" value="1" />
         </ownedAttribute>
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F332305D_64EC_494a_960C_145ABE5F8E88-_ownedComment.0" body="Any &amp;lt;see cref=&quot;Thing&quot; /&amp;gt; that shall record creation and update date and authority. " />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F332305D_64EC_494a_960C_145ABE5F8E88-_ownedComment.0" body="Any &lt;see cref=&quot;Thing&quot; /&gt; that shall record creation and update date and authority. " />
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_357803CD_B3BC_4b6a_AF9A_BFE4116F8684">
         <memberEnd xmi:idref="EAID_dst7803CD_B3BC_4b6a_AF9A_BFE4116F8684" />
         <memberEnd xmi:idref="EAID_src7803CD_B3BC_4b6a_AF9A_BFE4116F8684" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src7803CD_B3BC_4b6a_AF9A_BFE4116F8684" association="EAID_357803CD_B3BC_4b6a_AF9A_BFE4116F8684" name="updated" type="EAID_F332305D_64EC_494a_960C_145ABE5F8E88">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000359__B3BC_4b6a_AF9A_BFE4116F8684" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000360__B3BC_4b6a_AF9A_BFE4116F8684" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000385__B3BC_4b6a_AF9A_BFE4116F8684" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000386__B3BC_4b6a_AF9A_BFE4116F8684" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_D34A4107_F7C8_4627_A8E1_68B971194315">
         <memberEnd xmi:idref="EAID_dst4A4107_F7C8_4627_A8E1_68B971194315" />
         <memberEnd xmi:idref="EAID_src4A4107_F7C8_4627_A8E1_68B971194315" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src4A4107_F7C8_4627_A8E1_68B971194315" association="EAID_D34A4107_F7C8_4627_A8E1_68B971194315" name="created" type="EAID_F332305D_64EC_494a_960C_145ABE5F8E88">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000363__F7C8_4627_A8E1_68B971194315" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000364__F7C8_4627_A8E1_68B971194315" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000391__F7C8_4627_A8E1_68B971194315" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000392__F7C8_4627_A8E1_68B971194315" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_CCBD394D_3CEB_4e19_9558_CF73AB92239D" name="BranchProtectionRule">
@@ -130,8 +130,8 @@ inv viewerCannotMerge: self.mergeAllowedFor-&amp;gt;excludes(ProjectMemberRole::
         <memberEnd xmi:idref="EAID_dstE84187_01D1_4e2e_99BD_B9434F7D5F63" />
         <memberEnd xmi:idref="EAID_srcE84187_01D1_4e2e_99BD_B9434F7D5F63" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcE84187_01D1_4e2e_99BD_B9434F7D5F63" association="EAID_F0E84187_01D1_4e2e_99BD_B9434F7D5F63" name="rules" type="EAID_CCBD394D_3CEB_4e19_9558_CF73AB92239D">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000365__01D1_4e2e_99BD_B9434F7D5F63" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000366__01D1_4e2e_99BD_B9434F7D5F63" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000393__01D1_4e2e_99BD_B9434F7D5F63" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000394__01D1_4e2e_99BD_B9434F7D5F63" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B" name="Comment">
@@ -147,7 +147,7 @@ inv viewerCannotMerge: self.mergeAllowedFor-&amp;gt;excludes(ProjectMemberRole::
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000228_F80D_42ac_AC82_9391EBDF1D3B" value="1" />
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src576474_5CDA_4a6c_A55D_49767D9BD746" aggregation="composite" association="EAID_91576474_5CDA_4a6c_A55D_49767D9BD746" name="replies" type="EAID_8A288F40_F8C6_4f50_9BE9_6C71E11F580E">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src576474_5CDA_4a6c_A55D_49767D9BD746" aggregation="composite" association="EAID_91576474_5CDA_4a6c_A55D_49767D9BD746" isOrdered="true" name="replies" type="EAID_8A288F40_F8C6_4f50_9BE9_6C71E11F580E">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000231__5CDA_4a6c_A55D_49767D9BD746" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src576474_5CDA_4a6c_A55D_49767D9BD746-_ownedComment.0" body="Contains threaded reply instances nested under this comment." />
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000232__5CDA_4a6c_A55D_49767D9BD746" value="*" />
@@ -166,8 +166,8 @@ inv viewerCannotMerge: self.mergeAllowedFor-&amp;gt;excludes(ProjectMemberRole::
         <memberEnd xmi:idref="EAID_dst576474_5CDA_4a6c_A55D_49767D9BD746" />
         <memberEnd xmi:idref="EAID_src576474_5CDA_4a6c_A55D_49767D9BD746" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_dst576474_5CDA_4a6c_A55D_49767D9BD746" association="EAID_91576474_5CDA_4a6c_A55D_49767D9BD746" name="owningComment" type="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000325__5CDA_4a6c_A55D_49767D9BD746" value="1" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000326__5CDA_4a6c_A55D_49767D9BD746" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000351__5CDA_4a6c_A55D_49767D9BD746" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000352__5CDA_4a6c_A55D_49767D9BD746" value="1" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" name="FunctionalProject">
@@ -227,19 +227,19 @@ inv viewerCannotMerge: self.mergeAllowedFor-&amp;gt;excludes(ProjectMemberRole::
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000252__9A1C_499c_89F0_F2DC89DF5B72" value="*" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src334609_B221_4b40_9A48_7B8FD3E1C1B9" aggregation="composite" association="EAID_A8334609_B221_4b40_9A48_7B8FD3E1C1B9" name="policy" type="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000253__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000255__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src334609_B221_4b40_9A48_7B8FD3E1C1B9-_ownedComment.0" body="The related &lt;see cref=&quot;FunctionalProjectPolicy&quot; /&gt; " />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000254__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000256__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src9F698B_4C93_438b_AD4A_57857A43CB99" aggregation="composite" association="EAID_CA9F698B_4C93_438b_AD4A_57857A43CB99" name="branchRules" type="EAID_CCBD394D_3CEB_4e19_9558_CF73AB92239D">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000255__4C93_438b_AD4A_57857A43CB99" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000257__4C93_438b_AD4A_57857A43CB99" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src9F698B_4C93_438b_AD4A_57857A43CB99-_ownedComment.0" body="Contains the &lt;see cref=&quot;BranchProtectionRule&quot; /&gt; instances defined for this &lt;see cref=&quot;FunctionalProject&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000256__4C93_438b_AD4A_57857A43CB99" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000258__4C93_438b_AD4A_57857A43CB99" value="*" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" aggregation="composite" association="EAID_DE5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" name="reviews" type="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000257__F9EE_4eb3_8DF5_7DAD8ECC6517" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000259__F9EE_4eb3_8DF5_7DAD8ECC6517" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517-_ownedComment.0" body="Contains the &lt;see cref=&quot;Review&quot; /&gt; instances associated with this &lt;see cref=&quot;FunctionalProject&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000258__F9EE_4eb3_8DF5_7DAD8ECC6517" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000260__F9EE_4eb3_8DF5_7DAD8ECC6517" value="*" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4-_ownedComment.0" body="Represents the Functional Data Server projection of an engineering project, linking platform metadata to the corresponding SysML v2 model in the Concurrent Server." />
         <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_BCE1_489a_B521_BE9277F760A4" name="atLeastOneAdministrator">
@@ -272,65 +272,136 @@ inv uniqueUserMembership: self.involves-&amp;gt;isUnique(m | m.user)</body>
         <memberEnd xmi:idref="EAID_dst466CF4_354D_4070_82A6_21582B4A026D" />
         <memberEnd xmi:idref="EAID_src466CF4_354D_4070_82A6_21582B4A026D" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_dst466CF4_354D_4070_82A6_21582B4A026D" association="EAID_1E466CF4_354D_4070_82A6_21582B4A026D" name="owningProject" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000307__354D_4070_82A6_21582B4A026D" value="1" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000308__354D_4070_82A6_21582B4A026D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000325__354D_4070_82A6_21582B4A026D" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000326__354D_4070_82A6_21582B4A026D" value="1" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_4F12861D_9A1C_499c_89F0_F2DC89DF5B72">
         <memberEnd xmi:idref="EAID_dst12861D_9A1C_499c_89F0_F2DC89DF5B72" />
         <memberEnd xmi:idref="EAID_src12861D_9A1C_499c_89F0_F2DC89DF5B72" />
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="EAID_658FE704_A41D_4430_85A0_357311157814">
+        <memberEnd xmi:idref="EAID_dst8FE704_A41D_4430_85A0_357311157814" />
+        <memberEnd xmi:idref="EAID_src8FE704_A41D_4430_85A0_357311157814" />
+        <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src8FE704_A41D_4430_85A0_357311157814" aggregation="composite" association="EAID_658FE704_A41D_4430_85A0_357311157814" name="invitations" type="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000253__A41D_4430_85A0_357311157814" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src8FE704_A41D_4430_85A0_357311157814-_ownedComment.0" body="Contains the &lt;see cref=&quot;ProjectInvitation&quot; /&gt; instances issued for this &lt;see cref=&quot;FunctionalProject&quot; /&gt;." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000254__A41D_4430_85A0_357311157814" value="*" />
+        </ownedEnd>
+      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_A8334609_B221_4b40_9A48_7B8FD3E1C1B9">
         <memberEnd xmi:idref="EAID_dst334609_B221_4b40_9A48_7B8FD3E1C1B9" />
         <memberEnd xmi:idref="EAID_src334609_B221_4b40_9A48_7B8FD3E1C1B9" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_dst334609_B221_4b40_9A48_7B8FD3E1C1B9" association="EAID_A8334609_B221_4b40_9A48_7B8FD3E1C1B9" name="owningProject" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000265__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000266__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000267__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000268__B221_4b40_9A48_7B8FD3E1C1B9" value="1" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_DE5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517">
         <memberEnd xmi:idref="EAID_dst5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" />
         <memberEnd xmi:idref="EAID_src5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_dst5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" association="EAID_DE5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" name="owningProject" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000339__F9EE_4eb3_8DF5_7DAD8ECC6517" value="1" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000340__F9EE_4eb3_8DF5_7DAD8ECC6517" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000365__F9EE_4eb3_8DF5_7DAD8ECC6517" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000366__F9EE_4eb3_8DF5_7DAD8ECC6517" value="1" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28" name="FunctionalProjectPolicy">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_FBB5B67A_B12C_4e18_B617_65E6E405FB8C" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_281226AE_8E78_412e_A93E_183C2A122580" name="allowAutoNamespaceImport">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000259_8E78_412e_A93E_183C2A122580" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000261_8E78_412e_A93E_183C2A122580" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_281226AE_8E78_412e_A93E_183C2A122580-_ownedComment.0" body="Asserts if automatically importing namespace is allowed or not." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000260_8E78_412e_A93E_183C2A122580" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000262_8E78_412e_A93E_183C2A122580" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_D106628A_3FDF_4a13_9E2F_36CD062DB2FD" name="allowAutoPublishMode">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000261_3FDF_4a13_9E2F_36CD062DB2FD" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000263_3FDF_4a13_9E2F_36CD062DB2FD" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D106628A_3FDF_4a13_9E2F_36CD062DB2FD-_ownedComment.0" body="Asserts if publish mode can be set on this project or not." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000262_3FDF_4a13_9E2F_36CD062DB2FD" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000264_3FDF_4a13_9E2F_36CD062DB2FD" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_FD06176B_97F2_4d87_9D8F_5B54A147A131" name="allowVersionBranching">
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="EAID_LI000265_97F2_4d87_9D8F_5B54A147A131" value="true" />
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000263_97F2_4d87_9D8F_5B54A147A131" value="1" />
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="EAID_LI000267_97F2_4d87_9D8F_5B54A147A131" value="true" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000265_97F2_4d87_9D8F_5B54A147A131" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_FD06176B_97F2_4d87_9D8F_5B54A147A131-_ownedComment.0" body="Asserts that the branching system for the version control is allowed or not." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000264_97F2_4d87_9D8F_5B54A147A131" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000266_97F2_4d87_9D8F_5B54A147A131" value="1" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28-_ownedComment.0" body="The FunctionalProjectPolicy defines the policies associated to a specific &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;." />
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" isAbstract="true" name="Invitation">
+        <generalization xmi:type="uml:Generalization" xmi:id="EAID_1D1C1647_E05D_4d01_A001_58008D7D1690" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2FD334CF_06F1_4a91_8EFE_AA48B4D0E37D" name="expiresOn">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000269_06F1_4a91_8EFE_AA48B4D0E37D" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2FD334CF_06F1_4a91_8EFE_AA48B4D0E37D-_ownedComment.0" body="The &lt;see cref=&quot;DateTime&quot; /&gt; after which a Pending invitation can no longer be accepted, computed from the configured invitation lifetime." />
+          <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000270_06F1_4a91_8EFE_AA48B4D0E37D" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_1968C9F0_DD5C_442d_82B4_5B32F93007DE" name="inviteeEmail">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000271_DD5C_442d_82B4_5B32F93007DE" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1968C9F0_DD5C_442d_82B4_5B32F93007DE-_ownedComment.0" body="The email address the invitation was sent to when the invitee is not yet identified as a &lt;see cref=&quot;User&quot; /&gt;; matched against a user's verified email at first sign-in." />
+          <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000272_DD5C_442d_82B4_5B32F93007DE" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_8E4433BE_571A_47d3_BFAB_FDBC7C011316" name="respondedOn">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000273_571A_47d3_BFAB_FDBC7C011316" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_8E4433BE_571A_47d3_BFAB_FDBC7C011316-_ownedComment.0" body="The &lt;see cref=&quot;DateTime&quot; /&gt; at which the invitation was accepted, declined or revoked." />
+          <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_5A174943_DF4B_4223_AB56_590429667355" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000274_571A_47d3_BFAB_FDBC7C011316" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_186A8E1D_DBFF_4708_AB34_955A7C349465" name="status" type="EAID_9E86D614_0C36_4e0d_9D65_E761F826E895">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000275_DBFF_4708_AB34_955A7C349465" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_186A8E1D_DBFF_4708_AB34_955A7C349465-_ownedComment.0" body="The current &lt;see cref=&quot;InvitationStatus&quot; /&gt;, changed only by the accept, decline and revoke operations." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000276_DBFF_4708_AB34_955A7C349465" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst1605E4_EFF5_4266_9EDC_3EA2EADAC5BF" association="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF" name="invitee" type="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000277__EFF5_4266_9EDC_3EA2EADAC5BF" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst1605E4_EFF5_4266_9EDC_3EA2EADAC5BF-_ownedComment.0" body="References the invited &lt;see cref=&quot;User&quot; /&gt; when the invitee already holds an account." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000278__EFF5_4266_9EDC_3EA2EADAC5BF" value="1" />
+        </ownedAttribute>
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701-_ownedComment.0" body="Abstract base of an invitation sent by a &lt;see cref=&quot;User&quot; /&gt; to join a target with a given role, taking effect only once the invitee accepts it. The sender is the inherited createdBy." />
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_E930_46d0_B87F_46A72856C701" name="expiresAfterCreation">
+          <constrainedElement xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_E930_46d0_B87F_46A72856C701">
+            <body>-- Source: Fabric model / Invitation documentation
+inv expiresAfterCreation: self.expiresOn &amp;gt; self.createdOn</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_E930_46d0_B87F_46A72856C701" name="hasInvitee">
+          <constrainedElement xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_E930_46d0_B87F_46A72856C701">
+            <body>-- Source: SSS-FB-AUTH-L0Z
+inv hasInvitee: self.invitee &amp;lt;&amp;gt; null or self.inviteeEmail &amp;lt;&amp;gt; null</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_E930_46d0_B87F_46A72856C701" name="respondedOnWhenAnswered">
+          <constrainedElement xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000002_E930_46d0_B87F_46A72856C701">
+            <body>-- Source: Fabric model / Invitation documentation
+inv respondedOnWhenAnswered: (self.status = InvitationStatus::Pending) = (self.respondedOn = null)</body>
+          </specification>
+        </ownedRule>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF">
+        <memberEnd xmi:idref="EAID_dst1605E4_EFF5_4266_9EDC_3EA2EADAC5BF" />
+        <memberEnd xmi:idref="EAID_src1605E4_EFF5_4266_9EDC_3EA2EADAC5BF" />
+        <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src1605E4_EFF5_4266_9EDC_3EA2EADAC5BF" association="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF" name="invites" type="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000389__EFF5_4266_9EDC_3EA2EADAC5BF" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src1605E4_EFF5_4266_9EDC_3EA2EADAC5BF-_ownedComment.0" body="References the &lt;see cref=&quot;Invitation&quot; /&gt; instances addressed to this &lt;see cref=&quot;User&quot; /&gt;." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000390__EFF5_4266_9EDC_3EA2EADAC5BF" value="*" />
+        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21" isAbstract="true" name="Message">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_12054E2B_6EC6_4de6_8882_265E4DF9FBE7" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_ED19712B_44F9_417a_B4C8_D7947C1B78D3" name="content">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000267_44F9_417a_B4C8_D7947C1B78D3" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000279_44F9_417a_B4C8_D7947C1B78D3" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_ED19712B_44F9_417a_B4C8_D7947C1B78D3-_ownedComment.0" body="The textual content of the message." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000268_44F9_417a_B4C8_D7947C1B78D3" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000280_44F9_417a_B4C8_D7947C1B78D3" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst8A7913_FD71_44cd_ABB5_E052556DB23E" association="EAID_CD8A7913_FD71_44cd_ABB5_E052556DB23E" name="quotes" type="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000269__FD71_44cd_ABB5_E052556DB23E" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000281__FD71_44cd_ABB5_E052556DB23E" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst8A7913_FD71_44cd_ABB5_E052556DB23E-_ownedComment.0" body="References a quoted &lt;see cref=&quot;Message&quot; /&gt;" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000270__FD71_44cd_ABB5_E052556DB23E" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000282__FD71_44cd_ABB5_E052556DB23E" value="1" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21-_ownedComment.0" body="Represents a user message." />
       </packagedElement>
@@ -338,43 +409,43 @@ inv uniqueUserMembership: self.involves-&amp;gt;isUnique(m | m.user)</body>
         <memberEnd xmi:idref="EAID_dst8A7913_FD71_44cd_ABB5_E052556DB23E" />
         <memberEnd xmi:idref="EAID_src8A7913_FD71_44cd_ABB5_E052556DB23E" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src8A7913_FD71_44cd_ABB5_E052556DB23E" association="EAID_CD8A7913_FD71_44cd_ABB5_E052556DB23E" name="quotedBy" type="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000271__FD71_44cd_ABB5_E052556DB23E" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000272__FD71_44cd_ABB5_E052556DB23E" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000283__FD71_44cd_ABB5_E052556DB23E" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000284__FD71_44cd_ABB5_E052556DB23E" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" name="Organization">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_05AC2106_E1DB_427b_878F_4F116245C072" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_DE0EC77A_6646_46fd_A7E3_A58C64995D47" name="description">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000273_6646_46fd_A7E3_A58C64995D47" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000285_6646_46fd_A7E3_A58C64995D47" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_DE0EC77A_6646_46fd_A7E3_A58C64995D47-_ownedComment.0" body="A short human-readable description of the organization." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000274_6646_46fd_A7E3_A58C64995D47" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000286_6646_46fd_A7E3_A58C64995D47" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_E3C7B4C4_9583_4514_A94B_D8E427204396" name="name">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000275_9583_4514_A94B_D8E427204396" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000287_9583_4514_A94B_D8E427204396" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_E3C7B4C4_9583_4514_A94B_D8E427204396-_ownedComment.0" body="The display name of the organization." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000276_9583_4514_A94B_D8E427204396" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000288_9583_4514_A94B_D8E427204396" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_33CEB65E_5C71_4d09_A098_84C969457ACA" name="status" type="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000277_5C71_4d09_A098_84C969457ACA" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000289_5C71_4d09_A098_84C969457ACA" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_33CEB65E_5C71_4d09_A098_84C969457ACA-_ownedComment.0" body="The current &lt;see cref=&quot;ActivationStatus&quot; /&gt; of the organization, controlling platform access for all its members." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000278_5C71_4d09_A098_84C969457ACA" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000290_5C71_4d09_A098_84C969457ACA" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_srcBB4A39_3E63_47d2_A534_BE11EB78C85D" association="EAID_1CBB4A39_3E63_47d2_A534_BE11EB78C85D" name="involvedUser" type="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000279__3E63_47d2_A534_BE11EB78C85D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000291__3E63_47d2_A534_BE11EB78C85D" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_srcBB4A39_3E63_47d2_A534_BE11EB78C85D-_ownedComment.0" body="References the &lt;see cref=&quot;OrganizationMember&quot; /&gt; record." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000280__3E63_47d2_A534_BE11EB78C85D" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000292__3E63_47d2_A534_BE11EB78C85D" value="*" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src55FB64_EDB2_486f_9C94_7029D748659D" aggregation="composite" association="EAID_5855FB64_EDB2_486f_9C94_7029D748659D" name="policy" type="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000281__EDB2_486f_9C94_7029D748659D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000293__EDB2_486f_9C94_7029D748659D" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src55FB64_EDB2_486f_9C94_7029D748659D-_ownedComment.0" body="The &lt;see cref=&quot;OrganizationPolicy&quot; /&gt; instance owned by this &lt;see cref=&quot;Organization&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000282__EDB2_486f_9C94_7029D748659D" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000294__EDB2_486f_9C94_7029D748659D" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src170BA7_33D8_4537_A515_62559F3C2737" aggregation="composite" association="EAID_FD170BA7_33D8_4537_A515_62559F3C2737" name="projects" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000283__33D8_4537_A515_62559F3C2737" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000297__33D8_4537_A515_62559F3C2737" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src170BA7_33D8_4537_A515_62559F3C2737-_ownedComment.0" body="Contains the &lt;see cref=&quot;FunctionalProject&quot; /&gt; instances belonging to this &lt;see cref=&quot;Organization&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000284__33D8_4537_A515_62559F3C2737" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000298__33D8_4537_A515_62559F3C2737" value="*" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A-_ownedComment.0" body="Represents a tenant boundary in the Mycelium platform. On SaaS each customer maps to one Organization; on-premise deployments may host multiple." />
         <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_A57C_4674_AA77_844B78CFD11A" name="atLeastOneAdministrator">
@@ -400,28 +471,65 @@ inv uniqueUserMembership: self.involvedUser-&amp;gt;isUnique(m | m.user)</body>
         <memberEnd xmi:idref="EAID_dst55FB64_EDB2_486f_9C94_7029D748659D" />
         <memberEnd xmi:idref="EAID_src55FB64_EDB2_486f_9C94_7029D748659D" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_dst55FB64_EDB2_486f_9C94_7029D748659D" association="EAID_5855FB64_EDB2_486f_9C94_7029D748659D" name="owningOrganization" type="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000297__EDB2_486f_9C94_7029D748659D" value="1" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000298__EDB2_486f_9C94_7029D748659D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000315__EDB2_486f_9C94_7029D748659D" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000316__EDB2_486f_9C94_7029D748659D" value="1" />
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA">
+        <memberEnd xmi:idref="EAID_dstF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" />
+        <memberEnd xmi:idref="EAID_srcF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" />
+        <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" aggregation="composite" association="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" name="invitations" type="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000295__7C2D_4c3e_BDF8_2F214ED160FA" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_srcF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA-_ownedComment.0" body="Contains the &lt;see cref=&quot;OrganizationInvitation&quot; /&gt; instances issued for this &lt;see cref=&quot;Organization&quot; /&gt;." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000296__7C2D_4c3e_BDF8_2F214ED160FA" value="*" />
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" name="OrganizationInvitation">
+        <generalization xmi:type="uml:Generalization" xmi:id="EAID_985A61CE_AB35_4020_95D6_A093C3C16A4C" general="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_A985A814_F065_42be_A854_77A226309018" name="role" type="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000299_F065_42be_A854_77A226309018" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_A985A814_F065_42be_A854_77A226309018-_ownedComment.0" body="The &lt;see cref=&quot;OrganizationMembershipRole&quot; /&gt; granted to the invitee on acceptance." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000300_F065_42be_A854_77A226309018" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" association="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" name="organization" type="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000301__7C2D_4c3e_BDF8_2F214ED160FA" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstF5ADAB_7C2D_4c3e_BDF8_2F214ED160FA-_ownedComment.0" body="References the &lt;see cref=&quot;Organization&quot; /&gt; the invitee is invited to join." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000302__7C2D_4c3e_BDF8_2F214ED160FA" value="1" />
+        </ownedAttribute>
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869-_ownedComment.0" body="An &lt;see cref=&quot;Invitation&quot; /&gt; to join an &lt;see cref=&quot;Organization&quot; /&gt; with an &lt;see cref=&quot;OrganizationMembershipRole&quot; /&gt;. Accepting it creates the corresponding &lt;see cref=&quot;OrganizationMember&quot; /&gt;." />
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_C2BD_498c_846E_707D4A372869" name="inviteeNotAlreadyMember">
+          <constrainedElement xmi:idref="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_C2BD_498c_846E_707D4A372869">
+            <body>-- Source: Roles-and-Permissions / Role Assignment Rule 2
+inv inviteeNotAlreadyMember: (self.status = InvitationStatus::Pending and self.invitee &amp;lt;&amp;gt; null) implies self.organization.involvedUser-&amp;gt;forAll(m | m.user &amp;lt;&amp;gt; self.invitee)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_C2BD_498c_846E_707D4A372869" name="onePendingPerInvitee">
+          <constrainedElement xmi:idref="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_C2BD_498c_846E_707D4A372869">
+            <body>-- Source: Roles-and-Permissions / Organization Administrator
+inv onePendingPerInvitee: self.status = InvitationStatus::Pending implies self.organization.invitations-&amp;gt;forAll(i | (i &amp;lt;&amp;gt; self and i.status = InvitationStatus::Pending) implies ((self.invitee &amp;lt;&amp;gt; null implies i.invitee &amp;lt;&amp;gt; self.invitee) and (self.inviteeEmail &amp;lt;&amp;gt; null implies i.inviteeEmail &amp;lt;&amp;gt; self.inviteeEmail)))</body>
+          </specification>
+        </ownedRule>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7" name="OrganizationMember">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_2BF58B3C_8148_4704_996F_7E019382E61D" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_D93DFC4D_DF9F_421a_8419_B6996853E52C" name="role" type="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000285_DF9F_421a_8419_B6996853E52C" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000303_DF9F_421a_8419_B6996853E52C" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D93DFC4D_DF9F_421a_8419_B6996853E52C-_ownedComment.0" body="The &lt;see cref=&quot;OrganizationMembershipRole&quot; /&gt; assigned to the user within the organization." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000286_DF9F_421a_8419_B6996853E52C" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000304_DF9F_421a_8419_B6996853E52C" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstBB4A39_3E63_47d2_A534_BE11EB78C85D" association="EAID_1CBB4A39_3E63_47d2_A534_BE11EB78C85D" name="organization" type="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000287__3E63_47d2_A534_BE11EB78C85D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000305__3E63_47d2_A534_BE11EB78C85D" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstBB4A39_3E63_47d2_A534_BE11EB78C85D-_ownedComment.0" body="References the &lt;see cref=&quot;Organization&quot; /&gt; this &lt;see cref=&quot;OrganizationMember&quot; /&gt; belongs to." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000288__3E63_47d2_A534_BE11EB78C85D" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000306__3E63_47d2_A534_BE11EB78C85D" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_srcCACE14_3DB6_4b52_A371_B1B61CC7F002" association="EAID_73CACE14_3DB6_4b52_A371_B1B61CC7F002" name="user" type="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000289__3DB6_4b52_A371_B1B61CC7F002" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000307__3DB6_4b52_A371_B1B61CC7F002" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_srcCACE14_3DB6_4b52_A371_B1B61CC7F002-_ownedComment.0" body="References the &lt;see cref=&quot;User&quot; /&gt; record." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000290__3DB6_4b52_A371_B1B61CC7F002" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000308__3DB6_4b52_A371_B1B61CC7F002" value="1" />
         </ownedAttribute>
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7-_ownedComment.0" body="Represents the membership of a &amp;lt;see cref=&quot;User&quot; /&amp;gt; within an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;, carrying the organization-level role." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7-_ownedComment.0" body="Represents the membership of a &lt;see cref=&quot;User&quot; /&gt; within an &lt;see cref=&quot;Organization&quot; /&gt;, carrying the organization-level role." />
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_73CACE14_3DB6_4b52_A371_B1B61CC7F002">
         <memberEnd xmi:idref="EAID_dstCACE14_3DB6_4b52_A371_B1B61CC7F002" />
@@ -430,102 +538,158 @@ inv uniqueUserMembership: self.involvedUser-&amp;gt;isUnique(m | m.user)</body>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25" name="OrganizationPolicy">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_012F3D6C_A00A_407c_A1F8_60AF759D0C19" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_99AC814D_0D74_4682_8065_28B17FB044AB" name="allowProjectCreation">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000291_0D74_4682_8065_28B17FB044AB" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000309_0D74_4682_8065_28B17FB044AB" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_99AC814D_0D74_4682_8065_28B17FB044AB-_ownedComment.0" body="When true, Organization Members are permitted to create new projects within this organization." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000292_0D74_4682_8065_28B17FB044AB" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000310_0D74_4682_8065_28B17FB044AB" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2189F599_0B61_41f8_8B80_C7536BB1A062" name="defaultProjectLifecycleOnCreate" type="EAID_8E2A48CA_40B5_49dc_AA79_38BA9CFF58A2">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000293_0B61_41f8_8B80_C7536BB1A062" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000311_0B61_41f8_8B80_C7536BB1A062" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2189F599_0B61_41f8_8B80_C7536BB1A062-_ownedComment.0" body="Defines the default ProjectLifecycle that should be set on a newly created project." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000294_0B61_41f8_8B80_C7536BB1A062" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000312_0B61_41f8_8B80_C7536BB1A062" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_034FA72A_BE54_4426_9960_6E2B97DF50F5" name="grantReadOnlyViewForAudit">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000295_BE54_4426_9960_6E2B97DF50F5" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000313_BE54_4426_9960_6E2B97DF50F5" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_034FA72A_BE54_4426_9960_6E2B97DF50F5-_ownedComment.0" body="When true, grants the Organization Administrator implicit read-only access to all projects in the organization for audit purposes." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000296_BE54_4426_9960_6E2B97DF50F5" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000314_BE54_4426_9960_6E2B97DF50F5" value="1" />
         </ownedAttribute>
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25-_ownedComment.0" body="Holds configurable policy settings for an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;. Separated from identity data to allow independent auditing of policy changes." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25-_ownedComment.0" body="Holds configurable policy settings for an &lt;see cref=&quot;Organization&quot; /&gt;. Separated from identity data to allow independent auditing of policy changes." />
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" name="Ownership">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_34675C35_493A_4aeb_9B1D_E4E4518954EC" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2C2C93CD_7D4A_436a_8090_48EEC43A694D" name="description">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000299_7D4A_436a_8090_48EEC43A694D" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000317_7D4A_436a_8090_48EEC43A694D" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2C2C93CD_7D4A_436a_8090_48EEC43A694D-_ownedComment.0" body="Gets or sets the description of the current ownership." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000300_7D4A_436a_8090_48EEC43A694D" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000318_7D4A_436a_8090_48EEC43A694D" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_BC152B03_0272_484b_9589_28410F536B23" name="engineeringMetadataId">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000301_0272_484b_9589_28410F536B23" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000319_0272_484b_9589_28410F536B23" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BC152B03_0272_484b_9589_28410F536B23-_ownedComment.0" body="Gets the engineering metadata definition that has to be mapped to replicate the Ownership on the concurrent server." />
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000302_0272_484b_9589_28410F536B23" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000320_0272_484b_9589_28410F536B23" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_383261B0_2529_40fc_A931_C29B049855F9" name="name">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000303_2529_40fc_A931_C29B049855F9" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000321_2529_40fc_A931_C29B049855F9" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_383261B0_2529_40fc_A931_C29B049855F9-_ownedComment.0" body="The full display name of the ownership domain (e.g. &quot;Thermal&quot;, &quot;Power&quot;)." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000304_2529_40fc_A931_C29B049855F9" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000322_2529_40fc_A931_C29B049855F9" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_9CC9375E_16AE_440b_97C6_4E08FD087ABB" name="shortName">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000305_16AE_440b_97C6_4E08FD087ABB" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000323_16AE_440b_97C6_4E08FD087ABB" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_9CC9375E_16AE_440b_97C6_4E08FD087ABB-_ownedComment.0" body="An abbreviated label used for ownership indicators in diagrams and UI elements (e.g. &quot;THM&quot;, &quot;PWR&quot;)." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000306_16AE_440b_97C6_4E08FD087ABB" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000324_16AE_440b_97C6_4E08FD087ABB" value="1" />
         </ownedAttribute>
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68-_ownedComment.0" body="Defines a named domain of responsibility within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68-_ownedComment.0" body="Defines a named domain of responsibility within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements." />
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877">
+        <memberEnd xmi:idref="EAID_dstEB1184_1196_4ca1_9B3D_EE872DE05877" />
+        <memberEnd xmi:idref="EAID_srcEB1184_1196_4ca1_9B3D_EE872DE05877" />
+        <ownedEnd xmi:type="uml:Property" xmi:id="EAID_srcEB1184_1196_4ca1_9B3D_EE872DE05877" association="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877" name="invitation" type="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000327__1196_4ca1_9B3D_EE872DE05877" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_srcEB1184_1196_4ca1_9B3D_EE872DE05877-_ownedComment.0" body="References the &lt;see cref=&quot;ProjectInvitation&quot; /&gt; instances proposing this &lt;see cref=&quot;Ownership&quot; /&gt;." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000328__1196_4ca1_9B3D_EE872DE05877" value="*" />
+        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_5B2A1F5A_E40F_47c7_B0E9_F0C8F078C65D">
         <memberEnd xmi:idref="EAID_dst2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" />
         <memberEnd xmi:idref="EAID_src2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" association="EAID_5B2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" name="projectMember" type="EAID_53A7FA71_6123_4130_A368_9A667E896B15">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000309__E40F_47c7_B0E9_F0C8F078C65D" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000310__E40F_47c7_B0E9_F0C8F078C65D" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000329__E40F_47c7_B0E9_F0C8F078C65D" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000330__E40F_47c7_B0E9_F0C8F078C65D" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="EAID_BF369CDC_88B3_4b42_A6B7_57EDA06AEAA6">
         <memberEnd xmi:idref="EAID_dst369CDC_88B3_4b42_A6B7_57EDA06AEAA6" />
         <memberEnd xmi:idref="EAID_src369CDC_88B3_4b42_A6B7_57EDA06AEAA6" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src369CDC_88B3_4b42_A6B7_57EDA06AEAA6" association="EAID_BF369CDC_88B3_4b42_A6B7_57EDA06AEAA6" name="projectMember" type="EAID_53A7FA71_6123_4130_A368_9A667E896B15">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000311__88B3_4b42_A6B7_57EDA06AEAA6" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000312__88B3_4b42_A6B7_57EDA06AEAA6" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000331__88B3_4b42_A6B7_57EDA06AEAA6" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000332__88B3_4b42_A6B7_57EDA06AEAA6" value="*" />
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" name="ProjectInvitation">
+        <generalization xmi:type="uml:Generalization" xmi:id="EAID_D7CDA002_8050_4ab1_BA5F_D28BB7D9ECC8" general="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_08D300C7_4D56_408f_AF0D_436D5439BB2A" name="role" type="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000333_4D56_408f_AF0D_436D5439BB2A" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_08D300C7_4D56_408f_AF0D_436D5439BB2A-_ownedComment.0" body="The &lt;see cref=&quot;ProjectMemberRole&quot; /&gt; granted to the invitee on acceptance." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000334_4D56_408f_AF0D_436D5439BB2A" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstEB1184_1196_4ca1_9B3D_EE872DE05877" association="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877" name="ownerships" type="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000335__1196_4ca1_9B3D_EE872DE05877" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstEB1184_1196_4ca1_9B3D_EE872DE05877-_ownedComment.0" body="References the &lt;see cref=&quot;Ownership&quot; /&gt; domains assigned to the invitee on acceptance." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000336__1196_4ca1_9B3D_EE872DE05877" value="*" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst8FE704_A41D_4430_85A0_357311157814" association="EAID_658FE704_A41D_4430_85A0_357311157814" name="project" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000337__A41D_4430_85A0_357311157814" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst8FE704_A41D_4430_85A0_357311157814-_ownedComment.0" body="References the &lt;see cref=&quot;FunctionalProject&quot; /&gt; the invitee is invited to join." />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000338__A41D_4430_85A0_357311157814" value="1" />
+        </ownedAttribute>
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66-_ownedComment.0" body="An &lt;see cref=&quot;Invitation&quot; /&gt; to join a &lt;see cref=&quot;FunctionalProject&quot; /&gt; with a &lt;see cref=&quot;ProjectMemberRole&quot; /&gt; and, optionally, a set of &lt;see cref=&quot;Ownership&quot; /&gt; domains. Accepting it creates the corresponding &lt;see cref=&quot;ProjectMember&quot; /&gt;." />
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_D1F2_4b67_AF52_BD9B68F24C66" name="inviteeNotAlreadyMember">
+          <constrainedElement xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_D1F2_4b67_AF52_BD9B68F24C66">
+            <body>-- Source: Roles-and-Permissions / Role Assignment Rule 3
+inv inviteeNotAlreadyMember: (self.status = InvitationStatus::Pending and self.invitee &amp;lt;&amp;gt; null) implies self.project.involves-&amp;gt;forAll(m | m.user &amp;lt;&amp;gt; self.invitee)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_D1F2_4b67_AF52_BD9B68F24C66" name="onePendingPerInvitee">
+          <constrainedElement xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_D1F2_4b67_AF52_BD9B68F24C66">
+            <body>-- Source: Roles-and-Permissions / Project Administrator
+inv onePendingPerInvitee: self.status = InvitationStatus::Pending implies self.project.invitations-&amp;gt;forAll(i | (i &amp;lt;&amp;gt; self and i.status = InvitationStatus::Pending) implies ((self.invitee &amp;lt;&amp;gt; null implies i.invitee &amp;lt;&amp;gt; self.invitee) and (self.inviteeEmail &amp;lt;&amp;gt; null implies i.inviteeEmail &amp;lt;&amp;gt; self.inviteeEmail)))</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_D1F2_4b67_AF52_BD9B68F24C66" name="outsideCollaboratorNotAdministrator">
+          <constrainedElement xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000002_D1F2_4b67_AF52_BD9B68F24C66">
+            <body>-- Source: Roles-and-Permissions / Role Assignment Rule 9
+inv outsideCollaboratorNotAdministrator: (self.invitee &amp;lt;&amp;gt; null and not self.project.belongsTo.involvedUser-&amp;gt;exists(m | m.user = self.invitee)) implies self.role &amp;lt;&amp;gt; ProjectMemberRole::Administrator</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000003_D1F2_4b67_AF52_BD9B68F24C66" name="ownershipsWithinProject">
+          <constrainedElement xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000003_D1F2_4b67_AF52_BD9B68F24C66">
+            <body>-- Source: Roles-and-Permissions / Role Assignment Rule 4; SSS 5.2.1.3
+inv ownershipsWithinProject: self.ownerships-&amp;gt;forAll(o | self.project.defines-&amp;gt;includes(o))</body>
+          </specification>
+        </ownedRule>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_53A7FA71_6123_4130_A368_9A667E896B15" name="ProjectMember">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_352440BB_0E55_425c_90C1_CD2B739E93BC" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_BA8D9A08_FFEC_41a1_972F_2386C2E61470" isDerived="true" name="isOutsideCollaborator">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000313_FFEC_41a1_972F_2386C2E61470" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000339_FFEC_41a1_972F_2386C2E61470" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BA8D9A08_FFEC_41a1_972F_2386C2E61470-_ownedComment.0" body="Asserts that the current &amp;lt;see cref=&quot;ProjectMember&quot; /&amp;gt; is part of an external &amp;lt;see cref=&quot;Organization&quot; /&amp;gt; than the related &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt; owner." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#Boolean" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000314_FFEC_41a1_972F_2386C2E61470" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000340_FFEC_41a1_972F_2386C2E61470" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_B6A31EDF_809F_4049_8303_4E3AE43E6EA5" name="role" type="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000315_809F_4049_8303_4E3AE43E6EA5" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000341_809F_4049_8303_4E3AE43E6EA5" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B6A31EDF_809F_4049_8303_4E3AE43E6EA5-_ownedComment.0" body="The &lt;see cref=&quot;ProjectMemberRole&quot; /&gt; assigned to the user within the project, determining their editing and access permissions." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000316_809F_4049_8303_4E3AE43E6EA5" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000342_809F_4049_8303_4E3AE43E6EA5" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst12861D_9A1C_499c_89F0_F2DC89DF5B72" association="EAID_4F12861D_9A1C_499c_89F0_F2DC89DF5B72" name="isPartOf" type="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000317__9A1C_499c_89F0_F2DC89DF5B72" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000343__9A1C_499c_89F0_F2DC89DF5B72" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst12861D_9A1C_499c_89F0_F2DC89DF5B72-_ownedComment.0" body="References the &lt;see cref=&quot;FunctionalProject&quot; /&gt; this &lt;see cref=&quot;ProjectMember&quot; /&gt; belongs to." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000318__9A1C_499c_89F0_F2DC89DF5B72" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000344__9A1C_499c_89F0_F2DC89DF5B72" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" association="EAID_5B2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" name="owns" type="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000319__E40F_47c7_B0E9_F0C8F078C65D" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000345__E40F_47c7_B0E9_F0C8F078C65D" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst2A1F5A_E40F_47c7_B0E9_F0C8F078C65D-_ownedComment.0" body="References all &lt;see cref=&quot;Ownership&quot; /&gt; domains assigned to this &lt;see cref=&quot;ProjectMember&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000320__E40F_47c7_B0E9_F0C8F078C65D" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000346__E40F_47c7_B0E9_F0C8F078C65D" value="*" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst369CDC_88B3_4b42_A6B7_57EDA06AEAA6" association="EAID_BF369CDC_88B3_4b42_A6B7_57EDA06AEAA6" name="activeOwnership" type="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000321__88B3_4b42_A6B7_57EDA06AEAA6" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000347__88B3_4b42_A6B7_57EDA06AEAA6" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst369CDC_88B3_4b42_A6B7_57EDA06AEAA6-_ownedComment.0" body="References the currently active &lt;see cref=&quot;Ownership&quot; /&gt; for this &lt;see cref=&quot;ProjectMember&quot; /&gt; when assigned to multiple ownership domains." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000322__88B3_4b42_A6B7_57EDA06AEAA6" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000348__88B3_4b42_A6B7_57EDA06AEAA6" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src2D1B55_5277_4d98_9AE4_C2C7B2F480FD" association="EAID_DA2D1B55_5277_4d98_9AE4_C2C7B2F480FD" name="user" type="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000323__5277_4d98_9AE4_C2C7B2F480FD" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000349__5277_4d98_9AE4_C2C7B2F480FD" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src2D1B55_5277_4d98_9AE4_C2C7B2F480FD-_ownedComment.0" body="References the &lt;see cref=&quot;User&quot; /&gt; record." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000324__5277_4d98_9AE4_C2C7B2F480FD" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000350__5277_4d98_9AE4_C2C7B2F480FD" value="1" />
         </ownedAttribute>
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_53A7FA71_6123_4130_A368_9A667E896B15-_ownedComment.0" body="Represents the membership of a &amp;lt;see cref=&quot;User&quot; /&amp;gt; within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, carrying the project-level role and optional ownership assignment." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_53A7FA71_6123_4130_A368_9A667E896B15-_ownedComment.0" body="Represents the membership of a &lt;see cref=&quot;User&quot; /&gt; within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, carrying the project-level role and optional ownership assignment." />
         <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_6123_4130_A368_9A667E896B15" name="outsideCollaboratorNotAdministrator">
           <constrainedElement xmi:idref="EAID_53A7FA71_6123_4130_A368_9A667E896B15" />
           <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_6123_4130_A368_9A667E896B15">
@@ -559,43 +723,43 @@ inv partOfOwns: self.activeOwnership &amp;lt;&amp;gt; null implies owns-&amp;gt;
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11" name="Review">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_AC1758D7_E4E2_45f0_9402_EC20A1A7A912" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_C988201D_8606_47a8_81BF_89A512EAE87B" name="description">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000327_8606_47a8_81BF_89A512EAE87B" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000353_8606_47a8_81BF_89A512EAE87B" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C988201D_8606_47a8_81BF_89A512EAE87B-_ownedComment.0" body="Gets or sets the description of the current Review." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000328_8606_47a8_81BF_89A512EAE87B" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000354_8606_47a8_81BF_89A512EAE87B" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_52ED90B6_DF6D_4a0f_9C9A_AFA09FBE5FB4" name="sourceBranchId">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000329_DF6D_4a0f_9C9A_AFA09FBE5FB4" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000355_DF6D_4a0f_9C9A_AFA09FBE5FB4" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_52ED90B6_DF6D_4a0f_9C9A_AFA09FBE5FB4-_ownedComment.0" body="The &lt;see cref=&quot;Guid&quot; /&gt; referencing the source branch in the Concurrent Server whose changes are proposed for merge." />
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000330_DF6D_4a0f_9C9A_AFA09FBE5FB4" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000356_DF6D_4a0f_9C9A_AFA09FBE5FB4" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_F572D0CB_0DEA_4828_8053_AD726BAC6EC4" name="status" type="EAID_D4B0A0AE_0BDA_44bc_B248_C84ABDF1B889">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000331_0DEA_4828_8053_AD726BAC6EC4" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000357_0DEA_4828_8053_AD726BAC6EC4" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F572D0CB_0DEA_4828_8053_AD726BAC6EC4-_ownedComment.0" body="The current &lt;see cref=&quot;ReviewStatus&quot; /&gt; of this review, tracking its progression from Draft to Closed." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000332_0DEA_4828_8053_AD726BAC6EC4" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000358_0DEA_4828_8053_AD726BAC6EC4" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_447D1DEB_1966_46a7_B14F_22588B204245" name="targetBranchId">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000333_1966_46a7_B14F_22588B204245" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000359_1966_46a7_B14F_22588B204245" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_447D1DEB_1966_46a7_B14F_22588B204245-_ownedComment.0" body="The &lt;see cref=&quot;Guid&quot; /&gt; referencing the protected target branch in the Concurrent Server into which the merge is proposed." />
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000334_1966_46a7_B14F_22588B204245" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000360_1966_46a7_B14F_22588B204245" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_461B71C7_705E_4f7b_8866_A54D3E54C9CA" name="title">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000335_705E_4f7b_8866_A54D3E54C9CA" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000361_705E_4f7b_8866_A54D3E54C9CA" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_461B71C7_705E_4f7b_8866_A54D3E54C9CA-_ownedComment.0" body="Gets or sets the given title of the current review." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000336_705E_4f7b_8866_A54D3E54C9CA" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000362_705E_4f7b_8866_A54D3E54C9CA" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst344C12_DC81_4a5d_AF1D_9B3038C4DB0E" association="EAID_45344C12_DC81_4a5d_AF1D_9B3038C4DB0E" name="reviewers" type="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000337__DC81_4a5d_AF1D_9B3038C4DB0E" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000363__DC81_4a5d_AF1D_9B3038C4DB0E" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst344C12_DC81_4a5d_AF1D_9B3038C4DB0E-_ownedComment.0" body="References the &lt;see cref=&quot;User&quot; /&gt; instances designated as reviewers for this &lt;see cref=&quot;Review&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000338__DC81_4a5d_AF1D_9B3038C4DB0E" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000364__DC81_4a5d_AF1D_9B3038C4DB0E" value="*" />
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src79CFB9_5D82_4657_8A37_9E08551953ED" aggregation="composite" association="EAID_EB79CFB9_5D82_4657_8A37_9E08551953ED" name="comments" type="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000341__5D82_4657_8A37_9E08551953ED" />
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_src79CFB9_5D82_4657_8A37_9E08551953ED" aggregation="composite" association="EAID_EB79CFB9_5D82_4657_8A37_9E08551953ED" isOrdered="true" name="comments" type="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000367__5D82_4657_8A37_9E08551953ED" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_src79CFB9_5D82_4657_8A37_9E08551953ED-_ownedComment.0" body="Contains the &lt;see cref=&quot;Comment&quot; /&gt; instances posted on this &lt;see cref=&quot;Review&quot; /&gt;." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000342__5D82_4657_8A37_9E08551953ED" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000368__5D82_4657_8A37_9E08551953ED" value="*" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11-_ownedComment.0" body="Represents a merge proposal from a source branch into a protected target branch, tracking review status, designated reviewers, and associated comments." />
         <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_8E58_4c29_B714_6FD315478D11" name="distinctBranches">
@@ -624,64 +788,64 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
         <memberEnd xmi:idref="EAID_dst344C12_DC81_4a5d_AF1D_9B3038C4DB0E" />
         <memberEnd xmi:idref="EAID_src344C12_DC81_4a5d_AF1D_9B3038C4DB0E" />
         <ownedEnd xmi:type="uml:Property" xmi:id="EAID_src344C12_DC81_4a5d_AF1D_9B3038C4DB0E" association="EAID_45344C12_DC81_4a5d_AF1D_9B3038C4DB0E" name="involvedIn" type="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000361__DC81_4a5d_AF1D_9B3038C4DB0E" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000362__DC81_4a5d_AF1D_9B3038C4DB0E" value="*" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000387__DC81_4a5d_AF1D_9B3038C4DB0E" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000388__DC81_4a5d_AF1D_9B3038C4DB0E" value="*" />
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_10015AA6_5440_4c2c_AE06_10D3BB853766" isAbstract="true" name="Thing">
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_D4B383D6_74C8_4a62_8F63_8A7FAA4472BF" isID="true" name="id">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000343_74C8_4a62_8F63_8A7FAA4472BF" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000369_74C8_4a62_8F63_8A7FAA4472BF" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D4B383D6_74C8_4a62_8F63_8A7FAA4472BF-_ownedComment.0" body="Represents the unique identifier that allow entity identification." />
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_8451AA96_A2B7_4914_B931_BF848355CDA2" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000344_74C8_4a62_8F63_8A7FAA4472BF" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000370_74C8_4a62_8F63_8A7FAA4472BF" value="1" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_10015AA6_5440_4c2c_AE06_10D3BB853766-_ownedComment.0" body="Base class of any entities defined in the Functional Data model." />
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" name="User">
         <generalization xmi:type="uml:Generalization" xmi:id="EAID_8E39C1D4_D5B5_48e2_B73E_5175DA478049" general="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_618F07A1_BC79_4c90_92BF_88AA0E1E0FA8" name="email">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000345_BC79_4c90_92BF_88AA0E1E0FA8" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000371_BC79_4c90_92BF_88AA0E1E0FA8" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_618F07A1_BC79_4c90_92BF_88AA0E1E0FA8-_ownedComment.0" body="The email address of the user, cached from Keycloak for display purposes." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000346_BC79_4c90_92BF_88AA0E1E0FA8" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000372_BC79_4c90_92BF_88AA0E1E0FA8" value="1" />
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" isID="true" name="externalIdentifier">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000347_37C4_4011_A110_F7B3FC8DC22F" value="1" />
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" name="externalIdentifier">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000373_37C4_4011_A110_F7B3FC8DC22F" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F-_ownedComment.0" body="The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000348_37C4_4011_A110_F7B3FC8DC22F" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000374_37C4_4011_A110_F7B3FC8DC22F" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="name">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000349_08BC_41ff_A43E_0E0AF155D190" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000375_08BC_41ff_A43E_0E0AF155D190" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190-_ownedComment.0" body="The display name of the user, cached from Keycloak for UI rendering." />
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000350_08BC_41ff_A43E_0E0AF155D190" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000376_08BC_41ff_A43E_0E0AF155D190" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9" name="status" type="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000351_2767_405c_A785_6C768F5BBBA9" value="1" />
-          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9-_ownedComment.0" body="The current &lt;see cref=&quot;ActivationStatus&quot; /&gt; of the user. Set to Deleted when Keycloak publishes a user removal event, preserving referential integrity before cascade cleanup." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000352_2767_405c_A785_6C768F5BBBA9" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000377_2767_405c_A785_6C768F5BBBA9" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9-_ownedComment.0" body="The current &amp;lt;see cref=&quot;ActivationStatus&quot; /&amp;gt; of the user. " />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000378_2767_405c_A785_6C768F5BBBA9" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_65ED9FD4_AF3F_4704_BBAC_960A9660C435" name="userPreferences">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000353_AF3F_4704_BBAC_960A9660C435" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000379_AF3F_4704_BBAC_960A9660C435" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_65ED9FD4_AF3F_4704_BBAC_960A9660C435-_ownedComment.0" body="Collects all preferences of the current &amp;lt;see cref=&quot;User&quot; /&amp;gt; to create custom views." />
           <type xmi:type="uml:PrimitiveType" href="mycelium-commonprimitives.xmi#EAID_078B145D_785F_4823_BDC3_9BA54C023EB4" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000354_AF3F_4704_BBAC_960A9660C435" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000380_AF3F_4704_BBAC_960A9660C435" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dstCACE14_3DB6_4b52_A371_B1B61CC7F002" association="EAID_73CACE14_3DB6_4b52_A371_B1B61CC7F002" name="isPartOfOrganizations" type="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000355__3DB6_4b52_A371_B1B61CC7F002" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000381__3DB6_4b52_A371_B1B61CC7F002" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dstCACE14_3DB6_4b52_A371_B1B61CC7F002-_ownedComment.0" body="References the &lt;see cref=&quot;OrganizationMember&quot; /&gt; records linking this &lt;see cref=&quot;User&quot; /&gt; to their organizations." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000356__3DB6_4b52_A371_B1B61CC7F002" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000382__3DB6_4b52_A371_B1B61CC7F002" value="*" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst2D1B55_5277_4d98_9AE4_C2C7B2F480FD" association="EAID_DA2D1B55_5277_4d98_9AE4_C2C7B2F480FD" name="isPartOfProjects" type="EAID_53A7FA71_6123_4130_A368_9A667E896B15">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000357__5277_4d98_9AE4_C2C7B2F480FD" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000383__5277_4d98_9AE4_C2C7B2F480FD" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_dst2D1B55_5277_4d98_9AE4_C2C7B2F480FD-_ownedComment.0" body="References the &lt;see cref=&quot;ProjectMember&quot; /&gt; records linking this &lt;see cref=&quot;User&quot; /&gt; to their projects." />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000358__5277_4d98_9AE4_C2C7B2F480FD" value="*" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000384__5277_4d98_9AE4_C2C7B2F480FD" value="*" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156-_ownedComment.0" body="A lightweight mirror of an identity managed by Keycloak. Holds only the data required by the Functional Server for permission resolution and UI display." />
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B" name="ActivationStatus">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B-_ownedComment.0" body="Defines the lifecycle status shared by &amp;lt;see cref=&quot;User&quot; /&amp;gt; and &amp;lt;see cref=&quot;Organization&quot; /&amp;gt; entities, controlling platform access and visibility." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B-_ownedComment.0" body="Defines the lifecycle status shared by &lt;see cref=&quot;User&quot; /&gt; and &lt;see cref=&quot;Organization&quot; /&gt; entities, controlling platform access and visibility." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_87202240_730C_4b42_92BF_3DA94ED9DF7E" name="Active">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_87202240_730C_4b42_92BF_3DA94ED9DF7E-_ownedComment.0" body="Normal operational state. All platform features are accessible." />
         </ownedLiteral>
@@ -707,8 +871,23 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_81E12274_59B7_44fe_866C_B224B4C8BE07-_ownedComment.0" body="Defines the Resolved state of a Comment." />
         </ownedLiteral>
       </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_9E86D614_0C36_4e0d_9D65_E761F826E895" name="InvitationStatus">
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_9E86D614_0C36_4e0d_9D65_E761F826E895-_ownedComment.0" body="Defines the response state of an &lt;see cref=&quot;Invitation&quot; /&gt;. Expiry is not a state: a Pending invitation whose expiresOn has passed is expired." />
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_B33DBA70_3A6C_473e_BD56_B1DB8835D4E5" name="Pending">
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B33DBA70_3A6C_473e_BD56_B1DB8835D4E5-_ownedComment.0" body="Sent and awaiting the invitee's response." />
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_1C0F31F8_6FCF_4fc3_A04F_EF694961D678" name="Accepted">
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_1C0F31F8_6FCF_4fc3_A04F_EF694961D678-_ownedComment.0" body="Accepted by the invitee; the corresponding membership has been created." />
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_C57AE673_3551_40bf_BC60_6AAB7B322F05" name="Declined">
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C57AE673_3551_40bf_BC60_6AAB7B322F05-_ownedComment.0" body="Declined by the invitee." />
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_7E64C75E_A12F_4ce8_B7A4_B8BC3FDF027F" name="Revoked">
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_7E64C75E_A12F_4ce8_B7A4_B8BC3FDF027F-_ownedComment.0" body="Withdrawn by the sender before the invitee responded." />
+        </ownedLiteral>
+      </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596" name="OrganizationMembershipRole">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596-_ownedComment.0" body="Defines the role a &amp;lt;see cref=&quot;User&quot; /&amp;gt; holds within an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596-_ownedComment.0" body="Defines the role a &lt;see cref=&quot;User&quot; /&gt; holds within an &lt;see cref=&quot;Organization&quot; /&gt;." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_AED50F54_7219_48cd_9301_F076D8BC6705" name="Administrator">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_AED50F54_7219_48cd_9301_F076D8BC6705-_ownedComment.0" body="Full administrative control over the organization, its members, projects, and authentication settings." />
         </ownedLiteral>
@@ -735,7 +914,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
         </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493" name="ProjectMemberRole">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493-_ownedComment.0" body="Defines the role a &amp;lt;see cref=&quot;User&quot; /&amp;gt; holds within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, governing editing permissions and ownership enforcement." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493-_ownedComment.0" body="Defines the role a &lt;see cref=&quot;User&quot; /&gt; holds within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, governing editing permissions and ownership enforcement." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_9010A97E_7930_4c9f_8016_B5E00E3D418B" name="Administrator">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_9010A97E_7930_4c9f_8016_B5E00E3D418B-_ownedComment.0" body="Full control over the project: team, branches, lifecycle state, ownership assignments, and merges." />
         </ownedLiteral>
@@ -747,7 +926,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
         </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_125AC658_A8C6_4198_927C_91D4832ED7AC" name="ProjectMode">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_125AC658_A8C6_4198_927C_91D4832ED7AC-_ownedComment.0" body="Defines the editing mode of a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, controlling whether ownership enforcement is active." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_125AC658_A8C6_4198_927C_91D4832ED7AC-_ownedComment.0" body="Defines the editing mode of a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, controlling whether ownership enforcement is active." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_CDDF5B23_B6A2_4ed9_AB31_DAED9DBE50F3" name="Regular">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_CDDF5B23_B6A2_4ed9_AB31_DAED9DBE50F3-_ownedComment.0" body="No ownership enforcement. All participants can edit any element within the project." />
         </ownedLiteral>
@@ -756,7 +935,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
         </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_C03C5128_806F_4e89_B95A_F11694193011" name="ProjectVisibility">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C03C5128_806F_4e89_B95A_F11694193011-_ownedComment.0" body="Controls who can discover and access a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C03C5128_806F_4e89_B95A_F11694193011-_ownedComment.0" body="Controls who can discover and access a &lt;see cref=&quot;FunctionalProject&quot; /&gt;." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_D95B92A8_8FD1_4549_B18C_77C3626FAAFD" name="Private">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D95B92A8_8FD1_4549_B18C_77C3626FAAFD-_ownedComment.0" body="Visible only to explicitly assigned project members." />
         </ownedLiteral>
@@ -768,7 +947,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
         </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_D4B0A0AE_0BDA_44bc_B248_C84ABDF1B889" name="ReviewStatus">
-        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D4B0A0AE_0BDA_44bc_B248_C84ABDF1B889-_ownedComment.0" body="Tracks the progression of a &amp;lt;see cref=&quot;Review&quot; /&amp;gt; through its lifecycle from creation to closure." />
+        <ownedComment xmi:type="uml:Comment" xmi:id="EAID_D4B0A0AE_0BDA_44bc_B248_C84ABDF1B889-_ownedComment.0" body="Tracks the progression of a &lt;see cref=&quot;Review&quot; /&gt; through its lifecycle from creation to closure." />
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_AA8FA394_2B67_4f3c_B2CE_918A84F1A19C" name="Draft">
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_AA8FA394_2B67_4f3c_B2CE_918A84F1A19C-_ownedComment.0" body="Review is being prepared by the author and has not yet been submitted to reviewers." />
         </ownedLiteral>
@@ -787,7 +966,18 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
       </packagedElement>
     </packagedElement>
   </uml:Model>
-  <xmi:Extension extender="Enterprise Architect" extenderID="6.5"><elements>
+  <Mycelium:managed base_Property="EAID_123FAC9F_9F01_4a0f_9715_290495199F3A" />
+  <Mycelium:managed base_Property="EAID_F4DFA9EA_985C_4c46_9C18_1972105662AF" />
+  <Mycelium:managed base_Property="EAID_dst7803CD_B3BC_4b6a_AF9A_BFE4116F8684" />
+  <Mycelium:managed base_Property="EAID_dst4A4107_F7C8_4627_A8E1_68B971194315" />
+  <Mycelium:index base_Property="EAID_6D221223_6262_4dbb_879D_4C9D620FC27C" />
+  <Mycelium:managed base_Property="EAID_2FD334CF_06F1_4a91_8EFE_AA48B4D0E37D" />
+  <Mycelium:managed base_Property="EAID_8E4433BE_571A_47d3_BFAB_FDBC7C011316" />
+  <Mycelium:managed base_Property="EAID_186A8E1D_DBFF_4708_AB34_955A7C349465" />
+  <Mycelium:index base_Property="EAID_E3C7B4C4_9583_4514_A94B_D8E427204396" />
+  <Mycelium:index base_Property="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" />
+  <Mycelium:index base_Property="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" />
+  <xmi:extension xmi:type="xmi:Extension" extender="Enterprise Architect" extenderID="6.5"><elements>
   <element xmi:idref="EAID_5A174943_DF4B_4223_AB56_590429667355" xmi:type="uml:PrimitiveType" name="DateTime" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" tpos="0" ea_localid="555" ea_eleType="element" />
 				<properties documentation="character string datatype that represents a calendar date and time in ISO 8601 format&#xA;&#xA;Note: The permissible syntax is specified in XML Schema W3C Recommendation for the dateTime datatype, see http://www.w3.org/TR/xmlschema-2/#dateTime.&#xA;&#xA;Example 1: &quot;2010-01-02T07:59:00Z&quot; represents 2nd of January 2010 at 7 hours 59 minutes and 0 seconds UTC.&#xA;&#xA;Example 2: &quot;2009-10-23T16:04:23.332+02&quot; represents 23rd of October 2009 at 16 hours 4 minutes and 23.332 seconds in a timezone 2 hours ahead of UTC. &#xA;" isSpecification="false" sType="PrimitiveType" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
@@ -834,8 +1024,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" xmi:type="uml:Class" name="AuditableThing" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="541" ea_eleType="element" />
-				<properties documentation="Any &amp;lt;see cref=&quot;Thing&quot; /&amp;gt; that shall record creation and update date and authority. " isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="true" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 15:43:23" modified="2026-10-28 16:45:41" complexity="1" status="Proposed" />
+				<properties documentation="Any &lt;see cref=&quot;Thing&quot; /&gt; that shall record creation and update date and authority. " isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="true" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 15:43:23" modified="2026-06-30 16:08:48" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -849,13 +1039,15 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
-						<stereotype />
+						<stereotype stereotype="managed" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;union=0;" />
-						<tags />
-						<xrefs />
+						<tags>
+							<tag xmi:id="EAID_353E858A_11D4_4317_9D62_C7B3F7080D2A" name="onAction" value="1,0" />
+						</tags>
+						<xrefs value="$XREFPROP=$XID={E247C23B-1718-4a5d-8DBB-92F6EEE58219}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={123FAC9F-9F01-4a0f-9715-290495199F3A}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={F81D369D-B9B5-43f9-8ADA-325555C007D3}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;GUID={82353ED8-E4D5-4ed5-BF3E-82C2B612DDE0};FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={123FAC9F-9F01-4a0f-9715-290495199F3A}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_F4DFA9EA_985C_4c46_9C18_1972105662AF" name="updatedOn" scope="Public">
 						<initial />
@@ -864,13 +1056,15 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="DateTime" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="1" />
-						<stereotype />
+						<stereotype stereotype="managed" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;union=0;" />
-						<tags />
-						<xrefs />
+						<tags>
+							<tag xmi:id="EAID_7295DE90_E5C5_4154_8BCD_C155DF2E5F18" name="onAction" value="OnCreate,OnUpdate" />
+						</tags>
+						<xrefs value="$XREFPROP=$XID={C63B4EDE-6809-4e1a-9A58-F36EBCECFD65}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={F4DFA9EA-985C-4c46-9C18-1972105662AF}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={68B916AB-4491-412b-A6A1-9463C220C3A7}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;GUID={82353ED8-E4D5-4ed5-BF3E-82C2B612DDE0};FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={F4DFA9EA-985C-4c46-9C18-1972105662AF}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 				</attributes>
 				<links>
@@ -880,6 +1074,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					<Generalization xmi:id="EAID_012F3D6C_A00A_407c_A1F8_60AF759D0C19" start="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Generalization xmi:id="EAID_05AC2106_E1DB_427b_878F_4F116245C072" start="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Generalization xmi:id="EAID_12054E2B_6EC6_4de6_8882_265E4DF9FBE7" start="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
+					<Generalization xmi:id="EAID_1D1C1647_E05D_4d01_A001_58008D7D1690" start="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Generalization xmi:id="EAID_2BF58B3C_8148_4704_996F_7E019382E61D" start="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Generalization xmi:id="EAID_34675C35_493A_4aeb_9B1D_E4E4518954EC" start="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Generalization xmi:id="EAID_352440BB_0E55_425c_90C1_CD2B739E93BC" start="EAID_53A7FA71_6123_4130_A368_9A667E896B15" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
@@ -943,7 +1138,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={AFF42989-D239-4091-9853-2425820D59FB}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={8A1025F9-B75D-4415-A6AC-439510BBCD1A}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_1425C34E_B7F5_4845_B8A3_E40E3FE4D1A6" name="name" scope="Public">
 						<initial />
@@ -990,9 +1185,9 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</links>
 			</element>
   <element xmi:idref="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B" xmi:type="uml:Class" name="Comment" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
-				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="897" ea_eleType="element" />
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="901" ea_eleType="element" />
 				<properties documentation="Represents a user comment attached to a &amp;lt;see cref=&quot;Review&quot; /&amp;gt;, targeting a specific model element. Supports threaded replies." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-10-28 15:23:48" modified="2026-10-28 16:46:13" complexity="1" status="Proposed" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-16 11:36:40" modified="2026-11-16 11:36:40" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1012,7 +1207,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<style />
 						<styleex value="volatile=0;union=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={5EE76D53-8B4F-4b27-9DE9-4A8DFA6E4F69}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={9A5E2EA4-BEA2-406d-95B8-EEF3B93ECF7E}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_F6E2F741_F80D_42ac_AC82_9391EBDF1D3B" name="targetElementId" scope="Public">
 						<initial />
@@ -1113,13 +1308,13 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="3" />
-						<stereotype />
+						<stereotype stereotype="index" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={1CD4C9EA-1AC5-4c41-A2A2-57EBF53B164D}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={6D221223-6262-4dbb-879D-4C9D620FC27C}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={367647E6-32B1-44fc-8D0D-5693A5FC0DE4}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={6D221223-6262-4dbb-879D-4C9D620FC27C}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_66A384EF_D56B_45bf_B368_A45114B8A14D" name="sharedPreferences" scope="Public">
 						<initial />
@@ -1162,6 +1357,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					<Aggregation xmi:id="EAID_FD170BA7_33D8_4537_A515_62559F3C2737" start="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
 					<Aggregation xmi:id="EAID_1E466CF4_354D_4070_82A6_21582B4A026D" start="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
 					<Aggregation xmi:id="EAID_4F12861D_9A1C_499c_89F0_F2DC89DF5B72" start="EAID_53A7FA71_6123_4130_A368_9A667E896B15" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
+					<Aggregation xmi:id="EAID_658FE704_A41D_4430_85A0_357311157814" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
 					<Aggregation xmi:id="EAID_A8334609_B221_4b40_9A48_7B8FD3E1C1B9" start="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
 					<Aggregation xmi:id="EAID_CA9F698B_4C93_438b_AD4A_57857A43CB99" start="EAID_CCBD394D_3CEB_4e19_9558_CF73AB92239D" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
 					<Aggregation xmi:id="EAID_DE5AEC15_F9EE_4eb3_8DF5_7DAD8ECC6517" start="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
@@ -1228,10 +1424,93 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					<Generalization xmi:id="EAID_FBB5B67A_B12C_4e18_B617_65E6E405FB8C" start="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 				</links>
 			</element>
+  <element xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" xmi:type="uml:Class" name="Invitation" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="906" ea_eleType="element" />
+				<properties documentation="Abstract base of an invitation sent by a &lt;see cref=&quot;User&quot; /&gt; to join a target with a given role, taking effect only once the invitee accepts it. The sender is the inherited createdBy." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="true" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-17 13:04:55" modified="2026-11-18 13:10:43" complexity="1" status="Proposed" />
+				<code gentype="&lt;none&gt;" />
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
+				<tags />
+				<xrefs />
+				<extendedProperties tagged="0" package_name="Fabric" />
+				<attributes>
+					<attribute xmi:idref="EAID_2FD334CF_06F1_4a91_8EFE_AA48B4D0E37D" name="expiresOn" scope="Public">
+						<initial />
+						<documentation value="The &lt;see cref=&quot;DateTime&quot; /&gt; after which a Pending invitation can no longer be accepted, computed from the configured invitation lifetime." />
+						<model ea_localid="520" ea_guid="{2FD334CF-06F1-4a91-8EFE-AA48B4D0E37D}" />
+						<properties type="DateTime" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="2" />
+						<stereotype stereotype="managed" />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={F3A6D5A9-D244-4c40-BD75-17A1141338D7}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={2FD334CF-06F1-4a91-8EFE-AA48B4D0E37D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					</attribute>
+					<attribute xmi:idref="EAID_1968C9F0_DD5C_442d_82B4_5B32F93007DE" name="inviteeEmail" scope="Public">
+						<initial />
+						<documentation value="The email address the invitation was sent to when the invitee is not yet identified as a &lt;see cref=&quot;User&quot; /&gt;; matched against a user's verified email at first sign-in." />
+						<model ea_localid="512" ea_guid="{1968C9F0-DD5C-442d-82B4-5B32F93007DE}" />
+						<properties type="String" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="0" />
+						<stereotype />
+						<bounds lower="0" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+					<attribute xmi:idref="EAID_8E4433BE_571A_47d3_BFAB_FDBC7C011316" name="respondedOn" scope="Public">
+						<initial />
+						<documentation value="The &lt;see cref=&quot;DateTime&quot; /&gt; at which the invitation was accepted, declined or revoked." />
+						<model ea_localid="521" ea_guid="{8E4433BE-571A-47d3-BFAB-FDBC7C011316}" />
+						<properties type="DateTime" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="3" />
+						<stereotype stereotype="managed" />
+						<bounds lower="0" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={646CD333-E03D-4f38-A4DA-1411D2A73708}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={8E4433BE-571A-47d3-BFAB-FDBC7C011316}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					</attribute>
+					<attribute xmi:idref="EAID_186A8E1D_DBFF_4708_AB34_955A7C349465" name="status" scope="Public">
+						<initial />
+						<documentation value="The current &lt;see cref=&quot;InvitationStatus&quot; /&gt;, changed only by the accept, decline and revoke operations." />
+						<model ea_localid="519" ea_guid="{186A8E1D-DBFF-4708-AB34-955A7C349465}" />
+						<properties type="InvitationStatus" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="2" />
+						<stereotype stereotype="managed" />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={475C2322-0E4A-4680-997A-8DE1B72A2A59}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={186A8E1D-DBFF-4708-AB34-955A7C349465}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					</attribute>
+				</attributes>
+				<constraints>
+					<constraint name="expiresAfterCreation" description="-- Source: Fabric model / Invitation documentation&#xA;inv expiresAfterCreation: self.expiresOn &amp;gt; self.createdOn" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="hasInvitee" description="-- Source: SSS-FB-AUTH-L0Z&#xA;inv hasInvitee: self.invitee &amp;lt;&amp;gt; null or self.inviteeEmail &amp;lt;&amp;gt; null" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="respondedOnWhenAnswered" description="-- Source: Fabric model / Invitation documentation&#xA;inv respondedOnWhenAnswered: (self.status = InvitationStatus::Pending) = (self.respondedOn = null)" type="OCL" weight="0,00" status="Approved" />
+				</constraints>
+				<links>
+					<Generalization xmi:id="EAID_1D1C1647_E05D_4d01_A001_58008D7D1690" start="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
+					<Association xmi:id="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF" start="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
+					<Generalization xmi:id="EAID_985A61CE_AB35_4020_95D6_A093C3C16A4C" start="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" end="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+					<Generalization xmi:id="EAID_D7CDA002_8050_4ab1_BA5F_D28BB7D9ECC8" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+				</links>
+			</element>
   <element xmi:idref="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21" xmi:type="uml:Class" name="Message" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="543" ea_eleType="element" />
 				<properties documentation="Represents a user message." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="true" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 14:50:25" modified="2026-10-28 16:46:31" complexity="1" status="Proposed" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 14:50:25" modified="2026-11-16 11:36:40" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1249,7 +1528,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
-						<styleex value="volatile=0;union=0;" />
+						<styleex value="volatile=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -1294,13 +1573,13 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
-						<stereotype />
+						<stereotype stereotype="index" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={5E7CE40C-1104-433f-9D9F-507C5C21A65B}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={E3C7B4C4-9583-4514-A94B-D8E427204396}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={6B46F872-8BF0-49a1-8EED-F9374B988A3D}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={E3C7B4C4-9583-4514-A94B-D8E427204396}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_33CEB65E_5C71_4d09_A098_84C969457ACA" name="status" scope="Public">
 						<initial />
@@ -1326,13 +1605,49 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					<Generalization xmi:id="EAID_05AC2106_E1DB_427b_878F_4F116245C072" start="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
 					<Association xmi:id="EAID_1CBB4A39_3E63_47d2_A534_BE11EB78C85D" start="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
 					<Aggregation xmi:id="EAID_5855FB64_EDB2_486f_9C94_7029D748659D" start="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
+					<Aggregation xmi:id="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" start="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
 					<Aggregation xmi:id="EAID_FD170BA7_33D8_4537_A515_62559F3C2737" start="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
+				</links>
+			</element>
+  <element xmi:idref="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" xmi:type="uml:Class" name="OrganizationInvitation" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="908" ea_eleType="element" />
+				<properties documentation="An &lt;see cref=&quot;Invitation&quot; /&gt; to join an &lt;see cref=&quot;Organization&quot; /&gt; with an &lt;see cref=&quot;OrganizationMembershipRole&quot; /&gt;. Accepting it creates the corresponding &lt;see cref=&quot;OrganizationMember&quot; /&gt;." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-18 09:28:34" modified="2026-11-18 13:10:43" complexity="1" status="Proposed" />
+				<code gentype="&lt;none&gt;" />
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
+				<tags />
+				<xrefs />
+				<extendedProperties tagged="0" package_name="Fabric" />
+				<attributes>
+					<attribute xmi:idref="EAID_A985A814_F065_42be_A854_77A226309018" name="role" scope="Public">
+						<initial />
+						<documentation value="The &lt;see cref=&quot;OrganizationMembershipRole&quot; /&gt; granted to the invitee on acceptance." />
+						<model ea_localid="522" ea_guid="{A985A814-F065-42be-A854-77A226309018}" />
+						<properties type="OrganizationMembershipRole" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="0" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+				</attributes>
+				<constraints>
+					<constraint name="inviteeNotAlreadyMember" description="-- Source: Roles-and-Permissions / Role Assignment Rule 2&#xA;inv inviteeNotAlreadyMember: (self.status = InvitationStatus::Pending and self.invitee &amp;lt;&amp;gt; null) implies self.organization.involvedUser-&amp;gt;forAll(m | m.user &amp;lt;&amp;gt; self.invitee)" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="onePendingPerInvitee" description="-- Source: Roles-and-Permissions / Organization Administrator&#xA;inv onePendingPerInvitee: self.status = InvitationStatus::Pending implies self.organization.invitations-&amp;gt;forAll(i | (i &amp;lt;&amp;gt; self and i.status = InvitationStatus::Pending) implies ((self.invitee &amp;lt;&amp;gt; null implies i.invitee &amp;lt;&amp;gt; self.invitee) and (self.inviteeEmail &amp;lt;&amp;gt; null implies i.inviteeEmail &amp;lt;&amp;gt; self.inviteeEmail)))" type="OCL" weight="0,00" status="Approved" />
+				</constraints>
+				<links>
+					<Generalization xmi:id="EAID_985A61CE_AB35_4020_95D6_A093C3C16A4C" start="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" end="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+					<Aggregation xmi:id="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" start="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869" end="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
 				</links>
 			</element>
   <element xmi:idref="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7" xmi:type="uml:Class" name="OrganizationMember" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="546" ea_eleType="element" />
-				<properties documentation="Represents the membership of a &amp;lt;see cref=&quot;User&quot; /&amp;gt; within an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;, carrying the organization-level role." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:32:15" modified="2026-10-28 16:48:36" complexity="1" status="Proposed" />
+				<properties documentation="Represents the membership of a &lt;see cref=&quot;User&quot; /&gt; within an &lt;see cref=&quot;Organization&quot; /&gt;, carrying the organization-level role." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:32:15" modified="2026-04-13 21:31:26" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1363,8 +1678,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_41FE2DA3_5B66_4cff_9341_D07FECDE6F25" xmi:type="uml:Class" name="OrganizationPolicy" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="547" ea_eleType="element" />
-				<properties documentation="Holds configurable policy settings for an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;. Separated from identity data to allow independent auditing of policy changes." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-13 09:16:14" modified="2026-10-28 16:48:42" complexity="1" status="Proposed" />
+				<properties documentation="Holds configurable policy settings for an &lt;see cref=&quot;Organization&quot; /&gt;. Separated from identity data to allow independent auditing of policy changes." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-13 09:16:14" modified="2026-04-13 21:31:27" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1424,8 +1739,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" xmi:type="uml:Class" name="Ownership" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="548" ea_eleType="element" />
-				<properties documentation="Defines a named domain of responsibility within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 09:11:21" modified="2026-10-28 16:48:49" complexity="1" status="Proposed" />
+				<properties documentation="Defines a named domain of responsibility within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;. Used in Concurrent Design mode to enforce element-level access control via Owner metadata on SysML v2 elements." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 09:11:21" modified="2026-04-13 21:31:27" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1496,14 +1811,53 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<links>
 					<Aggregation xmi:id="EAID_1E466CF4_354D_4070_82A6_21582B4A026D" start="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
 					<Generalization xmi:id="EAID_34675C35_493A_4aeb_9B1D_E4E4518954EC" start="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />
+					<Association xmi:id="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" />
 					<Association xmi:id="EAID_5B2A1F5A_E40F_47c7_B0E9_F0C8F078C65D" start="EAID_53A7FA71_6123_4130_A368_9A667E896B15" end="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" />
 					<Association xmi:id="EAID_BF369CDC_88B3_4b42_A6B7_57EDA06AEAA6" start="EAID_53A7FA71_6123_4130_A368_9A667E896B15" end="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" />
 				</links>
 			</element>
+  <element xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" xmi:type="uml:Class" name="ProjectInvitation" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="909" ea_eleType="element" />
+				<properties documentation="An &lt;see cref=&quot;Invitation&quot; /&gt; to join a &lt;see cref=&quot;FunctionalProject&quot; /&gt; with a &lt;see cref=&quot;ProjectMemberRole&quot; /&gt; and, optionally, a set of &lt;see cref=&quot;Ownership&quot; /&gt; domains. Accepting it creates the corresponding &lt;see cref=&quot;ProjectMember&quot; /&gt;." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-18 09:28:42" modified="2026-11-18 13:10:43" complexity="1" status="Proposed" />
+				<code gentype="&lt;none&gt;" />
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
+				<tags />
+				<xrefs />
+				<extendedProperties tagged="0" package_name="Fabric" />
+				<attributes>
+					<attribute xmi:idref="EAID_08D300C7_4D56_408f_AF0D_436D5439BB2A" name="role" scope="Public">
+						<initial />
+						<documentation value="The &lt;see cref=&quot;ProjectMemberRole&quot; /&gt; granted to the invitee on acceptance." />
+						<model ea_localid="523" ea_guid="{08D300C7-4D56-408f-AF0D-436D5439BB2A}" />
+						<properties type="ProjectMemberRole" collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="0" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+				</attributes>
+				<constraints>
+					<constraint name="inviteeNotAlreadyMember" description="-- Source: Roles-and-Permissions / Role Assignment Rule 3&#xA;inv inviteeNotAlreadyMember: (self.status = InvitationStatus::Pending and self.invitee &amp;lt;&amp;gt; null) implies self.project.involves-&amp;gt;forAll(m | m.user &amp;lt;&amp;gt; self.invitee)" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="onePendingPerInvitee" description="-- Source: Roles-and-Permissions / Project Administrator&#xA;inv onePendingPerInvitee: self.status = InvitationStatus::Pending implies self.project.invitations-&amp;gt;forAll(i | (i &amp;lt;&amp;gt; self and i.status = InvitationStatus::Pending) implies ((self.invitee &amp;lt;&amp;gt; null implies i.invitee &amp;lt;&amp;gt; self.invitee) and (self.inviteeEmail &amp;lt;&amp;gt; null implies i.inviteeEmail &amp;lt;&amp;gt; self.inviteeEmail)))" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="outsideCollaboratorNotAdministrator" description="-- Source: Roles-and-Permissions / Role Assignment Rule 9&#xA;inv outsideCollaboratorNotAdministrator: (self.invitee &amp;lt;&amp;gt; null and not self.project.belongsTo.involvedUser-&amp;gt;exists(m | m.user = self.invitee)) implies self.role &amp;lt;&amp;gt; ProjectMemberRole::Administrator" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="ownershipsWithinProject" description="-- Source: Roles-and-Permissions / Role Assignment Rule 4; SSS 5.2.1.3&#xA;inv ownershipsWithinProject: self.ownerships-&amp;gt;forAll(o | self.project.defines-&amp;gt;includes(o))" type="OCL" weight="0,00" status="Approved" />
+				</constraints>
+				<links>
+					<Association xmi:id="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68" />
+					<Aggregation xmi:id="EAID_658FE704_A41D_4430_85A0_357311157814" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4" />
+					<Generalization xmi:id="EAID_D7CDA002_8050_4ab1_BA5F_D28BB7D9ECC8" start="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66" end="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+				</links>
+			</element>
   <element xmi:idref="EAID_53A7FA71_6123_4130_A368_9A667E896B15" xmi:type="uml:Class" name="ProjectMember" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="549" ea_eleType="element" />
-				<properties documentation="Represents the membership of a &amp;lt;see cref=&quot;User&quot; /&amp;gt; within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, carrying the project-level role and optional ownership assignment." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 14:08:21" modified="2026-10-28 16:45:29" complexity="1" status="Proposed" />
+				<properties documentation="Represents the membership of a &lt;see cref=&quot;User&quot; /&gt; within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, carrying the project-level role and optional ownership assignment." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 14:08:21" modified="2026-08-19 08:57:23" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1555,9 +1909,9 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</links>
 			</element>
   <element xmi:idref="EAID_8A288F40_F8C6_4f50_9BE9_6C71E11F580E" xmi:type="uml:Class" name="Reply" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
-				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="895" ea_eleType="element" />
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="902" ea_eleType="element" />
 				<properties documentation="Represents a specific reply for a specific comment." isSpecification="false" sType="Class" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" isActive="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-10-28 15:07:07" modified="2026-10-28 16:46:56" complexity="1" status="Proposed" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-16 11:36:40" modified="2026-11-16 11:36:40" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1719,7 +2073,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={6524C716-C134-4248-942A-E055056216C2}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={618F07A1-BC79-4c90-92BF-88AA0E1E0FA8}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" name="externalIdentifier" scope="Public">
 						<initial />
@@ -1728,13 +2082,13 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="2" />
-						<stereotype />
+						<stereotype stereotype="index" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs value="$XREFPROP=$XID={7C2D95C3-D30D-4f6b-B517-60E54617A395}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=1@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+						<xrefs value="$XREFPROP=$XID={CDBAD4B2-DFE2-4a0b-97DA-8163CEA2B6F0}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={7C2D95C3-D30D-4f6b-B517-60E54617A395}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="name" scope="Public">
 						<initial />
@@ -1743,17 +2097,17 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
-						<stereotype />
+						<stereotype stereotype="index" />
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs />
+						<xrefs value="$XREFPROP=$XID={DAF14ACD-B71B-42bd-8338-91A16D8587D2}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={C758246C-997A-4b4a-AEB5-1BF7A17B50CE}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9" name="status" scope="Public">
 						<initial />
-						<documentation value="The current &lt;see cref=&quot;ActivationStatus&quot; /&gt; of the user. Set to Deleted when Keycloak publishes a user removal event, preserving referential integrity before cascade cleanup." />
+						<documentation value="The current &amp;lt;see cref=&quot;ActivationStatus&quot; /&amp;gt; of the user. " />
 						<model ea_localid="278" ea_guid="{5428E39F-2767-405c-A785-6C768F5BBBA9}" />
 						<properties type="ActivationStatus" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
@@ -1762,7 +2116,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
-						<styleex value="volatile=0;" />
+						<styleex value="volatile=0;union=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -1788,14 +2142,15 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					<Association xmi:id="EAID_DA2D1B55_5277_4d98_9AE4_C2C7B2F480FD" start="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" end="EAID_53A7FA71_6123_4130_A368_9A667E896B15" />
 					<Association xmi:id="EAID_357803CD_B3BC_4b6a_AF9A_BFE4116F8684" start="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
 					<Association xmi:id="EAID_45344C12_DC81_4a5d_AF1D_9B3038C4DB0E" start="EAID_EC35D2FB_8E58_4c29_B714_6FD315478D11" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
+					<Association xmi:id="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF" start="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
 					<Association xmi:id="EAID_D34A4107_F7C8_4627_A8E1_68B971194315" start="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
 					<Association xmi:id="EAID_F0E84187_01D1_4e2e_99BD_B9434F7D5F63" start="EAID_CCBD394D_3CEB_4e19_9558_CF73AB92239D" end="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
 				</links>
 			</element>
   <element xmi:idref="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B" xmi:type="uml:Enumeration" name="ActivationStatus" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="553" ea_eleType="element" />
-				<properties documentation="Defines the lifecycle status shared by &amp;lt;see cref=&quot;User&quot; /&amp;gt; and &amp;lt;see cref=&quot;Organization&quot; /&amp;gt; entities, controlling platform access and visibility." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:58:29" modified="2026-10-28 16:02:52" complexity="1" status="Proposed" />
+				<properties documentation="Defines the lifecycle status shared by &lt;see cref=&quot;User&quot; /&gt; and &lt;see cref=&quot;Organization&quot; /&gt; entities, controlling platform access and visibility." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:58:29" modified="2026-04-13 21:31:30" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1873,7 +2228,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<bounds lower="1" upper="1" />
 						<options />
 						<style />
-						<styleex value="IsLiteral=1;volatile=0;union=0;" />
+						<styleex value="IsLiteral=1;volatile=0;" />
 						<tags />
 						<xrefs />
 					</attribute>
@@ -1921,10 +2276,82 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 					</attribute>
 				</attributes>
 			</element>
+  <element xmi:idref="EAID_9E86D614_0C36_4e0d_9D65_E761F826E895" xmi:type="uml:Enumeration" name="InvitationStatus" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="907" ea_eleType="element" />
+				<properties documentation="Defines the response state of an &lt;see cref=&quot;Invitation&quot; /&gt;. Expiry is not a state: a Pending invitation whose expiresOn has passed is expired." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-11-17 14:17:58" modified="2026-11-18 13:10:43" complexity="1" status="Proposed" />
+				<code gentype="&lt;none&gt;" />
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
+				<tags />
+				<xrefs />
+				<extendedProperties tagged="0" package_name="Fabric" />
+				<attributes>
+					<attribute xmi:idref="EAID_B33DBA70_3A6C_473e_BD56_B1DB8835D4E5" name="Pending" scope="Public">
+						<initial />
+						<documentation value="Sent and awaiting the invitee's response." />
+						<model ea_localid="514" ea_guid="{B33DBA70-3A6C-473e-BD56-B1DB8835D4E5}" />
+						<properties collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="0" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="IsLiteral=1;volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+					<attribute xmi:idref="EAID_1C0F31F8_6FCF_4fc3_A04F_EF694961D678" name="Accepted" scope="Public">
+						<initial />
+						<documentation value="Accepted by the invitee; the corresponding membership has been created." />
+						<model ea_localid="515" ea_guid="{1C0F31F8-6FCF-4fc3-A04F-EF694961D678}" />
+						<properties collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="1" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="IsLiteral=1;volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+					<attribute xmi:idref="EAID_C57AE673_3551_40bf_BC60_6AAB7B322F05" name="Declined" scope="Public">
+						<initial />
+						<documentation value="Declined by the invitee." />
+						<model ea_localid="516" ea_guid="{C57AE673-3551-40bf-BC60-6AAB7B322F05}" />
+						<properties collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="2" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="IsLiteral=1;volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+					<attribute xmi:idref="EAID_7E64C75E_A12F_4ce8_B7A4_B8BC3FDF027F" name="Revoked" scope="Public">
+						<initial />
+						<documentation value="Withdrawn by the sender before the invitee responded." />
+						<model ea_localid="517" ea_guid="{7E64C75E-A12F-4ce8-B7A4-B8BC3FDF027F}" />
+						<properties collection="false" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" />
+						<containment containment="Not Specified" position="3" />
+						<stereotype />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="IsLiteral=1;volatile=0;" />
+						<tags />
+						<xrefs />
+					</attribute>
+				</attributes>
+			</element>
   <element xmi:idref="EAID_985E0465_0B7A_4eee_A3AC_7BCE360CA596" xmi:type="uml:Enumeration" name="OrganizationMembershipRole" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="557" ea_eleType="element" />
-				<properties documentation="Defines the role a &amp;lt;see cref=&quot;User&quot; /&amp;gt; holds within an &amp;lt;see cref=&quot;Organization&quot; /&amp;gt;." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:42:17" modified="2026-10-28 16:03:00" complexity="1" status="Proposed" />
+				<properties documentation="Defines the role a &lt;see cref=&quot;User&quot; /&gt; holds within an &lt;see cref=&quot;Organization&quot; /&gt;." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 13:42:17" modified="2026-04-13 21:31:32" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -1981,7 +2408,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
   <element xmi:idref="EAID_8E2A48CA_40B5_49dc_AA79_38BA9CFF58A2" xmi:type="uml:Enumeration" name="ProjectLifecycleKind" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="558" ea_eleType="element" />
 				<properties documentation="Defines the lifecycle phase of a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, controlling which roles may perform editing operations." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-08 09:26:49" modified="2026-10-28 16:02:44" complexity="1" status="Proposed" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-08 09:26:49" modified="2026-07-28 14:36:28" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -2052,8 +2479,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_B132A67E_8F83_48ed_B8ED_AF0B6607B493" xmi:type="uml:Enumeration" name="ProjectMemberRole" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="559" ea_eleType="element" />
-				<properties documentation="Defines the role a &amp;lt;see cref=&quot;User&quot; /&amp;gt; holds within a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, governing editing permissions and ownership enforcement." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-08 09:29:36" modified="2026-10-28 16:03:18" complexity="1" status="Proposed" />
+				<properties documentation="Defines the role a &lt;see cref=&quot;User&quot; /&gt; holds within a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, governing editing permissions and ownership enforcement." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-08 09:29:36" modified="2026-04-13 21:31:33" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -2109,8 +2536,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_125AC658_A8C6_4198_927C_91D4832ED7AC" xmi:type="uml:Enumeration" name="ProjectMode" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="560" ea_eleType="element" />
-				<properties documentation="Defines the editing mode of a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;, controlling whether ownership enforcement is active." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 15:37:15" modified="2026-10-28 16:03:07" complexity="1" status="Proposed" />
+				<properties documentation="Defines the editing mode of a &lt;see cref=&quot;FunctionalProject&quot; /&gt;, controlling whether ownership enforcement is active." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 15:37:15" modified="2026-04-13 21:31:34" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -2151,8 +2578,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_C03C5128_806F_4e89_B95A_F11694193011" xmi:type="uml:Enumeration" name="ProjectVisibility" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="561" ea_eleType="element" />
-				<properties documentation="Controls who can discover and access a &amp;lt;see cref=&quot;FunctionalProject&quot; /&amp;gt;." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 14:14:29" modified="2026-10-28 16:03:04" complexity="1" status="Proposed" />
+				<properties documentation="Controls who can discover and access a &lt;see cref=&quot;FunctionalProject&quot; /&gt;." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-09 14:14:29" modified="2026-04-13 21:31:35" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -2208,8 +2635,8 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</element>
   <element xmi:idref="EAID_D4B0A0AE_0BDA_44bc_B248_C84ABDF1B889" xmi:type="uml:Enumeration" name="ReviewStatus" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<model package="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" tpos="0" ea_localid="562" ea_eleType="element" />
-				<properties documentation="Tracks the progression of a &amp;lt;see cref=&quot;Review&quot; /&amp;gt; through its lifecycle from creation to closure." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
-				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 14:19:28" modified="2026-10-28 16:02:20" complexity="1" status="Proposed" />
+				<properties documentation="Tracks the progression of a &lt;see cref=&quot;Review&quot; /&gt; through its lifecycle from creation to closure." isSpecification="false" sType="Enumeration" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="false" />
+				<project author="atheate" version="1.0" phase="1.0" created="2026-04-10 14:19:28" modified="2026-04-13 21:31:35" complexity="1" status="Proposed" />
 				<code gentype="&lt;none&gt;" />
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;" />
 				<tags />
@@ -2308,14 +2735,16 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</source>
 				<target xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
 					<model ea_localid="552" type="Class" name="User" />
-					<role name="updatedBy" visibility="Public" targetScope="instance" />
+					<role name="updatedBy" stereotype="managed" visibility="Public" targetScope="instance" />
 					<type multiplicity="1" aggregation="none" containment="Unspecified" />
 					<constraints />
 					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
 					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
 					<documentation value="References the &lt;see cref=&quot;User&quot; /&gt; that provide the last update on the current &lt;see cref=&quot;AuditableThing&quot; /&gt;." />
-					<xrefs />
-					<tags />
+					<xrefs value="$XREFPROP=$XID={A7B01E0B-710D-47bc-B384-702E9E293297}$XID;$NAM=Stereotypes$NAM;$TYP=connectorDestEnd property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;GUID={82353ED8-E4D5-4ed5-BF3E-82C2B612DDE0};FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={357803CD-B3BC-4b6a-AF9A-BFE4116F8684}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					<tags>
+						<tag xmi:id="EAID_5CEBBB85_BAB6_4236_89BB_343E83604758" name="onAction" value="OnCreate,OnUpdate" />
+					</tags>
 				</target>
 				<model ea_localid="355" />
 				<properties ea_type="Association" direction="Source -&gt; Destination" />
@@ -2323,7 +2752,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
-				<labels lb="0..*" lt="+updated" rb="1" rt="+updatedBy" />
+				<labels lb="0..*" lt="+updated" rb="1" rt="�managed�&#xA;+updatedBy" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
@@ -2377,14 +2806,16 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</source>
 				<target xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
 					<model ea_localid="552" type="Class" name="User" />
-					<role name="createdBy" visibility="Public" targetScope="instance" />
+					<role name="createdBy" stereotype="managed" visibility="Public" targetScope="instance" />
 					<type multiplicity="1" aggregation="none" containment="Unspecified" />
 					<constraints />
 					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
 					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
 					<documentation value="References the &lt;see cref=&quot;User&quot; /&gt; that created the current &lt;see cref=&quot;AuditableThing&quot; /&gt;." />
-					<xrefs />
-					<tags />
+					<xrefs value="$XREFPROP=$XID={77FB9837-50A9-4198-A67C-29264F7645CC}$XID;$NAM=Stereotypes$NAM;$TYP=connectorDestEnd property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=managed;GUID={82353ED8-E4D5-4ed5-BF3E-82C2B612DDE0};FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={D34A4107-F7C8-4627-A8E1-68B971194315}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					<tags>
+						<tag xmi:id="EAID_581918EA_EF62_4e6a_A263_46BF4E531859" name="onAction" value="OnCreate" />
+					</tags>
 				</target>
 				<model ea_localid="356" />
 				<properties ea_type="Association" direction="Source -&gt; Destination" />
@@ -2392,7 +2823,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
-				<labels lb="0..*" lt="+created" rb="1" rt="+createdBy" />
+				<labels lb="0..*" lt="+created" rb="1" rt="�managed�&#xA;+createdBy" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
@@ -2491,6 +2922,40 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</target>
 				<model ea_localid="334" />
 				<properties ea_type="Generalization" direction="Source -&gt;Destination" />
+				<parameterSubstitutions />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
+  <connector xmi:idref="EAID_1D1C1647_E05D_4d01_A001_58008D7D1690" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701">
+					<model ea_localid="906" type="Class" name="Invitation" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_F332305D_64EC_494a_960C_145ABE5F8E88">
+					<model ea_localid="541" type="Class" name="AuditableThing" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="607" />
+				<properties ea_type="Generalization" direction="Source -&gt; Destination" />
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
@@ -2843,45 +3308,45 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</connector>
   <connector xmi:idref="EAID_C17C640F_0518_490b_817F_8F3EE519C000" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
-					<model ea_localid="897" type="Class" name="Comment" />
-					<role visibility="Public" targetScope="instance" />
-					<type aggregation="none" containment="Unspecified" />
+					<model ea_localid="901" type="Class" name="Comment" />
+					<role visibility="Public" />
+					<type aggregation="none" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
-					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<modifiers isOrdered="false" isNavigable="false" />
+					<style value="Navigable=Non-Navigable;" />
 					<documentation />
 					<xrefs />
 					<tags />
 				</source>
 				<target xmi:idref="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21">
 					<model ea_localid="543" type="Class" name="Message" />
-					<role visibility="Public" targetScope="instance" />
-					<type aggregation="none" containment="Unspecified" />
+					<role visibility="Public" />
+					<type aggregation="none" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
-					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<modifiers isOrdered="false" isNavigable="false" />
+					<style value="Navigable=Navigable;" />
 					<documentation />
 					<xrefs />
 					<tags />
 				</target>
-				<model ea_localid="601" />
+				<model ea_localid="603" />
 				<properties ea_type="Generalization" direction="Source -&gt; Destination" />
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
 				<labels />
-				<extendedProperties virtualInheritance="0" />
+				<extendedProperties />
 				<style />
 				<xrefs />
 				<tags />
 			</connector>
   <connector xmi:idref="EAID_EB79CFB9_5D82_4657_8A37_9E08551953ED" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
-					<model ea_localid="897" type="Class" name="Comment" />
+					<model ea_localid="901" type="Class" name="Comment" />
 					<role name="comments" visibility="Public" targetScope="instance" />
 					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<modifiers isOrdered="true" changeable="none" isNavigable="false" />
 					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
 					<documentation value="Contains the &lt;see cref=&quot;Comment&quot; /&gt; instances posted on this &lt;see cref=&quot;Review&quot; /&gt;." />
 					<xrefs />
@@ -2903,7 +3368,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<modifiers isRoot="false" isLeaf="false" />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
-				<labels lb="0..*" lt="+comments" rb="1" rt="+owningReview" />
+				<labels lb="0..*&#xA;{ordered}" lt="+comments" rb="1" rt="+owningReview" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
@@ -2911,18 +3376,18 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</connector>
   <connector xmi:idref="EAID_91576474_5CDA_4a6c_A55D_49767D9BD746" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_8A288F40_F8C6_4f50_9BE9_6C71E11F580E">
-					<model ea_localid="895" type="Class" name="Reply" />
+					<model ea_localid="902" type="Class" name="Reply" />
 					<role name="replies" visibility="Public" targetScope="instance" />
 					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<modifiers isOrdered="true" changeable="none" isNavigable="false" />
 					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
 					<documentation value="Contains threaded reply instances nested under this comment." />
 					<xrefs />
 					<tags />
 				</source>
 				<target xmi:idref="EAID_75DBCBD2_B2F5_4d72_9D5A_7FB22390923B">
-					<model ea_localid="897" type="Class" name="Comment" />
+					<model ea_localid="901" type="Class" name="Comment" />
 					<role name="owningComment" visibility="Public" targetScope="instance" />
 					<type multiplicity="1" aggregation="composite" containment="Unspecified" />
 					<constraints />
@@ -2937,7 +3402,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<modifiers isRoot="false" isLeaf="false" />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
-				<labels lb="0..*" lt="+replies" rb="1" rt="+owningComment" />
+				<labels lb="0..*&#xA;{ordered}" lt="+replies" rb="1" rt="+owningComment" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
@@ -3045,6 +3510,40 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<xrefs />
 				<tags />
 			</connector>
+  <connector xmi:idref="EAID_658FE704_A41D_4430_85A0_357311157814" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66">
+					<model ea_localid="909" type="Class" name="ProjectInvitation" />
+					<role name="invitations" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
+					<documentation value="Contains the &lt;see cref=&quot;ProjectInvitation&quot; /&gt; instances issued for this &lt;see cref=&quot;FunctionalProject&quot; /&gt;." />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_43856BB1_BCE1_489a_B521_BE9277F760A4">
+					<model ea_localid="544" type="Class" name="FunctionalProject" />
+					<role name="project" visibility="Public" targetScope="instance" />
+					<type multiplicity="1" aggregation="composite" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;" />
+					<documentation value="References the &lt;see cref=&quot;FunctionalProject&quot; /&gt; the invitee is invited to join." />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="613" />
+				<properties ea_type="Aggregation" subtype="Strong" direction="Source -&gt; Destination" />
+				<modifiers isRoot="false" isLeaf="false" />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels lb="0..*" lt="+invitations" rb="1" rt="+project" />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
   <connector xmi:idref="EAID_A8334609_B221_4b40_9A48_7B8FD3E1C1B9" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_E756AD53_6E11_4069_A61E_E203DD7AFB28">
 					<model ea_localid="578" type="Class" name="FunctionalProjectPolicy" />
@@ -3113,6 +3612,109 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<xrefs />
 				<tags />
 			</connector>
+  <connector xmi:idref="EAID_C11605E4_EFF5_4266_9EDC_3EA2EADAC5BF" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701">
+					<model ea_localid="906" type="Class" name="Invitation" />
+					<role name="invites" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Non-Navigable;" />
+					<documentation value="References the &lt;see cref=&quot;Invitation&quot; /&gt; instances addressed to this &lt;see cref=&quot;User&quot; /&gt;." />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
+					<model ea_localid="552" type="Class" name="User" />
+					<role name="invitee" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..1" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
+					<documentation value="References the invited &lt;see cref=&quot;User&quot; /&gt; when the invitee already holds an account." />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="608" />
+				<properties ea_type="Association" direction="Source -&gt; Destination" />
+				<modifiers isRoot="false" isLeaf="false" />
+				<parameterSubstitutions />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels lb="0..*" lt="+invites" rb="0..1" rt="+invitee" />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
+  <connector xmi:idref="EAID_985A61CE_AB35_4020_95D6_A093C3C16A4C" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869">
+					<model ea_localid="908" type="Class" name="OrganizationInvitation" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701">
+					<model ea_localid="906" type="Class" name="Invitation" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="610" />
+				<properties ea_type="Generalization" direction="Source -&gt; Destination" />
+				<parameterSubstitutions />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
+  <connector xmi:idref="EAID_D7CDA002_8050_4ab1_BA5F_D28BB7D9ECC8" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66">
+					<model ea_localid="909" type="Class" name="ProjectInvitation" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701">
+					<model ea_localid="906" type="Class" name="Invitation" />
+					<role visibility="Public" targetScope="instance" />
+					<type aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<documentation />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="609" />
+				<properties ea_type="Generalization" direction="Source -&gt; Destination" />
+				<parameterSubstitutions />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
   <connector xmi:idref="EAID_CD8A7913_FD71_44cd_ABB5_E052556DB23E" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21">
 					<model ea_localid="543" type="Class" name="Message" />
@@ -3150,34 +3752,34 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</connector>
   <connector xmi:idref="EAID_5DCBA661_65C3_4975_891E_57098A102464" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_8A288F40_F8C6_4f50_9BE9_6C71E11F580E">
-					<model ea_localid="895" type="Class" name="Reply" />
-					<role visibility="Public" targetScope="instance" />
-					<type aggregation="none" containment="Unspecified" />
+					<model ea_localid="902" type="Class" name="Reply" />
+					<role visibility="Public" />
+					<type aggregation="none" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
-					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<modifiers isOrdered="false" isNavigable="false" />
+					<style value="Navigable=Non-Navigable;" />
 					<documentation />
 					<xrefs />
 					<tags />
 				</source>
 				<target xmi:idref="EAID_32CCFD62_4451_43d1_A363_FE0EBD5C6B21">
 					<model ea_localid="543" type="Class" name="Message" />
-					<role visibility="Public" targetScope="instance" />
-					<type aggregation="none" containment="Unspecified" />
+					<role visibility="Public" />
+					<type aggregation="none" />
 					<constraints />
-					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
-					<style value="Union=0;Derived=0;AllowDuplicates=0;" />
+					<modifiers isOrdered="false" isNavigable="false" />
+					<style value="Navigable=Navigable;" />
 					<documentation />
 					<xrefs />
 					<tags />
 				</target>
-				<model ea_localid="600" />
+				<model ea_localid="604" />
 				<properties ea_type="Generalization" direction="Source -&gt; Destination" />
 				<parameterSubstitutions />
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
 				<labels />
-				<extendedProperties virtualInheritance="0" />
+				<extendedProperties />
 				<style />
 				<xrefs />
 				<tags />
@@ -3251,6 +3853,40 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<xrefs />
 				<tags />
 			</connector>
+  <connector xmi:idref="EAID_B1F5ADAB_7C2D_4c3e_BDF8_2F214ED160FA" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_D5F3FAC2_C2BD_498c_846E_707D4A372869">
+					<model ea_localid="908" type="Class" name="OrganizationInvitation" />
+					<role name="invitations" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
+					<documentation value="Contains the &lt;see cref=&quot;OrganizationInvitation&quot; /&gt; instances issued for this &lt;see cref=&quot;Organization&quot; /&gt;." />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A">
+					<model ea_localid="545" type="Class" name="Organization" />
+					<role name="organization" visibility="Public" targetScope="instance" />
+					<type multiplicity="1" aggregation="composite" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="true" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;" />
+					<documentation value="References the &lt;see cref=&quot;Organization&quot; /&gt; the invitee is invited to join." />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="612" />
+				<properties ea_type="Aggregation" subtype="Strong" direction="Source -&gt; Destination" />
+				<modifiers isRoot="false" isLeaf="false" />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels lb="0..*" lt="+invitations" rb="1" rt="+organization" />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
   <connector xmi:idref="EAID_73CACE14_3DB6_4b52_A371_B1B61CC7F002" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
 				<source xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156">
 					<model ea_localid="552" type="Class" name="User" />
@@ -3281,6 +3917,41 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<documentation />
 				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
 				<labels lb="1" lt="+user" rb="1..*" rt="+isPartOfOrganizations" />
+				<extendedProperties virtualInheritance="0" />
+				<style />
+				<xrefs />
+				<tags />
+			</connector>
+  <connector xmi:idref="EAID_16EB1184_1196_4ca1_9B3D_EE872DE05877" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
+				<source xmi:idref="EAID_3EE000BC_D1F2_4b67_AF52_BD9B68F24C66">
+					<model ea_localid="909" type="Class" name="ProjectInvitation" />
+					<role name="invitation" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Non-Navigable;" />
+					<documentation value="References the &lt;see cref=&quot;ProjectInvitation&quot; /&gt; instances proposing this &lt;see cref=&quot;Ownership&quot; /&gt;." />
+					<xrefs />
+					<tags />
+				</source>
+				<target xmi:idref="EAID_F3E21A0D_4633_4896_877B_AC59C6182A68">
+					<model ea_localid="548" type="Class" name="Ownership" />
+					<role name="ownerships" visibility="Public" targetScope="instance" />
+					<type multiplicity="0..*" aggregation="none" containment="Unspecified" />
+					<constraints />
+					<modifiers isOrdered="false" changeable="none" isNavigable="false" />
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;" />
+					<documentation value="References the &lt;see cref=&quot;Ownership&quot; /&gt; domains assigned to the invitee on acceptance." />
+					<xrefs />
+					<tags />
+				</target>
+				<model ea_localid="615" />
+				<properties ea_type="Association" direction="Source -&gt; Destination" />
+				<modifiers isRoot="false" isLeaf="false" />
+				<parameterSubstitutions />
+				<documentation />
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0" />
+				<labels lb="0..*" lt="+invitation" rb="0..*" rt="+ownerships" />
 				<extendedProperties virtualInheritance="0" />
 				<style />
 				<xrefs />
@@ -3428,7 +4099,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 			</connector>
 </connectors><primitivetypes>
   <packagedElement xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmi:type="uml:Package" xmi:id="EAPrimitiveTypesPackage" name="EA_PrimitiveTypes_Package" />
-</primitivetypes><profiles /></xmi:Extension>
+</primitivetypes><profiles /></xmi:extension>
   <mofext:Tag xmi:id="mycelium-release-version" name="eu.stariongroup.mycelium.version" value="0.3.0" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
   <mofext:Tag xmi:id="mycelium-release-packageId" name="eu.stariongroup.mycelium.packageId" value="Mycelium.Model.Fabric" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
   <mofext:Tag xmi:id="mycelium-release-date" name="eu.stariongroup.mycelium.releaseDate" value="2026-10-29" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
