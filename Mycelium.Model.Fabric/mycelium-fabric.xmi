@@ -373,9 +373,16 @@ inv expiresAfterCreation: self.expiresOn &amp;gt; self.createdOn</body>
 inv hasInvitee: self.invitee &amp;lt;&amp;gt; null or self.inviteeEmail &amp;lt;&amp;gt; null</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_E930_46d0_B87F_46A72856C701" name="respondedOnWhenAnswered">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_E930_46d0_B87F_46A72856C701" name="inviteeEmailLowerCase">
           <constrainedElement xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
           <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000002_E930_46d0_B87F_46A72856C701">
+            <body>-- Source: Fabric model / first sign-in invitation matching
+inv inviteeEmailLowerCase: self.inviteeEmail &amp;lt;&amp;gt; null implies self.inviteeEmail = self.inviteeEmail.toLowerCase()</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000003_E930_46d0_B87F_46A72856C701" name="respondedOnWhenAnswered">
+          <constrainedElement xmi:idref="EAID_72EE6CEB_E930_46d0_B87F_46A72856C701" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000003_E930_46d0_B87F_46A72856C701">
             <body>-- Source: Fabric model / Invitation documentation
 inv respondedOnWhenAnswered: (self.status = InvitationStatus::Pending) = (self.respondedOn = null)</body>
           </specification>
@@ -455,9 +462,16 @@ inv respondedOnWhenAnswered: (self.status = InvitationStatus::Pending) = (self.r
 inv atLeastOneAdministrator: self.involvedUser-&amp;gt;exists(m | m.role = OrganizationMembershipRole::Administrator)</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_A57C_4674_AA77_844B78CFD11A" name="uniqueUserMembership">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_A57C_4674_AA77_844B78CFD11A" name="uniqueName">
           <constrainedElement xmi:idref="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
           <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_A57C_4674_AA77_844B78CFD11A">
+            <body>-- Source: Fabric model / Organization documentation
+inv uniqueName: Organization.allInstances()-&amp;gt;isUnique(o | o.name)</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000002_A57C_4674_AA77_844B78CFD11A" name="uniqueUserMembership">
+          <constrainedElement xmi:idref="EAID_1BC244EB_A57C_4674_AA77_844B78CFD11A" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000002_A57C_4674_AA77_844B78CFD11A">
             <body>-- Source: Roles-and-Permissions / Role Assignment Rule 2
 inv uniqueUserMembership: self.involvedUser-&amp;gt;isUnique(m | m.user)</body>
           </specification>
@@ -815,16 +829,16 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
           <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000374_37C4_4011_A110_F7B3FC8DC22F" value="1" />
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="name">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000375_08BC_41ff_A43E_0E0AF155D190" value="1" />
-          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190-_ownedComment.0" body="The display name of the user, cached from Keycloak for UI rendering." />
-          <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000376_08BC_41ff_A43E_0E0AF155D190" value="1" />
-        </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9" name="status" type="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000377_2767_405c_A785_6C768F5BBBA9" value="1" />
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000375_2767_405c_A785_6C768F5BBBA9" value="1" />
           <ownedComment xmi:type="uml:Comment" xmi:id="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9-_ownedComment.0" body="The current &amp;lt;see cref=&quot;ActivationStatus&quot; /&amp;gt; of the user. " />
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000378_2767_405c_A785_6C768F5BBBA9" value="1" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000376_2767_405c_A785_6C768F5BBBA9" value="1" />
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="userName">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000377_08BC_41ff_A43E_0E0AF155D190" value="1" />
+          <ownedComment xmi:type="uml:Comment" xmi:id="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190-_ownedComment.0" body="The name displayed for the user, initialised from Keycloak at first sign-in and editable afterwards through the platform." />
+          <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000378_08BC_41ff_A43E_0E0AF155D190" value="1" />
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="EAID_65ED9FD4_AF3F_4704_BBAC_960A9660C435" name="userPreferences">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000379_AF3F_4704_BBAC_960A9660C435" value="1" />
@@ -843,6 +857,20 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000384__5277_4d98_9AE4_C2C7B2F480FD" value="*" />
         </ownedAttribute>
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156-_ownedComment.0" body="A lightweight mirror of an identity managed by Keycloak. Holds only the data required by the Functional Server for permission resolution and UI display." />
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_1496_417b_A0FD_4AD413AF5156" name="emailLowerCase">
+          <constrainedElement xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_1496_417b_A0FD_4AD413AF5156">
+            <body>-- Source: Fabric model / first sign-in invitation matching
+inv emailLowerCase: self.email = self.email.toLowerCase()</body>
+          </specification>
+        </ownedRule>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000001_1496_417b_A0FD_4AD413AF5156" name="uniqueExternalIdentifier">
+          <constrainedElement xmi:idref="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" />
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000001_1496_417b_A0FD_4AD413AF5156">
+            <body>-- Source: Fabric model / User.externalIdentifier documentation
+inv uniqueExternalIdentifier: User.allInstances()-&amp;gt;isUnique(u | u.externalIdentifier)</body>
+          </specification>
+        </ownedRule>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B" name="ActivationStatus">
         <ownedComment xmi:type="uml:Comment" xmi:id="EAID_076B4834_BCCF_4081_86DE_A62550E01D2B-_ownedComment.0" body="Defines the lifecycle status shared by &lt;see cref=&quot;User&quot; /&gt; and &lt;see cref=&quot;Organization&quot; /&gt; entities, controlling platform access and visibility." />
@@ -975,7 +1003,9 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
   <Mycelium:managed base_Property="EAID_8E4433BE_571A_47d3_BFAB_FDBC7C011316" />
   <Mycelium:managed base_Property="EAID_186A8E1D_DBFF_4708_AB34_955A7C349465" />
   <Mycelium:index base_Property="EAID_E3C7B4C4_9583_4514_A94B_D8E427204396" />
+  <Mycelium:index base_Property="EAID_618F07A1_BC79_4c90_92BF_88AA0E1E0FA8" />
   <Mycelium:index base_Property="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" />
+  <Mycelium:managed base_Property="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" />
   <Mycelium:index base_Property="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" />
   <xmi:extension xmi:type="xmi:Extension" extender="Enterprise Architect" extenderID="6.5"><elements>
   <element xmi:idref="EAID_5A174943_DF4B_4223_AB56_590429667355" xmi:type="uml:PrimitiveType" name="DateTime" scope="public" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
@@ -1498,6 +1528,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				<constraints>
 					<constraint name="expiresAfterCreation" description="-- Source: Fabric model / Invitation documentation&#xA;inv expiresAfterCreation: self.expiresOn &amp;gt; self.createdOn" type="OCL" weight="0,00" status="Approved" />
 					<constraint name="hasInvitee" description="-- Source: SSS-FB-AUTH-L0Z&#xA;inv hasInvitee: self.invitee &amp;lt;&amp;gt; null or self.inviteeEmail &amp;lt;&amp;gt; null" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="inviteeEmailLowerCase" description="-- Source: Fabric model / first sign-in invitation matching&#xA;inv inviteeEmailLowerCase: self.inviteeEmail &amp;lt;&amp;gt; null implies self.inviteeEmail = self.inviteeEmail.toLowerCase()" type="OCL" weight="0,00" status="Approved" />
 					<constraint name="respondedOnWhenAnswered" description="-- Source: Fabric model / Invitation documentation&#xA;inv respondedOnWhenAnswered: (self.status = InvitationStatus::Pending) = (self.respondedOn = null)" type="OCL" weight="0,00" status="Approved" />
 				</constraints>
 				<links>
@@ -1599,6 +1630,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 				</attributes>
 				<constraints>
 					<constraint name="atLeastOneAdministrator" description="-- Source: Roles-and-Permissions / Organization Administrator&#xA;inv atLeastOneAdministrator: self.involvedUser-&amp;gt;exists(m | m.role = OrganizationMembershipRole::Administrator)" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="uniqueName" description="-- Source: Fabric model / Organization documentation&#xA;inv uniqueName: Organization.allInstances()-&amp;gt;isUnique(o | o.name)" type="OCL" weight="0,00" status="Approved" />
 					<constraint name="uniqueUserMembership" description="-- Source: Roles-and-Permissions / Role Assignment Rule 2&#xA;inv uniqueUserMembership: self.involvedUser-&amp;gt;isUnique(m | m.user)" type="OCL" weight="0,00" status="Approved" />
 				</constraints>
 				<links>
@@ -2066,36 +2098,6 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<model ea_localid="276" ea_guid="{618F07A1-BC79-4c90-92BF-88AA0E1E0FA8}" />
 						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
-						<containment containment="Not Specified" position="1" />
-						<stereotype />
-						<bounds lower="1" upper="1" />
-						<options />
-						<style />
-						<styleex value="volatile=0;" />
-						<tags />
-						<xrefs value="$XREFPROP=$XID={6524C716-C134-4248-942A-E055056216C2}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={618F07A1-BC79-4c90-92BF-88AA0E1E0FA8}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
-					</attribute>
-					<attribute xmi:idref="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" name="externalIdentifier" scope="Public">
-						<initial />
-						<documentation value="The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider." />
-						<model ea_localid="275" ea_guid="{2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
-						<coords ordered="0" scale="0" />
-						<containment containment="Not Specified" position="2" />
-						<stereotype stereotype="index" />
-						<bounds lower="1" upper="1" />
-						<options />
-						<style />
-						<styleex value="volatile=0;" />
-						<tags />
-						<xrefs value="$XREFPROP=$XID={CDBAD4B2-DFE2-4a0b-97DA-8163CEA2B6F0}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={7C2D95C3-D30D-4f6b-B517-60E54617A395}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
-					</attribute>
-					<attribute xmi:idref="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="name" scope="Public">
-						<initial />
-						<documentation value="The display name of the user, cached from Keycloak for UI rendering." />
-						<model ea_localid="277" ea_guid="{506BC75A-08BC-41ff-A43E-0E0AF155D190}" />
-						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
-						<coords ordered="0" scale="0" />
 						<containment containment="Not Specified" position="0" />
 						<stereotype stereotype="index" />
 						<bounds lower="1" upper="1" />
@@ -2103,7 +2105,22 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<style />
 						<styleex value="volatile=0;" />
 						<tags />
-						<xrefs value="$XREFPROP=$XID={DAF14ACD-B71B-42bd-8338-91A16D8587D2}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={C758246C-997A-4b4a-AEB5-1BF7A17B50CE}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+						<xrefs value="$XREFPROP=$XID={56257D24-BF49-4dea-B898-55B26546F96D}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={618F07A1-BC79-4c90-92BF-88AA0E1E0FA8}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={6524C716-C134-4248-942A-E055056216C2}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={618F07A1-BC79-4c90-92BF-88AA0E1E0FA8}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
+					</attribute>
+					<attribute xmi:idref="EAID_2C5D0C70_37C4_4011_A110_F7B3FC8DC22F" name="externalIdentifier" scope="Public">
+						<initial />
+						<documentation value="The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider." />
+						<model ea_localid="275" ea_guid="{2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" scale="0" />
+						<containment containment="Not Specified" position="1" />
+						<stereotype stereotype="index" />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={CDBAD4B2-DFE2-4a0b-97DA-8163CEA2B6F0}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;@STEREO;Name=managed;FQName=Mycelium::managed;@ENDSTEREO;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={7C2D95C3-D30D-4f6b-B517-60E54617A395}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2C5D0C70-37C4-4011-A110-F7B3FC8DC22F}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_5428E39F_2767_405c_A785_6C768F5BBBA9" name="status" scope="Public">
 						<initial />
@@ -2111,7 +2128,7 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<model ea_localid="278" ea_guid="{5428E39F-2767-405c-A785-6C768F5BBBA9}" />
 						<properties type="ActivationStatus" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
 						<coords ordered="0" scale="0" />
-						<containment containment="Not Specified" position="3" />
+						<containment containment="Not Specified" position="2" />
 						<stereotype />
 						<bounds lower="1" upper="1" />
 						<options />
@@ -2119,6 +2136,21 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<styleex value="volatile=0;union=0;" />
 						<tags />
 						<xrefs />
+					</attribute>
+					<attribute xmi:idref="EAID_506BC75A_08BC_41ff_A43E_0E0AF155D190" name="userName" scope="Public">
+						<initial />
+						<documentation value="The name displayed for the user, initialised from Keycloak at first sign-in and editable afterwards through the platform." />
+						<model ea_localid="277" ea_guid="{506BC75A-08BC-41ff-A43E-0E0AF155D190}" />
+						<properties type="String" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable" />
+						<coords ordered="0" scale="0" />
+						<containment containment="Not Specified" position="3" />
+						<stereotype stereotype="index" />
+						<bounds lower="1" upper="1" />
+						<options />
+						<style />
+						<styleex value="volatile=0;union=0;" />
+						<tags />
+						<xrefs value="$XREFPROP=$XID={DAF14ACD-B71B-42bd-8338-91A16D8587D2}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=index;FQName=Mycelium::index;@ENDSTEREO;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={C758246C-997A-4b4a-AEB5-1BF7A17B50CE}$XID;$NAM=CustomProperties$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=isID@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={506BC75A-08BC-41ff-A43E-0E0AF155D190}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;" />
 					</attribute>
 					<attribute xmi:idref="EAID_65ED9FD4_AF3F_4704_BBAC_960A9660C435" name="userPreferences" scope="Public">
 						<initial />
@@ -2136,6 +2168,10 @@ inv targetBranchIsProtected: self.status &amp;lt;&amp;gt; ReviewStatus::Closed i
 						<xrefs />
 					</attribute>
 				</attributes>
+				<constraints>
+					<constraint name="emailLowerCase" description="-- Source: Fabric model / first sign-in invitation matching&#xA;inv emailLowerCase: self.email = self.email.toLowerCase()" type="OCL" weight="0,00" status="Approved" />
+					<constraint name="uniqueExternalIdentifier" description="-- Source: Fabric model / User.externalIdentifier documentation&#xA;inv uniqueExternalIdentifier: User.allInstances()-&amp;gt;isUnique(u | u.externalIdentifier)" type="OCL" weight="0,00" status="Approved" />
+				</constraints>
 				<links>
 					<Association xmi:id="EAID_73CACE14_3DB6_4b52_A371_B1B61CC7F002" start="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" end="EAID_979AADE8_35AE_48ec_B79D_8C0237AF17F7" />
 					<Generalization xmi:id="EAID_8E39C1D4_D5B5_48e2_B73E_5175DA478049" start="EAID_F97B463E_1496_417b_A0FD_4AD413AF5156" end="EAID_F332305D_64EC_494a_960C_145ABE5F8E88" />

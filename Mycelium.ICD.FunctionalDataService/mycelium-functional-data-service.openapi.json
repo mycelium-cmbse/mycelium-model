@@ -48,7 +48,7 @@
     },
     {
       "name": "Invitations",
-      "description": "Invitations to join an organization or a project, visible only to their sender and their invitee."
+      "description": "Invitations to join an organization or a project, visible only to their sender, their invitee and the administrators of the organization or project they target."
     },
     {
       "name": "Reviews",
@@ -105,7 +105,7 @@
           "Invitations"
         ],
         "summary": "Get invitations",
-        "description": "The pending invitations addressed to the requesting user, of both kinds.",
+        "description": "The invitations addressed to the requesting user that can still be answered, of both kinds: those Pending whose expiresOn has not passed. Expiry is judged by the server, so an expired invitation never appears.",
         "x-satisfies": [
           "SSS-FB-AUTH-L0Z",
           "SSS-PA-MGMT-8EF"
@@ -120,7 +120,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The invitations, followed by the Things they include when an include parameter is set.",
+            "description": "The unexpired pending invitations, followed by the Things they include when an include parameter is set.",
             "content": {
               "application/json": {
                 "schema": {
@@ -145,7 +145,7 @@
           "Invitations"
         ],
         "summary": "Revoke invitation",
-        "description": "Marks the invitation Revoked and keeps the record. Limited to its sender, and refused once it is no longer pending.",
+        "description": "Marks the invitation Revoked and keeps the record. Limited to its sender and the administrators of the organization or project it targets, and refused once it is no longer pending.",
         "parameters": [
           {
             "name": "invitationId",
@@ -550,7 +550,7 @@
           "Organizations"
         ],
         "summary": "Get organization invitations",
-        "description": "Only the invitations the requesting user sent, since an invitation is visible to its sender and its invitee alone.",
+        "description": "Every invitation to the organization for its administrators; for any other user, only the invitations they sent.",
         "x-satisfies": [
           "SSS-FB-AUTH-L0Z"
         ],
@@ -1308,7 +1308,7 @@
           "Projects"
         ],
         "summary": "Get project invitations",
-        "description": "Only the invitations the requesting user sent, since an invitation is visible to its sender and its invitee alone.",
+        "description": "Every invitation to the project for its administrators; for any other user, only the invitations they sent.",
         "x-satisfies": [
           "SSS-PA-MGMT-8EF"
         ],
@@ -2699,7 +2699,7 @@
           "Users"
         ],
         "summary": "Update user",
-        "description": "Limited to the preferences and the platform status, because Keycloak owns the name, the mail and the identifier.",
+        "description": "Limited to the user name, the preferences and the platform status, because Keycloak owns the mail and the identifier.",
         "x-satisfies": [
           "SSS-IA-USR-Q2N",
           "SSS-OA-USR-N35"
@@ -3003,14 +3003,12 @@
           "@type": {
             "type": "string",
             "const": "Comment",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -4389,14 +4387,12 @@
           "@type": {
             "type": "string",
             "const": "Reply",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -4497,14 +4493,12 @@
           "@type": {
             "type": "string",
             "const": "Review",
-            "readOnly": true,
             "description": "The name of the concrete class, discriminating a Thing within a mixed collection."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "Represents the unique identifier that allow entity identification.",
-            "readOnly": true
+            "description": "Represents the unique identifier that allow entity identification."
           },
           "createdOn": {
             "type": "string",
@@ -4796,9 +4790,9 @@
             "description": "Identifies the User.",
             "readOnly": true
           },
-          "name": {
+          "userName": {
             "type": "string",
-            "description": "The display name of the user, cached from Keycloak for UI rendering."
+            "description": "The name displayed for the user, initialised from Keycloak at first sign-in and editable afterwards through the platform."
           },
           "email": {
             "type": "string",
@@ -4806,7 +4800,8 @@
           },
           "externalIdentifier": {
             "type": "string",
-            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider."
+            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider.",
+            "readOnly": true
           },
           "status": {
             "$ref": "#/components/schemas/ActivationStatus",
@@ -4840,10 +4835,9 @@
         "required": [
           "@type",
           "email",
-          "externalIdentifier",
           "isPartOfOrganizations",
-          "name",
           "status",
+          "userName",
           "userPreferences"
         ],
         "additionalProperties": false
@@ -4888,9 +4882,9 @@
             "description": "Identifies the User.",
             "readOnly": true
           },
-          "name": {
+          "userName": {
             "type": "string",
-            "description": "The display name of the user, cached from Keycloak for UI rendering."
+            "description": "The name displayed for the user, initialised from Keycloak at first sign-in and editable afterwards through the platform."
           },
           "email": {
             "type": "string",
@@ -4898,7 +4892,8 @@
           },
           "externalIdentifier": {
             "type": "string",
-            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider."
+            "description": "The Keycloak user identifier used as the permanent join key between the Functional Server and the identity provider.",
+            "readOnly": true
           },
           "status": {
             "$ref": "#/components/schemas/ActivationStatus",
