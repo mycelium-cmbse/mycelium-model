@@ -12,9 +12,15 @@
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D" name="Markdown">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D-_ownedComment.0" body="Specialization of STRING, to support MD UI rendering." />
+      <generalization xmi:type="uml:Generalization" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D-_generalization.0">
+        <general xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+      </generalization>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" name="SemVer">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7-_ownedComment.0" body="A specialization of String that represents a version identifier conforming to the Semantic Versioning 2.0.0 specification: MAJOR.MINOR.PATCH, optionally followed by a pre-release label and build metadata (e.g. &quot;2.1.0&quot;, &quot;1.0.0-beta.1&quot;, &quot;1.4.2+build.20260812&quot;). Used as the type of PackageVersion.version, so the format constraint lives once on the type itself rather than being re-declared everywhere a version string is used" />
+      <generalization xmi:type="uml:Generalization" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7-_generalization.0">
+        <general xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+      </generalization>
       <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_D6E1_4194_A374_6EB38EF8C1C7" name="regexMatch">
         <constrainedElement xmi:idref="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" />
         <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_D6E1_4194_A374_6EB38EF8C1C7">
@@ -23,7 +29,7 @@
       </ownedRule>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_B8B41EA0_F679_45BD_B020_89A25EDC163C" name="TimeSpan">
-      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B8B41EA0_F679_45BD_B020_89A25EDC163C-_ownedComment.0" body="Duration. Used for the configured polling interval of a backend without push." />
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B8B41EA0_F679_45BD_B020_89A25EDC163C-_ownedComment.0" body="A value type representing a non-negative length of time, independent of any reference point on the timeline. Used wherever the model needs to express how long something lasts or how far apart two events are, such as intervals, timeouts or periods." />
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9" name="URI">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9-_ownedComment.0" body="character string datatype that represents a Uniform Resource Identifier (URI) and conforms to its syntax as specified in IETF RFC 3986&#xA;" />
