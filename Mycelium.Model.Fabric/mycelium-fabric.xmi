@@ -4136,7 +4136,7 @@ inv uniqueExternalIdentifier: User.allInstances()-&amp;gt;isUnique(u | u.externa
 </connectors><primitivetypes>
   <packagedElement xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmi:type="uml:Package" xmi:id="EAPrimitiveTypesPackage" name="EA_PrimitiveTypes_Package" />
 </primitivetypes><profiles /></xmi:extension>
-  <mofext:Tag xmi:id="mycelium-release-version" name="eu.stariongroup.mycelium.version" value="0.4.0" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
+  <mofext:Tag xmi:id="mycelium-release-version" name="eu.stariongroup.mycelium.version" value="0.4.1" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
   <mofext:Tag xmi:id="mycelium-release-packageId" name="eu.stariongroup.mycelium.packageId" value="Mycelium.Model.Fabric" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
   <mofext:Tag xmi:id="mycelium-release-date" name="eu.stariongroup.mycelium.releaseDate" value="2026-11-24" element="EAPK_45DB8304_F363_4c27_8BF8_A66384F413ED" />
 </xmi:XMI>
