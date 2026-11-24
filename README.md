@@ -1,5 +1,7 @@
 # mycelium-model
 
+![mycelium](https://raw.githubusercontent.com/mycelium-cmbse/mycelium-model/main/mycelium-logo-ws-col-rgb.png)
+
 The design artifacts for Mycelium: the UML 2.5.1 models (CommonPrimitives, Fabric and Forge) and the interface control documents (Functional Data Service).
 
 Each artifact lives in its own project folder (`mycelium-model.sln`) and is distributed as its own independently-versioned NuGet package, so each one's release lifecycle (version, release notes, release cadence) is fully independent of the others:

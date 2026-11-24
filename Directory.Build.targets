@@ -4,8 +4,9 @@
        $(MSBuildThisFileDirectory) is the repository root (where this file lives), so these paths
        resolve correctly regardless of which subfolder the project itself lives in. -->
 
-  <ItemGroup Label="Shared package assets (README/LICENSE, all model packages)">
+  <ItemGroup Label="Shared package assets (README/LICENSE/icon, all model packages)">
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
     <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 </Project>
