@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:mofext="http://www.omg.org/spec/MOF/20131001">
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20131001">
   <uml:Package xmi:type="uml:Package" xmi:id="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" name="mycelium-commonprimitives">
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0" name="byte">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_24142DE2_4540_42f8_B088_D09B507F5CA0-_ownedComment.0" body="An unsigned 8-bit primitive (0�255)" />
@@ -10,8 +10,17 @@
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_078B145D_785F_4823_BDC3_9BA54C023EB4" name="Dictionary&lt;string,string&gt;">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_078B145D_785F_4823_BDC3_9BA54C023EB4-_ownedComment.0" body="Represents a collection of keys and values, where keys and values are of type string." />
     </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D" name="Markdown">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D-_ownedComment.0" body="Specialization of STRING, to support MD UI rendering." />
+      <generalization xmi:type="uml:Generalization" xmi:id="EAID_C534E138_F445_4552_9952_B51C7CBBCF3D-_generalization.0">
+        <general xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+      </generalization>
+    </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" name="SemVer">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7-_ownedComment.0" body="A specialization of String that represents a version identifier conforming to the Semantic Versioning 2.0.0 specification: MAJOR.MINOR.PATCH, optionally followed by a pre-release label and build metadata (e.g. &quot;2.1.0&quot;, &quot;1.0.0-beta.1&quot;, &quot;1.4.2+build.20260812&quot;). Used as the type of PackageVersion.version, so the format constraint lives once on the type itself rather than being re-declared everywhere a version string is used" />
+      <generalization xmi:type="uml:Generalization" xmi:id="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7-_generalization.0">
+        <general xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+      </generalization>
       <ownedRule xmi:type="uml:Constraint" xmi:id="EAID_OR000000_D6E1_4194_A374_6EB38EF8C1C7" name="regexMatch">
         <constrainedElement xmi:idref="EAID_BB8D04C6_D6E1_4194_A374_6EB38EF8C1C7" />
         <specification xmi:type="uml:OpaqueExpression" xmi:id="EAID_COE000000_D6E1_4194_A374_6EB38EF8C1C7">
@@ -19,7 +28,9 @@
         </specification>
       </ownedRule>
     </packagedElement>
-    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_AEE6B6CE_73AB_46e3_A98E_D0C54FF3DD82" name="SysML2.NET.PIM.ChangeType" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_B8B41EA0_F679_45BD_B020_89A25EDC163C" name="TimeSpan">
+      <ownedComment xmi:type="uml:Comment" xmi:id="EAID_B8B41EA0_F679_45BD_B020_89A25EDC163C-_ownedComment.0" body="A value type representing a non-negative length of time, independent of any reference point on the timeline. Used wherever the model needs to express how long something lasts or how far apart two events are, such as intervals, timeouts or periods." />
+    </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9" name="URI">
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_22870794_6112_48be_B11D_0E5641FDBFF9-_ownedComment.0" body="character string datatype that represents a Uniform Resource Identifier (URI) and conforms to its syntax as specified in IETF RFC 3986&#xA;" />
     </packagedElement>
@@ -27,7 +38,4 @@
       <ownedComment xmi:type="uml:Comment" xmi:id="EAID_8451AA96_A2B7_4914_B931_BF848355CDA2-_ownedComment.0" body="format = RFC 9562 UUID version 7" />
     </packagedElement>
   </uml:Package>
-  <mofext:Tag xmi:id="mycelium-release-version" name="eu.stariongroup.mycelium.version" value="0.4.0" element="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" />
-  <mofext:Tag xmi:id="mycelium-release-packageId" name="eu.stariongroup.mycelium.packageId" value="Mycelium.Model.CommonPrimitives" element="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" />
-  <mofext:Tag xmi:id="mycelium-release-date" name="eu.stariongroup.mycelium.releaseDate" value="2026-08-31" element="EAPK_C3B24B01_31B1_4566_A2CE_96896E7A14C2" />
 </xmi:XMI>

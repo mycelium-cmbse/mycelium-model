@@ -102,16 +102,45 @@ Releasing one artifact never touches another's version, tag, or package. **Concu
 
 `CITATION.cff` is a single shared file across every package here, so its `version` always reflects whichever one released *most recently* — not any one artifact's version. Use git tags/package versions for a specific artifact's version.
 
+### Regenerating the xmi files from EA
+
+Model content changes (notes, elements, connectors) are made in the EA source model (`SysML2_Software_Architecture.qea`), never in the exported `.xmi`. The three model files are produced in two steps:
+
+1. Export the whole data-structure model from EA as a single UML 2.5 XMI file.
+2. Split it with [X-Splinter](https://github.com/STARIONGROUP/X-Splinter), which writes one file per package and turns cross-package references into `href="mycelium-commonprimitives.xmi#…"`:
+
+   ```
+   dotnet run --project <X-Splinter>/XSplinter/XSplinter.csproj -- <export.xmi> <split-config.json> --output <dir>
+   ```
+
+   The config maps EA package `Primitives` → `mycelium-commonprimitives.xmi` (`convertToLibrary: true`, so a bare `uml:Package` root without EA metadata), `Forge` → `mycelium-forge.xmi` and `Fabric` → `mycelium-fabric.xmi`, each with `modelName` set to the file's base name, all under `rootPackageName` `5. Data Structure`.
+
+Split into a scratch directory and copy back only the files whose model content changed: the split drops the `mofext:Tag` release stamps, so copying an otherwise unchanged file just loses its last-release metadata. Then re-apply the hand patches below.
+
+Local paths to the `.qea`, the export, the split config and the X-Splinter checkout are in `CLAUDE.local.md`.
+
+### Hand-patched generalizations to UML primitive types
+
+The one exception to editing only in EA is a generalization whose parent is a UML standard primitive type: EA has no element for `String` (it exports `String`-typed attributes as an href into the UML `PrimitiveTypes.xmi` library), and a Generalization connector must target a real element in the model, so EA cannot export one. These are hand-added to the `.xmi` and **must be re-applied after every EA re-export**, which drops them:
+
+```xml
+<generalization xmi:type="uml:Generalization" xmi:id="<element xmi:id>-_generalization.0">
+  <general xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20161101/PrimitiveTypes.xmi#String" />
+</generalization>
+```
+
+Currently patched in `mycelium-commonprimitives.xmi`: `Markdown` and `SemVer`, both specializing `String`.
+
 ### Replacing a placeholder xmi with the real model
 
 Fabric and CommonPrimitives currently ship bare-bones placeholder `.xmi` files (a `Model` package with one empty top-level package) so the packaging/release plumbing works ahead of real modeling. To swap in the real EA export:
 
-1. Export from EA and overwrite the placeholder `.xmi` in place.
+1. Regenerate it from EA as described above, overwriting the placeholder `.xmi` in place.
 2. Nothing else needs to change (`PackageId`, props files, solution reference, workflow's `model` option already work). The release tags' `element` idref is derived from the file itself, so the fresh GUIDs EA assigns need no follow-up edit; the next release re-adds the tags the export dropped.
 
 ### Adding another model or ICD
 
-1. Copy an existing project's `.csproj`/folder layout as a template; add the new data file. Models are `Mycelium.Model.<Name>` with an `.xmi` packed under `model/`; ICDs are `Mycelium.ICD.<Name>` with an OpenAPI document packed under `icd/`.
+1. Copy an existing project's `.csproj`/folder layout as a template; add the new data file. Models are `Mycelium.Model.<Name>` with an `.xmi` packed under `model/` (and a matching `packages[]` entry in the X-Splinter config); ICDs are `Mycelium.ICD.<Name>` with an OpenAPI document packed under `icd/`.
 2. Add `build/<PackageId>.props` and `buildTransitive/<PackageId>.props` exposing `$(MyceliumModel<Name>XmiPath)` or `$(MyceliumIcd<Name>OpenApiPath)`.
 3. `dotnet sln mycelium-model.sln add <PackageId>/<PackageId>.csproj`.
 4. Add a lowercase `<name>` case to the `model` selector in `.github/workflows/nuget-release.yml`, setting `PACKAGE_ID`, `PROJECT_PATH`, `ARTIFACT_PATH` and `ARTIFACT_KIND`.
